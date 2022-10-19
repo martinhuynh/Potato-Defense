@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{07BEB4AD-1B04-49B3-B5A2-A16AAC1719CF}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Movement.cs">
+    <Files>
+      <File FileName="Assets/Movement.cs" Line="5" Column="50" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="wasd_movement_2d" expanded="True">
+            <Node name="Assets" expanded="True" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="62731296-3fde-4a8f-bedf-bb34c60a5431" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

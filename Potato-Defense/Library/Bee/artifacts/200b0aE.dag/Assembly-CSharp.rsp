@@ -323,10 +323,10 @@
 -r:"/Applications/Unity/Hub/Editor/2021.3.10f1/Unity.app/Contents/NetStandard/compat/2.1.0/shims/netstandard/System.Xml.XPath.XDocument.dll"
 -r:"/Applications/Unity/Hub/Editor/2021.3.10f1/Unity.app/Contents/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll"
 -r:"/Applications/Unity/Hub/Editor/2021.3.10f1/Unity.app/Contents/NetStandard/ref/2.1.0/netstandard.dll"
--r:"/Users/martinhuynh/Downloads/wasd_movement_2d/Library/PackageCache/com.unity.analytics@3.6.12/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll"
--r:"/Users/martinhuynh/Downloads/wasd_movement_2d/Library/PackageCache/com.unity.analytics@3.6.12/Unity.Analytics.Editor.dll"
--r:"/Users/martinhuynh/Downloads/wasd_movement_2d/Library/PackageCache/com.unity.analytics@3.6.12/Unity.Analytics.Tracker.dll"
--r:"/Users/martinhuynh/Downloads/wasd_movement_2d/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll"
+-r:"/Users/martinhuynh/Documents/Unity Projects/Potato-Defense/Potato-Defense/Library/PackageCache/com.unity.analytics@3.6.12/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll"
+-r:"/Users/martinhuynh/Documents/Unity Projects/Potato-Defense/Potato-Defense/Library/PackageCache/com.unity.analytics@3.6.12/Unity.Analytics.Editor.dll"
+-r:"/Users/martinhuynh/Documents/Unity Projects/Potato-Defense/Potato-Defense/Library/PackageCache/com.unity.analytics@3.6.12/Unity.Analytics.Tracker.dll"
+-r:"/Users/martinhuynh/Documents/Unity Projects/Potato-Defense/Potato-Defense/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll"
 -r:"Library/Bee/artifacts/200b0aE.dag/Analytics.ref.dll"
 -r:"Library/Bee/artifacts/200b0aE.dag/Purchasing.Common.ref.dll"
 -r:"Library/Bee/artifacts/200b0aE.dag/Unity.2D.Sprite.Editor.ref.dll"
@@ -361,6 +361,7 @@
 -r:"Library/Bee/artifacts/200b0aE.dag/UnityEngine.UI.ref.dll"
 -r:"Library/Bee/artifacts/200b0aE.dag/UnityEngine.XR.LegacyInputHelpers.ref.dll"
 "Assets/Movement.cs"
+"Assets/PlayerMovement.cs"
 -langversion:9.0
 
 /deterministic

@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{07BEB4AD-1B04-49B3-B5A2-A16AAC1719CF}</ProjectGuid>
+    <ProjectGuid>{DD3992AE-7CA9-06CD-E89E-4C7B68BE37CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -57,6 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Movement.cs" />
+    <Compile Include="Assets/PlayerMovement.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets/read_me.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

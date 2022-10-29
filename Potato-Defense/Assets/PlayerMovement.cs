@@ -10,8 +10,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public Animator animator;
-    private float speed = 5.0f;
-    private float earlyWindow = 0.2f;
+    private float speed = 3.0f;
+
+    // Distance to target when next input could be added to movement queue.
+    private float earlyWindow = 0.8f;
 
     // Input queue
     private LinkedList<KeyValuePair<Direction, float>> toMove = new LinkedList<KeyValuePair<Direction, float>>();
@@ -26,21 +28,26 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // If an input is entered within the threshold, it will be added to the input queue.
-        if (toMove.Count >= 2 || (toMove.Count != 0 && toMove.First.Value.Value > earlyWindow)) return;
+        if (toMove.Count != 0 && toMove.First.Value.Value > earlyWindow) return;
+        
         if (Input.GetKeyDown(KeyCode.W))
         {
+            if (toMove.Count == 2) toMove.RemoveLast();
             toMove.AddLast(new KeyValuePair<Direction, float>(Direction.UP, 1f));
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
+            if (toMove.Count == 2) toMove.RemoveLast();
             toMove.AddLast(new KeyValuePair<Direction, float>(Direction.LEFT, 1f));
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
+            if (toMove.Count == 2) toMove.RemoveLast();
             toMove.AddLast(new KeyValuePair<Direction, float>(Direction.DOWN, 1f));
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
+            if (toMove.Count == 2) toMove.RemoveLast();
             toMove.AddLast(new KeyValuePair<Direction, float>(Direction.RIGHT, 1f));
         }
     }

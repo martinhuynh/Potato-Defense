@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638018206410000000
+      ticks: 638025836720000000
     m_Hash: 438561716
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
@@ -711,7 +711,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: 
+  type: asset
   description: "IMPORTANT UPGRADE NOTES:\n\nIf updating from Unity IAP (com.unity.purchasing
     + the Asset Store plugin) versions 2.x to version 3.x, complete the following
     actions in order to resolve compilation errors:\n 1. Move IAPProductCatalog.json
@@ -786,9 +786,11 @@ m_ResolvedPackages:
     - 4.4.0
     - 4.4.1
     - 4.5.0
+    - 4.5.1
     compatible:
     - 4.4.1
     - 4.5.0
+    - 4.5.1
     verified: 4.4.1
   dependencies:
   - name: com.unity.ugui

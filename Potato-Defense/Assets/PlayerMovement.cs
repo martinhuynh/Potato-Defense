@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    enum Direction
+    enum Action
     {
-        UP, DOWN, LEFT, RIGHT, STILL
+        UP, DOWN, LEFT, RIGHT, STILL, PLOW
     }
 
     public Animator animator;
-    private float speed = 3.0f;
+    private float speed = 1.0f;
 
     // Distance to target when next input could be added to movement queue.
     private float earlyWindow = 0.8f;
 
     // Input queue
-    private LinkedList<KeyValuePair<Direction, float>> toMove = new LinkedList<KeyValuePair<Direction, float>>();
+    private LinkedList<KeyValuePair<Action, float>> actionQueue = new LinkedList<KeyValuePair<Action, float>>();
 
     // Start is called before the first frame update
     void Start()
@@ -28,84 +28,112 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // If an input is entered within the threshold, it will be added to the input queue.
-        if (toMove.Count != 0 && toMove.First.Value.Value > earlyWindow) return;
         
-        if (Input.GetKeyDown(KeyCode.W))
+        if (actionQueue.Count != 0 && actionQueue.First.Value.Value > earlyWindow) return;
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            if (toMove.Count == 2) toMove.RemoveLast();
-            toMove.AddLast(new KeyValuePair<Direction, float>(Direction.UP, 1f));
+            if (actionQueue.Count == 2) actionQueue.RemoveLast();
+            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.PLOW, 1f));
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (actionQueue.Count == 2) actionQueue.RemoveLast();
+            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.UP, 1f));
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            if (toMove.Count == 2) toMove.RemoveLast();
-            toMove.AddLast(new KeyValuePair<Direction, float>(Direction.LEFT, 1f));
+            if (actionQueue.Count == 2) actionQueue.RemoveLast();
+            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.LEFT, 1f));
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            if (toMove.Count == 2) toMove.RemoveLast();
-            toMove.AddLast(new KeyValuePair<Direction, float>(Direction.DOWN, 1f));
+            if (actionQueue.Count == 2) actionQueue.RemoveLast();
+            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.DOWN, 1f));
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            if (toMove.Count == 2) toMove.RemoveLast();
-            toMove.AddLast(new KeyValuePair<Direction, float>(Direction.RIGHT, 1f));
+            if (actionQueue.Count == 2) actionQueue.RemoveLast();
+            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.RIGHT, 1f));
         }
     }
 
     void FixedUpdate()
     {
         Vector3 pos = transform.position;
-        if (toMove.Count == 0)
+        if (actionQueue.Count == 0)
         {
             // Still is never set. Just to set all other directions to false.
-            UpdateAnimation(Direction.STILL);
+            UpdateAnimation(Action.STILL);
             return;
         }
 
         // Continue moving in that direction until it is done.
-        float amountToMove = speed * Time.deltaTime;
-        KeyValuePair<Direction, float> pair = toMove.First.Value;
-        toMove.RemoveFirst();
-        float leftToMove = pair.Value;
-        Direction direction = pair.Key;
+        KeyValuePair<Action, float> pair = actionQueue.First.Value;
+        actionQueue.RemoveFirst();
+        float value = pair.Value;
+        Action action = pair.Key;
+        UpdateAnimation(action);
 
-        UpdateAnimation(direction);
+        if (action == Action.PLOW)
+        {
+            // Plow
+            float plowLeft = value;
+            if (plowLeft != 0)
+            {
+                float timeToRemove = PlayerStats.harvestSpeed * Time.deltaTime;
+                if (plowLeft - timeToRemove <= 0)
+                {
+                    timeToRemove = value;
+                }
+                else
+                {
+                    plowLeft -= timeToRemove;
+                    actionQueue.AddFirst(new KeyValuePair<Action, float>(action, plowLeft));
+                }
+                return;
+            }
+        } else
+        {
+            float amountToMove = PlayerStats.movementSpeed * Time.deltaTime;
+            // Movement
+            if (value - amountToMove <= 0)
+            {
+                amountToMove = value;
+            }
+            else
+            {
+                value -= amountToMove;
+                actionQueue.AddFirst(new KeyValuePair<Action, float>(action, value));
+            }
+            if (action == Action.RIGHT)
+            {
+                pos.x += amountToMove;
+            }
+            else if (action == Action.LEFT)
+            {
+                pos.x -= amountToMove;
+            }
+            else if (action == Action.UP)
+            {
+                pos.y += amountToMove;
+            }
+            else if (action == Action.DOWN)
+            {
+                pos.y -= amountToMove;
+            }
+            transform.position = pos;
+        }
 
-        if (leftToMove - amountToMove <= 0)
-        {
-            amountToMove = leftToMove;
-        }
-        else
-        {
-            leftToMove -= amountToMove;
-            toMove.AddFirst(new KeyValuePair<Direction, float>(direction, leftToMove));
-        }
-
-        if (direction == Direction.RIGHT)
-        {
-            pos.x += amountToMove;
-        }
-        else if (direction == Direction.LEFT)
-        {
-            pos.x -= amountToMove;
-        }
-        else if (direction == Direction.UP)
-        {
-            pos.y += amountToMove;
-        }
-        else if (direction == Direction.DOWN)
-        {
-            pos.y -= amountToMove;
-        }
-        transform.position = pos;
+        
     }
 
-    private void UpdateAnimation(Direction direction)
+    private void UpdateAnimation(Action action)
     {
-        animator.SetBool("Left", direction == Direction.LEFT);
-        animator.SetBool("Right", direction == Direction.RIGHT);
-        animator.SetBool("Up", direction == Direction.UP);
-        animator.SetBool("Down", direction == Direction.DOWN);
+        animator.SetBool("Plow", action == Action.PLOW);
+        animator.SetBool("Left", action == Action.LEFT);
+        animator.SetBool("Right", action == Action.RIGHT);
+        animator.SetBool("Up", action == Action.UP);
+        animator.SetBool("Down", action == Action.DOWN);
         animator.speed = 1 + speed / 2f;
     }
 }

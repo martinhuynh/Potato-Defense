@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets/Movement.cs" />
     <Compile Include="Assets/PlayerMovement.cs" />
+    <Compile Include="Assets/PlayerStats.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/read_me.txt" />

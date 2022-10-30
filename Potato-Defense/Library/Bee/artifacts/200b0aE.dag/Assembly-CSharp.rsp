@@ -362,6 +362,7 @@
 -r:"Library/Bee/artifacts/200b0aE.dag/UnityEngine.XR.LegacyInputHelpers.ref.dll"
 "Assets/Movement.cs"
 "Assets/PlayerMovement.cs"
+"Assets/PlayerStats.cs"
 -langversion:9.0
 
 /deterministic

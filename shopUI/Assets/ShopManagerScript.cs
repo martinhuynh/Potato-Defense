@@ -6,19 +6,21 @@ using UnityEngine.EventSystems;
 
 public class ShopManagerScript : MonoBehaviour
 {
-
-    public int[,] shopItems = new int[5,5]; 
+    public int shopItemNumber = 5;
+    public int[,] shopItems = new int[5,shopItemNumber]; 
     //number stands for number of item to have in shop, one extra just in case
     //first number is for the items' ID in the first colum, second number is for items' price in second colum
     
     public float coins;
     public Text CoinsTXT;
+
+    bool order = flase;
     
     // Start is called before the first frame update
     void Start()
     {
         CoinsTXT.text = "Coins:" + coins.ToString();
-        
+
         //Item ID's
         shopItems[1, 1] = 1;
         shopItems[1, 2] = 2;
@@ -49,11 +51,8 @@ public class ShopManagerScript : MonoBehaviour
             shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID]++; //increse item quantity by 1
             CoinsTXT.text = "Coins:" + coins.ToString();    //update text when purchase
             ButtonRef.GetComponent<ButtonInfo>().QuantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
+
         }
     }
 
-    void Update()
-    {
-        
-    }
 }

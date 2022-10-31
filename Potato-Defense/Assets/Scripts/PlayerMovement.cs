@@ -59,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
+
         Vector3 pos = transform.position;
         if (actionQueue.Count == 0)
         {

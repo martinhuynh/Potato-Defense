@@ -64,6 +64,7 @@
     <Compile Include="Assets/Scripts/ScriptableObjects/TileData.cs" />
     <Compile Include="Assets/Scripts/TileMapManager.cs" />
     <Compile Include="Assets/Scripts/EnemyBehavior.cs" />
+    <Compile Include="Assets/Scripts/ColliderBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/read_me.txt" />

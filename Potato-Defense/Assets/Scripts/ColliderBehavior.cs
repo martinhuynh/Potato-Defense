@@ -13,6 +13,7 @@ public class ColliderBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
+        //Debug.Log((int)(-100 * (transform.position.y)));
+        //GetComponent<Renderer>().sortingOrder = (int)(-100 * (transform.position.y));
     }
 }

@@ -6,15 +6,13 @@ using UnityEngine.EventSystems;
 
 public class ShopManagerScript : MonoBehaviour
 {
-    public int shopItemNumber = 5;
+    public static int shopItemNumber = 5;
     public int[,] shopItems = new int[5,shopItemNumber]; 
     //number stands for number of item to have in shop, one extra just in case
     //first number is for the items' ID in the first colum, second number is for items' price in second colum
     
     public float coins;
     public Text CoinsTXT;
-
-    bool order = flase;
     
     // Start is called before the first frame update
     void Start()
@@ -38,6 +36,18 @@ public class ShopManagerScript : MonoBehaviour
         shopItems[3, 2] = 0;
         shopItems[3, 3] = 0;
         shopItems[3, 4] = 0;
+
+        //level
+        shopItems[4, 1] = 0;
+        shopItems[4, 2] = 0;
+        shopItems[4, 3] = 0;
+        shopItems[4, 4] = 0;
+
+        //heath
+        shopItems[5, 1] = 100;
+        shopItems[5, 2] = 100;
+        shopItems[5, 3] = 100;
+        shopItems[5, 4] = 100;
 
     }
 

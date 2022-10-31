@@ -80,6 +80,9 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector3 LocateNearestCrop()
     {
-        return GameObject.Find("Player").transform.position;
+        Vector3 pos = GameObject.Find("Player").transform.position;
+        pos.x = Mathf.Floor(pos.x) + 0.5f;
+        pos.y = Mathf.Floor(pos.y) + 0.5f;
+        return pos;
     }
 }

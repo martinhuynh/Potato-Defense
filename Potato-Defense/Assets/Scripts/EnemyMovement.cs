@@ -20,6 +20,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         PathfindNearestCrop();
         // Testing purposes
         if (Input.GetKeyDown(KeyCode.P))

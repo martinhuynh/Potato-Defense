@@ -23,6 +23,11 @@ public class EnemyBehavior : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K)) TakeDamage(2f);
     }
 
+    private void FixedUpdate()
+    {
+        TakeDamage(0.5f * Time.deltaTime);
+    }
+
     public void TakeDamage(float damage)
     {
         health -= damage;

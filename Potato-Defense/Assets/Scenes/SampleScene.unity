@@ -705,7 +705,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.6666667, y: 0.6666667}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1682,5 +1682,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34b13a7c50464159a296df9c081e671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
-  dirt: {fileID: 0}
+  tilemap: {fileID: 1213301261}
+  dirt: {fileID: 11400000, guid: baa928d2e97ff47499570e3a4551d622, type: 2}

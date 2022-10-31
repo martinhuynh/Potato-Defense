@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
             float plowLeft = value;
             if (plowLeft != 0)
             {
-                float timeToRemove = PlayerStats.harvestSpeed * Time.deltaTime;
+                float timeToRemove = PlayerStats.plowSpeed * Time.deltaTime;
                 if (plowLeft - timeToRemove <= 0)
                 {
                     // Times complete

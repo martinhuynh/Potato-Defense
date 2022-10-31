@@ -27,7 +27,7 @@ public class TileMapManager : MonoBehaviour
 
     public void setDirt(Vector3 position)
     {
-        Debug.Log(position);
-        tilemap.SetTile(new Vector3Int((int)Mathf.Round(position.x), (int)Mathf.Round(position.y), (int)Mathf.Round(position.z)), dirt);
+        Debug.Log(new Vector3Int((int)Mathf.Floor(position.x), (int)Mathf.Floor(position.y), (int)Mathf.Floor(position.z)));
+        tilemap.SetTile(new Vector3Int((int)Mathf.Floor(position.x), (int)Mathf.Floor(position.y), (int)Mathf.Floor(position.z)), dirt);
     }
 }

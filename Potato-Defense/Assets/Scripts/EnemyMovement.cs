@@ -6,7 +6,7 @@ public class EnemyMovement : MonoBehaviour
 {
     private float speed = 2f;
     private bool isMoving = false;
-    private bool doPathfinding = false;
+    private bool doPathfinding = true;
     private bool reachedTarget = true;
     private Vector3 movePoint, target;
     private Animator anim;

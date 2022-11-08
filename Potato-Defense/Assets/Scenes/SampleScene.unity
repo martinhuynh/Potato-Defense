@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 1213301261}
-  crop: {fileID: 0}
+  crop: {fileID: 5157533062390329728, guid: c8eb8327d42a84c0aa7d0f4927d67be9, type: 3}
   dirt: {fileID: 11400000, guid: baa928d2e97ff47499570e3a4551d622, type: 2}
   plowed: {fileID: 11400000, guid: 7ac712ee6ed0947e384a4563d8ca7308, type: 2}
   mapManager: {fileID: 1905277889}

@@ -1,19 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class TileMapManager : MonoBehaviour
 {
+    // Grass.
     [SerializeField]
-    public static TileMapManager tileMapManager;
-    public Tilemap tilemap;
+    public Tilemap groundMap;
 
-    public TileBase dirt;
+    // Load in tiles with their properties
+    [SerializeField]
+    private List<TileData> tileDatas;
 
-    public TileMapManager()
+    // Search up tile properties.
+    private Dictionary<TileBase, TileData> dataFromTiles;
+
+    private void Awake()
     {
-        if (tileMapManager == null) tileMapManager = this;
+        dataFromTiles = new Dictionary<TileBase, TileData>();
+
+        foreach (var tileData in tileDatas)
+        {
+            foreach (var tile in tileData.tiles)
+            {
+                dataFromTiles.Add(tile, tileData);
+            }
+        }
     }
+
+    public TileData GetTileData(Vector3Int tilePosition)
+    {
+        TileBase tile = groundMap.GetTile(tilePosition);
+        return (tile == null) ? null : dataFromTiles[tile];
+    }
+
 
     private void Start()
     {
@@ -27,7 +48,6 @@ public class TileMapManager : MonoBehaviour
 
     public void setDirt(Vector3 position)
     {
-        Debug.Log(new Vector3Int((int)Mathf.Floor(position.x), (int)Mathf.Floor(position.y), (int)Mathf.Floor(position.z)));
-        tilemap.SetTile(new Vector3Int((int)Mathf.Floor(position.x), (int)Mathf.Floor(position.y), (int)Mathf.Floor(position.z)), dirt);
+        //tilemap.SetTile(new Vector3Int((int)Mathf.Floor(position.x), (int)Mathf.Floor(position.y), (int)Mathf.Floor(position.z)), dirt);
     }
 }

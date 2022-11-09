@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [CreateAssetMenu]
 public class TileData : ScriptableObject
 {
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    public TileType state;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField]
+    public int hp;
+
+    [SerializeField]
+    public TileBase[] tiles;
+
+    [SerializeField]
+    public bool destroyable;
+
 }

@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     enum Action
     {
-        UP, DOWN, LEFT, RIGHT, STILL, PLOW
+        UP, DOWN, LEFT, RIGHT, STILL, FARM
     }
 
     public Animator animator;
@@ -21,19 +21,19 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         // If an input is entered within the threshold, it will be added to the input queue.
-        
+
         if (actionQueue.Count != 0 && actionQueue.First.Value.Value > earlyWindow) return;
         if (Input.GetKeyDown(KeyCode.J))
         {
             if (actionQueue.Count == 2) actionQueue.RemoveLast();
-            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.PLOW, 1f));
+            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.FARM, 1f));
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
@@ -74,19 +74,18 @@ public class PlayerMovement : MonoBehaviour
         actionQueue.RemoveFirst();
         float value = pair.Value;
         Action action = pair.Key;
-        UpdateAnimation(action);
 
-        if (action == Action.PLOW)
+        if (action == Action.FARM)
         {
             // Plow
             float plowLeft = value;
-            if (plowLeft != 0)
+            if (FarmManager.fm.plowable(transform.position) && plowLeft != 0)
             {
-                float timeToRemove = PlayerStats.plowSpeed * Time.deltaTime;
+                UpdateAnimation(action);
+                float timeToRemove = PlayerStats.farmingSpeed * Time.deltaTime;
                 if (plowLeft - timeToRemove <= 0)
                 {
-                    // Times complete
-                    TileMapManager.tileMapManager.setDirt(transform.position);
+                    FarmManager.fm.plow(transform.position);
                 }
                 else
                 {
@@ -95,8 +94,13 @@ public class PlayerMovement : MonoBehaviour
                 }
                 return;
             }
-        } else
+            // If plantable.
+            else if (FarmManager.fm.plant(transform.position)) return;
+
+        }
+        else
         {
+            UpdateAnimation(action);
             float amountToMove = PlayerStats.movementSpeed * Time.deltaTime;
             // Movement
             if (value - amountToMove <= 0)
@@ -127,17 +131,17 @@ public class PlayerMovement : MonoBehaviour
             transform.position = pos;
         }
 
-        
+
     }
 
     public void OnTriggerStay(Collider other)
     {
-        
+
     }
 
     private void UpdateAnimation(Action action)
     {
-        animator.SetBool("Plow", action == Action.PLOW);
+        animator.SetBool("Plow", action == Action.FARM);
         animator.SetBool("Left", action == Action.LEFT);
         animator.SetBool("Right", action == Action.RIGHT);
         animator.SetBool("Up", action == Action.UP);

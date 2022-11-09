@@ -25,7 +25,6 @@ public class EnemyBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        TakeDamage(0.5f * Time.deltaTime);
         GetComponent<Renderer>().sortingOrder = (int) (-100 * transform.position.y);
     }
 

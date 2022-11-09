@@ -78,4 +78,10 @@ public class FarmManager : MonoBehaviour
         //PlayerInventory.potatoes++;
         destroyCrop(position);
     }
+
+    // Getters
+    public Dictionary<Vector3Int, CropBehavior> getCrops()
+    {
+        return crops;
+    }
 }

@@ -32,10 +32,16 @@ public class CropBehavior : MonoBehaviour
         GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
     }
 
-    public void decrease(int power)
+    public bool decrease(int power)
     {
         hp -= power;
-        if (hp <= 0) { Destroy(this); StopCoroutine(grow_crop()); }
+        if (hp <= 0) { 
+            farmManager.destroyCrop(position); 
+            Destroy(this.gameObject); 
+            StopCoroutine(grow_crop());
+            return false;
+        }
+        return true;
     }
 
     public bool done()
@@ -58,5 +64,11 @@ public class CropBehavior : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = newSprite;
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    // Getters
+    public Vector3Int getPosition()
+    {
+        return position;
     }
 }

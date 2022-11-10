@@ -6,10 +6,13 @@ public class PlayerMovement : MonoBehaviour
 {
     enum Action
     {
-        UP, DOWN, LEFT, RIGHT, STILL, FARM
+        UP, DOWN, LEFT, RIGHT, STILL, FARM, FENCE
     }
 
     private float offset_x = 0.5f, offset_y = 0.7f;
+
+    [SerializeField]
+    private ItemManager itemManager;
 
     public Animator animator;
     private float speed = 1.0f;
@@ -57,6 +60,10 @@ public class PlayerMovement : MonoBehaviour
             if (actionQueue.Count == 2) actionQueue.RemoveLast();
             actionQueue.AddLast(new KeyValuePair<Action, float>(Action.RIGHT, calculateDistance(pos.x, 1f) + offset_x));
         }
+        else if (Input.GetKeyDown(KeyCode.H)) {
+            if (actionQueue.Count == 2) actionQueue.RemoveLast();
+            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.FENCE, 1f));
+        }
     }
 
     private float calculateDistance(float current, float amount)
@@ -82,17 +89,21 @@ public class PlayerMovement : MonoBehaviour
         float value = pair.Value;
         Action action = pair.Key;
 
-        if (action == Action.FARM)
+        if (action == Action.FENCE)
+        {
+            itemManager.place(transform.position);
+        }
+        else if (action == Action.FARM)
         {
             // Plow
             float actionLeft = value;
-            if (FarmManager.fm.plowable(transform.position) && actionLeft != 0)
+            if (FarmManager.fm.plowable(pos) && actionLeft != 0)
             {
                 UpdateAnimation(action);
                 float timeToRemove = PlayerStats.farmingSpeed * Time.deltaTime;
                 if (actionLeft - timeToRemove <= 0)
                 {
-                    FarmManager.fm.plow(transform.position);
+                    FarmManager.fm.plow(pos);
                 }
                 else
                 {
@@ -156,10 +167,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    public void OnTriggerStay(Collider other)
-    {
-
-    }
 
     private void UpdateAnimation(Action action)
     {

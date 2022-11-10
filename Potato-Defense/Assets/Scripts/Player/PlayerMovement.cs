@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
         UP, DOWN, LEFT, RIGHT, STILL, FARM
     }
 
+    private float offset_x = 0.5f, offset_y = 0.7f;
+
     public Animator animator;
     private float speed = 1.0f;
 
@@ -28,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // If an input is entered within the threshold, it will be added to the input queue.
-
+        Vector3 pos = transform.position;
         if (actionQueue.Count != 0 && actionQueue.First.Value.Value > earlyWindow) return;
         if (Input.GetKeyDown(KeyCode.J))
         {
@@ -38,23 +40,28 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.W))
         {
             if (actionQueue.Count == 2) actionQueue.RemoveLast();
-            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.UP, 1f));
+            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.UP, calculateDistance(pos.y, 1f) + offset_y));
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
             if (actionQueue.Count == 2) actionQueue.RemoveLast();
-            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.LEFT, 1f));
+            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.LEFT, calculateDistance(pos.x, -1f) - offset_x));
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             if (actionQueue.Count == 2) actionQueue.RemoveLast();
-            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.DOWN, 1f));
+            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.DOWN, calculateDistance(pos.y, -1f) - offset_y));
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             if (actionQueue.Count == 2) actionQueue.RemoveLast();
-            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.RIGHT, 1f));
+            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.RIGHT, calculateDistance(pos.x, 1f) + offset_x));
         }
+    }
+
+    private float calculateDistance(float current, float amount)
+    {
+        return Mathf.Abs(Mathf.Floor(current + amount) - current);
     }
 
     void FixedUpdate()

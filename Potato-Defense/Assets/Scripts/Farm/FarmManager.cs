@@ -25,6 +25,9 @@ public class FarmManager : MonoBehaviour
 
     private Dictionary<Vector3Int, CropBehavior> crops;
 
+    //Temp
+    private int total = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +55,21 @@ public class FarmManager : MonoBehaviour
         return mapManager.GetTileData(gridPosition).state == TileType.GRASS;
     }
 
+    public bool harvestable(Vector3 position)
+    {
+        Vector3Int gridPosition = map.WorldToCell(position);
+        CropBehavior crop = crops[gridPosition];
+        return crop.done();
+    }
+
+    public void harvest(Vector3 position)
+    {
+        Vector3Int gridPosition = map.WorldToCell(position);
+        destroyCrop(gridPosition);
+        Debug.Log("Harvested: " + ++total);
+        map.SetTile(gridPosition, dirt);
+    }
+
     // Plant at position.
     public bool plant(Vector3 position)
     {
@@ -69,7 +87,7 @@ public class FarmManager : MonoBehaviour
 
     public void destroyCrop(Vector3Int position)
     {
-        Destroy(crops[position]);
+        Destroy(crops[position].gameObject);
         crops.Remove(position);
     }
 

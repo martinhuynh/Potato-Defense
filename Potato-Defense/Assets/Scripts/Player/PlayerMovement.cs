@@ -78,25 +78,40 @@ public class PlayerMovement : MonoBehaviour
         if (action == Action.FARM)
         {
             // Plow
-            float plowLeft = value;
-            if (FarmManager.fm.plowable(transform.position) && plowLeft != 0)
+            float actionLeft = value;
+            if (FarmManager.fm.plowable(transform.position) && actionLeft != 0)
             {
                 UpdateAnimation(action);
                 float timeToRemove = PlayerStats.farmingSpeed * Time.deltaTime;
-                if (plowLeft - timeToRemove <= 0)
+                if (actionLeft - timeToRemove <= 0)
                 {
                     FarmManager.fm.plow(transform.position);
                 }
                 else
                 {
-                    plowLeft -= timeToRemove;
-                    actionQueue.AddFirst(new KeyValuePair<Action, float>(action, plowLeft));
+                    actionLeft -= timeToRemove;
+                    actionQueue.AddFirst(new KeyValuePair<Action, float>(action, actionLeft));
                 }
                 return;
             }
             // If plantable.
-            else if (FarmManager.fm.plant(transform.position)) return;
-
+            else if (FarmManager.fm.plant(transform.position)) {
+                return;
+            }
+            else if (FarmManager.fm.harvestable(transform.position) && actionLeft != 0) {
+                UpdateAnimation(action);
+                float timeToRemove = PlayerStats.farmingSpeed * Time.deltaTime;
+                if (actionLeft - timeToRemove <= 0)
+                {
+                    FarmManager.fm.harvest(transform.position);
+                }
+                else
+                {
+                    actionLeft -= timeToRemove;
+                    actionQueue.AddFirst(new KeyValuePair<Action, float>(action, actionLeft));
+                }
+                return;
+            }
         }
         else
         {

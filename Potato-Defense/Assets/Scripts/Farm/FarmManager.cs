@@ -25,9 +25,6 @@ public class FarmManager : MonoBehaviour
 
     private Dictionary<Vector3Int, CropBehavior> crops;
 
-    //Temp
-    private int total = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -66,7 +63,8 @@ public class FarmManager : MonoBehaviour
     {
         Vector3Int gridPosition = map.WorldToCell(position);
         destroyCrop(gridPosition);
-        Debug.Log("Harvested: " + ++total);
+        PlayerInventory.potatoes++;
+        Debug.Log("Harvested: " + PlayerInventory.potatoes);
         map.SetTile(gridPosition, dirt);
     }
 

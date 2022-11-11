@@ -6,9 +6,20 @@ public class HotbarManager : MonoBehaviour
 {
     [SerializeField]
     private ItemSlot[] itemSlots;
+
     private Dictionary<KeyCode, ItemSlot> itemKeys;
     private ItemSlot selected;
-    public 
+
+
+    [SerializeField]
+    private ItemEnum type;
+
+    
+    
+
+
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +32,8 @@ public class HotbarManager : MonoBehaviour
         itemKeys.Add(KeyCode.Alpha9, itemSlots[2]);
         itemKeys.Add(KeyCode.Alpha0, itemSlots[3]);
         select(selected);
+
+
     }
 
     // Update is called once per frame
@@ -51,6 +64,7 @@ public class HotbarManager : MonoBehaviour
             select(selected);
         }
 
+
     }
 
     private void select(ItemSlot exclude)
@@ -62,6 +76,9 @@ public class HotbarManager : MonoBehaviour
             s.unselect();
         }
     }
+
+
+    
 
     // Call whenever a purchase is made.
     public void refreshItem()

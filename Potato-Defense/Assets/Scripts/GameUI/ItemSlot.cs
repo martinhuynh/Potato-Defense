@@ -10,6 +10,14 @@ public class ItemSlot : MonoBehaviour
     private ItemEnum type;
     [SerializeField]
     private Select selectAsset;
+
+    [SerializeField]
+    private ItemQuantity color;
+
+    
+
+
+
     private bool selected;
 
     public void select()
@@ -24,6 +32,19 @@ public class ItemSlot : MonoBehaviour
         selectAsset.unselect();
     }
 
+    public void overZero()
+    {
+        Debug.Log(type + " selected");
+        color.overZero();
+    }
+
+    public void Zero()
+    {
+        
+        color.Zero();
+    }
+
+
     public void use()
     {
         PlayerInventory.use(type);
@@ -36,19 +57,24 @@ public class ItemSlot : MonoBehaviour
 
     public bool isAvailable()
     {
-
         if (PlayerInventory.isAvailable(type))
         {
-            
+            color.overZero();
             return true;
         }
+        color.Zero();
         return false;
     }
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         isAvailable();
+
     }
 
     // Update is called once per frame

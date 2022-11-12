@@ -302,6 +302,16 @@ PrefabInstance:
       propertyPath: hotbarManager
       value: 
       objectReference: {fileID: 1030833272}
+    - target: {fileID: 2293056365281719914, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2293056365281719914, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5913898987859256602, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
         type: 3}
       propertyPath: m_text
@@ -1314,6 +1324,16 @@ PrefabInstance:
       propertyPath: hotbarManager
       value: 
       objectReference: {fileID: 1030833272}
+    - target: {fileID: 2293056365281719914, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2293056365281719914, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5913898987859256602, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
         type: 3}
       propertyPath: m_text
@@ -2812,6 +2832,16 @@ PrefabInstance:
       propertyPath: hotbarManager
       value: 
       objectReference: {fileID: 1030833272}
+    - target: {fileID: 2293056365281719914, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2293056365281719914, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5913898987859256602, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
         type: 3}
       propertyPath: m_text
@@ -3203,12 +3233,12 @@ PrefabInstance:
     - target: {fileID: 7459945820263593625, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 15
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7459945820263593625, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -188
+      value: -189.1
       objectReference: {fileID: 0}
     - target: {fileID: 7744885341580901771, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
         type: 3}

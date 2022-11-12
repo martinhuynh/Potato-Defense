@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    enum Action
-    {
-        UP, DOWN, LEFT, RIGHT, STILL, FARM, FENCE
-    }
-
-    private float offset_x = 0.5f, offset_y = 0.7f;
-
     [SerializeField]
     private ItemManager itemManager;
 
-    public Animator animator;
-    private float speed = 1.0f;
+    [SerializeField]
+    private FarmManager farmManager;
 
-    // Distance to target when next input could be added to movement queue.
-    private float earlyWindow = 0.8f;
+    [SerializeField]
+    private TileMapManager mapManager;
+
+    public Animator animator;
+
+    private bool idle = true;
 
     // Input queue
-    private LinkedList<KeyValuePair<Action, float>> actionQueue = new LinkedList<KeyValuePair<Action, float>>();
+    private LinkedList<IEnumerator> actionQueue = new LinkedList<IEnumerator>();
 
     // Start is called before the first frame update
     void Start()
@@ -34,137 +31,133 @@ public class PlayerMovement : MonoBehaviour
     {
         // If an input is entered within the threshold, it will be added to the input queue.
         Vector3 pos = transform.position;
-        if (actionQueue.Count != 0 && actionQueue.First.Value.Value > earlyWindow) return;
+
+        IEnumerator newAction = null;
         if (Input.GetKeyDown(KeyCode.J))
         {
-            if (actionQueue.Count == 2) actionQueue.RemoveLast();
-            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.FARM, 1f));
+            //newAction = new KeyValuePair<Action, float>(Action.FARM, 1f);
+            newAction = farm();
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
-            if (actionQueue.Count == 2) actionQueue.RemoveLast();
-            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.UP, calculateDistance(pos.y, 1f) + offset_y));
+            newAction = move(Action.UP);
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            if (actionQueue.Count == 2) actionQueue.RemoveLast();
-            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.LEFT, calculateDistance(pos.x, -1f) - offset_x));
+            newAction = move(Action.LEFT);
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            if (actionQueue.Count == 2) actionQueue.RemoveLast();
-            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.DOWN, calculateDistance(pos.y, -1f) - offset_y));
+            newAction = move(Action.DOWN);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            if (actionQueue.Count == 2) actionQueue.RemoveLast();
-            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.RIGHT, calculateDistance(pos.x, 1f) + offset_x));
+            newAction = move(Action.RIGHT);
         }
-        else if (Input.GetKeyDown(KeyCode.H)) {
-            if (actionQueue.Count == 2) actionQueue.RemoveLast();
-            actionQueue.AddLast(new KeyValuePair<Action, float>(Action.FENCE, 1f));
+        else if (Input.GetKeyDown(KeyCode.H))
+        {
+            // Should go to what item is selected (7,8,9,0) and place it.
+            newAction = placeFence();
         }
+        else
+        {
+            return;
+        }
+
+        // At most have next input queued.
+        if (actionQueue.Count == 2) actionQueue.RemoveLast();
+        actionQueue.AddLast(newAction);
     }
 
-    private float calculateDistance(float current, float amount)
+    public IEnumerator farm()
     {
-        return Mathf.Abs(Mathf.Floor(current + amount) - current);
+        idle = false;
+        Vector3 pos = transform.position;
+        Farm state = farmManager.getState(pos);
+        float duration = 2f;
+        Debug.Log(state);
+        switch (state)
+        {
+            case Farm.GRASS:
+                UpdateAnimation(Action.FARM);
+                while (duration > 0)
+                {
+                    float elapsed = PlayerStats.movementSpeed * Time.fixedDeltaTime;
+                    duration -= elapsed;
+                    yield return new WaitForFixedUpdate();
+                }
+                farmManager.plow(pos);
+                break;
+            case Farm.PLOWED:
+                farmManager.plant(pos);
+                break;
+            case Farm.DONE:
+                UpdateAnimation(Action.FARM);
+                while (duration > 0)
+                {
+                    float elapsed = PlayerStats.movementSpeed * Time.fixedDeltaTime;
+                    duration -= elapsed;
+                    yield return new WaitForFixedUpdate();
+                }
+                farmManager.harvest(pos);
+                break;
+        }
+        actionQueue.RemoveFirst();
+        idle = true;
+        yield break;
+    }
+
+    public IEnumerator placeFence()
+    {
+        idle = false;
+        itemManager.place(transform.position);
+        actionQueue.RemoveFirst();
+        idle = true;
+        yield break;
+    }
+
+    public IEnumerator move(Action direction)
+    {
+        idle = false;
+        UpdateAnimation(direction);
+        float distance = 1f;
+        Vector3 pos = transform.position;
+        while (distance > 0)
+        {
+            float toMove = PlayerStats.movementSpeed * Time.fixedDeltaTime;
+            distance -= toMove;
+            if (distance < 0) toMove = 0;
+            switch (direction)
+            {
+                case Action.RIGHT:
+                    pos.x += toMove;
+                    break;
+                case Action.LEFT:
+                    pos.x -= toMove;
+                    break;
+                case Action.UP:
+                    pos.y += toMove;
+                    break;
+                case Action.DOWN:
+                    pos.y -= toMove;
+                    break;
+            }
+            transform.position = pos;
+            yield return new WaitForFixedUpdate();
+        }
+        idle = true;
+        actionQueue.RemoveFirst();
+        yield break;
     }
 
     void FixedUpdate()
     {
         GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
-
-        Vector3 pos = transform.position;
-        if (actionQueue.Count == 0)
+        if (idle && actionQueue.Count != 0)
         {
-            // Still is never set. Just to set all other directions to false.
-            UpdateAnimation(Action.STILL);
-            return;
+            StartCoroutine(actionQueue.First.Value);
         }
-
-        // Continue moving in that direction until it is done.
-        KeyValuePair<Action, float> pair = actionQueue.First.Value;
-        actionQueue.RemoveFirst();
-        float value = pair.Value;
-        Action action = pair.Key;
-
-        if (action == Action.FENCE)
-        {
-            itemManager.place(transform.position);
-        }
-        else if (action == Action.FARM)
-        {
-            // Plow
-            float actionLeft = value;
-            if (FarmManager.fm.plowable(pos) && actionLeft != 0)
-            {
-                UpdateAnimation(action);
-                float timeToRemove = PlayerStats.farmingSpeed * Time.deltaTime;
-                if (actionLeft - timeToRemove <= 0)
-                {
-                    FarmManager.fm.plow(pos);
-                }
-                else
-                {
-                    actionLeft -= timeToRemove;
-                    actionQueue.AddFirst(new KeyValuePair<Action, float>(action, actionLeft));
-                }
-                return;
-            }
-            // If plantable.
-            else if (FarmManager.fm.plant(transform.position)) {
-                return;
-            }
-            else if (FarmManager.fm.harvestable(transform.position) && actionLeft != 0) {
-                UpdateAnimation(action);
-                float timeToRemove = PlayerStats.farmingSpeed * Time.deltaTime;
-                if (actionLeft - timeToRemove <= 0)
-                {
-                    FarmManager.fm.harvest(transform.position);
-                }
-                else
-                {
-                    actionLeft -= timeToRemove;
-                    actionQueue.AddFirst(new KeyValuePair<Action, float>(action, actionLeft));
-                }
-                return;
-            }
-        }
-        else
-        {
-            UpdateAnimation(action);
-            float amountToMove = PlayerStats.movementSpeed * Time.deltaTime;
-            // Movement
-            if (value - amountToMove <= 0)
-            {
-                amountToMove = value;
-            }
-            else
-            {
-                value -= amountToMove;
-                actionQueue.AddFirst(new KeyValuePair<Action, float>(action, value));
-            }
-            if (action == Action.RIGHT)
-            {
-                pos.x += amountToMove;
-            }
-            else if (action == Action.LEFT)
-            {
-                pos.x -= amountToMove;
-            }
-            else if (action == Action.UP)
-            {
-                pos.y += amountToMove;
-            }
-            else if (action == Action.DOWN)
-            {
-                pos.y -= amountToMove;
-            }
-            transform.position = pos;
-        }
-
-
+        else if (idle) UpdateAnimation(Action.STILL);
     }
 
 
@@ -175,6 +168,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("Right", action == Action.RIGHT);
         animator.SetBool("Up", action == Action.UP);
         animator.SetBool("Down", action == Action.DOWN);
-        animator.speed = 1 + speed / 2f;
+        animator.speed = PlayerStats.movementSpeed;
     }
 }

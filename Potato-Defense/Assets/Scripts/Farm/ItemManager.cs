@@ -22,6 +22,11 @@ public class ItemManager : MonoBehaviour
         if (fences.ContainsKey(pos)) fences.Remove(pos);
     }
 
+    public bool isAvailable(Vector3Int pos)
+    {
+        return !fences.ContainsKey(pos);
+    }
+
     public bool place(Vector3 pos)
     {
         Vector3Int gridPos = map.WorldToCell(pos);

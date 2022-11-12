@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++)
         {
             if (enemies[i] == null) enemies.RemoveAt(i);
-            enemies[i].TakeDamage(2f);
+            enemies[i].TakeDamage(PlayerStats.attackPower);
         }
         while (!Input.GetKeyUp(KeyCode.K)) yield return null;
 

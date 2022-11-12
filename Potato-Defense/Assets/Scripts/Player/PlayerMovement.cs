@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool idle = true;
 
+    private List<EnemyBehavior> enemies = new List<EnemyBehavior>();
+
     // Input queue
     private LinkedList<IEnumerator> actionQueue = new LinkedList<IEnumerator>();
 
@@ -59,6 +61,11 @@ public class PlayerMovement : MonoBehaviour
             // Should go to what item is selected (7,8,9,0) and place it.
             newAction = placeFence();
         }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            if (actionQueue.Count != 0) return;
+            newAction = attack();
+        }
         else
         {
             return;
@@ -67,6 +74,29 @@ public class PlayerMovement : MonoBehaviour
         // At most have next input queued.
         if (actionQueue.Count == 2) actionQueue.RemoveLast();
         actionQueue.AddLast(newAction);
+    }
+
+    public IEnumerator attack()
+    {
+        idle = false;
+        UpdateAnimation(Action.ATTACK);
+        while (!Input.GetKeyUp(KeyCode.K))
+        {
+            yield return null;
+        }
+        actionQueue.RemoveFirst();
+        idle = true;
+
+        // Axe is pulled back. If it stays pulled back for 1 second then reset.
+        float maxIdle = 1f;
+        while (maxIdle > 0)
+        {
+            if (actionQueue.Count != 0) yield break;
+            maxIdle -= Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        UpdateAnimation(Action.IDLE);
+        yield break;
     }
 
     public IEnumerator farm()
@@ -168,6 +198,8 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("Right", action == Action.RIGHT);
         animator.SetBool("Up", action == Action.UP);
         animator.SetBool("Down", action == Action.DOWN);
+        animator.SetBool("Attack", action == Action.ATTACK);
+        animator.SetBool("Idle", action == Action.IDLE);
         animator.speed = PlayerStats.movementSpeed;
     }
 }

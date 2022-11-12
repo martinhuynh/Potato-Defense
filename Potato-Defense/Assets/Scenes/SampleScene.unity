@@ -689,6 +689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemManager: {fileID: 1417020529}
+  farmManager: {fileID: 473666207}
   mapManager: {fileID: 1905277889}
   animator: {fileID: 917749555}
 --- !u!95 &917749555

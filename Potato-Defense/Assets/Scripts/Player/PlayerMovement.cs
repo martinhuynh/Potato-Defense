@@ -171,9 +171,22 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator move(Action direction)
     {
         idle = false;
-        UpdateAnimation(direction);
-        float distance = 1f;
         Vector3 pos = transform.position;
+        float distance = 1f;
+        if (mapManager.jumpable(pos, direction))
+        {
+            Debug.Log("Jumpable");
+            distance = 2f;
+        }
+        else if (!mapManager.onFenceValid(pos, direction))
+        {
+            actionQueue.RemoveFirst();
+            idle = true;
+            yield break;
+        }
+        UpdateAnimation(direction);
+        
+        
         while (distance > 0)
         {
             float toMove = PlayerStats.movementSpeed * Time.fixedDeltaTime;

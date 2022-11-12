@@ -35,6 +35,20 @@ public class TileMapManager : MonoBehaviour
         }
     }
 
+    // Check if theres a fence in that direction and that the tile after it is not a fence.
+    // Also player is not on a fence.
+    public bool jumpable(Vector3 pos, Action direction)
+    {
+        Vector3Int temp = getNewPosition(pos, direction);
+        return !itemManager.isAvailable(temp) && itemManager.isAvailable(getNewPosition(temp, direction)) && itemManager.isAvailable(groundMap.WorldToCell(pos));
+    }
+
+    public bool onFenceValid(Vector3 pos, Action direction)
+    {
+        Vector3Int temp = getNewPosition(pos, direction);
+        return itemManager.isAvailable(temp);
+    }
+
     public bool isAvailable(Vector3 pos, Action direction)
     {
         Vector3Int gridPos = getNewPosition(pos, direction);

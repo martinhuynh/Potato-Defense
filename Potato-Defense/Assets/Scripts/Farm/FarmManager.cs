@@ -7,7 +7,6 @@ using UnityEngine.Tilemaps;
 // Stores all the tiles related to farming (plow, plant, harvest)
 public class FarmManager : MonoBehaviour
 {
-    public static FarmManager fm;
     [SerializeField]
     private Tilemap map;
 
@@ -29,7 +28,6 @@ public class FarmManager : MonoBehaviour
     void Start()
     {
         crops = new Dictionary<Vector3Int, CropBehavior>();
-        fm = this;
     }
 
     // Update is called once per frame
@@ -38,38 +36,61 @@ public class FarmManager : MonoBehaviour
         
     }
 
+    public bool isAvailable(Vector3Int pos)
+    {
+        return !crops.ContainsKey(pos);
+    }
+
+    public Farm getState(Vector3 pos)
+    {
+        Vector3Int gridPos = map.WorldToCell(pos);
+        return (crops.ContainsKey(gridPos)) ? crops[gridPos].getState() : Farm.GRASS;
+    }
+
     // Check if tilebase is grass.
     public void plow(Vector3 position)
     {
         Vector3Int gridPosition = map.WorldToCell(position);
         map.SetTile(gridPosition, dirt);
+        CropBehavior newCrop = Instantiate(crop);
+        crops.Add(gridPosition, newCrop);
+        newCrop.transform.position = map.GetCellCenterWorld(gridPosition);
     }
 
-    // Check if tile plantable.
-    public bool plowable(Vector3 position)
+    //// Check if tile plantable.
+    //public bool plowable(Vector3 position)
+    //{
+    //    Vector3Int gridPosition = map.WorldToCell(position);
+    //    return mapManager.GetTileData(gridPosition).state == TileType.GRASS;
+    //}
+
+    //public bool harvestable(Vector3 position)
+    //{
+    //    Vector3Int gridPosition = map.WorldToCell(position);
+    //    CropBehavior crop = crops[gridPosition];
+    //    return crop.done();
+    //}
+
+    public void harvest(Vector3 position)
     {
         Vector3Int gridPosition = map.WorldToCell(position);
-        return mapManager.GetTileData(gridPosition).state == TileType.GRASS;
+        crops[gridPosition].harvest();
+        Debug.Log("Harvested: " + PlayerInventory.potatoes);
+        map.SetTile(gridPosition, dirt);
     }
 
     // Plant at position.
     public bool plant(Vector3 position)
     {
-        Vector3Int gridPosition = map.WorldToCell(position);
-        if (crops.ContainsKey(gridPosition)) return false;
-        if (mapManager.GetTileData(gridPosition).state != TileType.PLOWED) return false;
-
-        map.SetTile(gridPosition, plowed);
-        CropBehavior newCrop = Instantiate(crop);
-        crops.Add(gridPosition, newCrop);
-        newCrop.startGrowing(this, gridPosition, mapManager.GetTileData(gridPosition));
-        newCrop.transform.position = map.GetCellCenterWorld(gridPosition);
+        Vector3Int gridPos = map.WorldToCell(position);
+        map.SetTile(gridPos, plowed);
+        crops[gridPos].startGrowing(this, gridPos, mapManager.GetTileData(gridPos));
         return true;
     }
 
     public void destroyCrop(Vector3Int position)
     {
-        Destroy(crops[position]);
+        Destroy(crops[position].gameObject);
         crops.Remove(position);
     }
 

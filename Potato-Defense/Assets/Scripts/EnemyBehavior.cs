@@ -20,7 +20,7 @@ public class EnemyBehavior : MonoBehaviour
     void Update()
     {
         // Testing purposes
-        if (Input.GetKeyDown(KeyCode.K)) TakeDamage(2f);
+        //if (Input.GetKeyDown(KeyCode.K)) TakeDamage(2f);
     }
 
     private void FixedUpdate()
@@ -29,14 +29,16 @@ public class EnemyBehavior : MonoBehaviour
         GetComponent<Renderer>().sortingOrder = (int) (-100 * transform.position.y);
     }
 
-    public void TakeDamage(float damage)
+    public bool TakeDamage(float damage)
     {
         health -= damage;
         hb.UpdateHealthBar(health, maxHealth);
         if (health <= 0)
         {
             Die();
+            return true;
         }
+        return false;
     }
 
     private void Die()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HotbarManager : MonoBehaviour
 {
@@ -14,12 +15,6 @@ public class HotbarManager : MonoBehaviour
     [SerializeField]
     private ItemEnum type;
 
-    
-    
-
-
-
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +28,10 @@ public class HotbarManager : MonoBehaviour
         itemKeys.Add(KeyCode.Alpha0, itemSlots[3]);
         select(selected);
 
-        
+        itemSlots[0].key.text = "7";
+        itemSlots[1].key.text = "8";
+        itemSlots[2].key.text = "9";
+        itemSlots[3].key.text = "0";
 
     }
 

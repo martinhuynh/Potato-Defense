@@ -16,6 +16,12 @@ public class TileMapManager : MonoBehaviour
     // Search up tile properties.
     private Dictionary<TileBase, TileData> dataFromTiles;
 
+    [SerializeField]
+    private ItemManager itemManager;
+
+    [SerializeField]
+    private FarmManager farmManager;
+
     private void Awake()
     {
         dataFromTiles = new Dictionary<TileBase, TileData>();
@@ -27,6 +33,44 @@ public class TileMapManager : MonoBehaviour
                 dataFromTiles.Add(tile, tileData);
             }
         }
+    }
+
+    public bool isAvailable(Vector3 pos, Action direction)
+    {
+        Vector3Int gridPos = getNewPosition(pos, direction);
+        return itemManager.isAvailable(gridPos) == true && farmManager.isAvailable(gridPos);
+    }
+
+    public bool isAvailable(Vector3 pos)
+    {
+        Vector3Int gridPos = groundMap.WorldToCell(pos);
+        return itemManager.isAvailable(gridPos) == true && farmManager.isAvailable(gridPos);
+    }
+
+    public bool isWalkable(Vector3 pos, Action direction)
+    {
+        return itemManager.isAvailable(getNewPosition(pos, direction));
+    }
+
+    private Vector3Int getNewPosition(Vector3 pos, Action direction)
+    {
+        Vector3Int gridPos = groundMap.WorldToCell(pos);
+        switch (direction)
+        {
+            case Action.UP:
+                gridPos.y++;
+                break;
+            case Action.DOWN:
+                gridPos.y--;
+                break;
+            case Action.LEFT:
+                gridPos.x--;
+                break;
+            case Action.RIGHT:
+                gridPos.x++;
+                break;
+        }
+        return gridPos;
     }
 
     public TileData GetTileData(Vector3Int tilePosition)

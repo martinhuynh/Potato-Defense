@@ -16,6 +16,9 @@ public class ItemSlot : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI quantity;
 
+    [SerializeField]
+    public TextMeshProUGUI key;
+
 
     [SerializeField]
     private GameObject item;

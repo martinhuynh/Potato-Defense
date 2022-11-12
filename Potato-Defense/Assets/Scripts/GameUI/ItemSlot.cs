@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ItemSlot : MonoBehaviour
 {
@@ -12,7 +14,13 @@ public class ItemSlot : MonoBehaviour
     private Select selectAsset;
 
     [SerializeField]
-    private ItemQuantity color;
+    private TextMeshProUGUI quantity;
+
+
+    [SerializeField]
+    private GameObject item;
+
+    
 
     
 
@@ -32,37 +40,28 @@ public class ItemSlot : MonoBehaviour
         selectAsset.unselect();
     }
 
-    public void overZero()
-    {
-        Debug.Log(type + " selected");
-        color.overZero();
-    }
-
-    public void Zero()
-    {
-        
-        color.Zero();
-    }
+    
 
 
     public void use()
     {
         PlayerInventory.use(type);
-
+        quantity.text = PlayerInventory.getInventory(type) + "";
         if (isAvailable()) return;
-        Color c = GetComponent<SpriteRenderer>().color;
-        c.a = 0;
-        GetComponent<SpriteRenderer>().color = c;
     }
 
     public bool isAvailable()
     {
+        Color c = item.GetComponent<SpriteRenderer>().color;
+
         if (PlayerInventory.isAvailable(type))
         {
-            color.overZero();
+            c.a = 255;
+            item.GetComponent<SpriteRenderer>().color = c;
             return true;
         }
-        color.Zero();
+        c.a = 1;
+        item.GetComponent<SpriteRenderer>().color = c;
         return false;
     }
 
@@ -74,6 +73,7 @@ public class ItemSlot : MonoBehaviour
     void Start()
     {
         isAvailable();
+        quantity.text = PlayerInventory.getInventory(type) + "";
 
     }
 

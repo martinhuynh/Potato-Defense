@@ -33,6 +33,7 @@ public class HotbarManager : MonoBehaviour
         itemKeys.Add(KeyCode.Alpha0, itemSlots[3]);
         select(selected);
 
+        
 
     }
 

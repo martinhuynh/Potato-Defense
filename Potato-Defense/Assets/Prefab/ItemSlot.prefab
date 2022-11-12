@@ -234,6 +234,7 @@ MonoBehaviour:
   hotbarManager: {fileID: 0}
   type: 0
   selectAsset: {fileID: 891097382214577212}
+  sprite: {fileID: 0}
   quantity: {fileID: 718550104029888091}
   key: {fileID: 5913898987859256602}
   item: {fileID: 891097382999751857}
@@ -524,7 +525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9133967842032337045
 Transform:
   m_ObjectHideFlags: 0

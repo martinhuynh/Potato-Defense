@@ -9,10 +9,11 @@ public class ItemSlot : MonoBehaviour
     [SerializeField]
     private HotbarManager hotbarManager;
     [SerializeField]
-    private ItemEnum type;
+    public ItemEnum type;
     [SerializeField]
     private Select selectAsset;
-
+    [SerializeField]
+    private Sprite sprite = null;
     [SerializeField]
     private TextMeshProUGUI quantity;
 
@@ -77,6 +78,7 @@ public class ItemSlot : MonoBehaviour
     {
         isAvailable();
         quantity.text = PlayerInventory.getInventory(type) + "";
+        item.GetComponent<SpriteRenderer>().sprite = sprite;
 
     }
 

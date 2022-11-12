@@ -38,7 +38,13 @@ public class TileMapManager : MonoBehaviour
     public bool isAvailable(Vector3 pos, Action direction)
     {
         Vector3Int gridPos = getNewPosition(pos, direction);
-        return itemManager.isAvailable(gridPos) && farmManager.isAvailable(gridPos);
+        return itemManager.isAvailable(gridPos) == true && farmManager.isAvailable(gridPos);
+    }
+
+    public bool isAvailable(Vector3 pos)
+    {
+        Vector3Int gridPos = groundMap.WorldToCell(pos);
+        return itemManager.isAvailable(gridPos) == true && farmManager.isAvailable(gridPos);
     }
 
     public bool isWalkable(Vector3 pos, Action direction)

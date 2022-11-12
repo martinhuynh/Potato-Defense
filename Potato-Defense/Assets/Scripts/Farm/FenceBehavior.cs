@@ -20,8 +20,13 @@ public class FenceBehavior : MonoBehaviour
         down.GetComponent<SpriteRenderer>().color = temp;
         right.GetComponent<SpriteRenderer>().color = temp;
         left.GetComponent<SpriteRenderer>().color = temp;
-        GetComponent<SpriteRenderer>().sortingOrder = (int)(-100 * transform.position.y);
 
+        int order = (int)(-100 * transform.position.y);
+        GetComponent<SpriteRenderer>().sortingOrder = order;
+        up.GetComponent<SpriteRenderer>().sortingOrder = order;
+        down.GetComponent<SpriteRenderer>().sortingOrder = order;
+        left.GetComponent<SpriteRenderer>().sortingOrder = order;
+        right.GetComponent<SpriteRenderer>().sortingOrder = order;
     }
 
     public void decrease(int power)

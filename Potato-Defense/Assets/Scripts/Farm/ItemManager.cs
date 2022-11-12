@@ -30,9 +30,8 @@ public class ItemManager : MonoBehaviour
     public bool place(Vector3 pos)
     {
         Vector3Int gridPos = map.WorldToCell(pos);
-        TileData tileData = mapManager.GetTileData(gridPos);
         if (fences.ContainsKey(gridPos)) return false;
-        if (tileData.state == TileType.PLOWED) return false;
+        if (!mapManager.isAvailable(pos)) return false;
         FenceBehavior fence = Instantiate(fencePrefab);
         fence.start(gridPos, this);
         fence.transform.position = map.GetCellCenterWorld(gridPos);
@@ -42,7 +41,7 @@ public class ItemManager : MonoBehaviour
         temp.x += 1; // RIGHT
         if (fences.ContainsKey(temp))
         {
-            Debug.Log(gridPos + " " + temp);
+            //Debug.Log(gridPos + " " + temp);
             fence.connect(Fence.RIGHT);
             fences[temp].connect(Fence.LEFT);
         }

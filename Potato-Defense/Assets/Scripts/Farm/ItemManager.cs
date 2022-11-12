@@ -37,6 +37,38 @@ public class ItemManager : MonoBehaviour
         fence.start(gridPos, this);
         fence.transform.position = map.GetCellCenterWorld(gridPos);
         fences.Add(gridPos, fence);
+
+        Vector3Int temp = gridPos;
+        temp.x += 1; // RIGHT
+        if (fences.ContainsKey(temp))
+        {
+            Debug.Log(gridPos + " " + temp);
+            fence.connect(Fence.RIGHT);
+            fences[temp].connect(Fence.LEFT);
+        }
+
+        temp.x -= 2; // LEFT
+        if (fences.ContainsKey(temp))
+        {
+            fence.connect(Fence.LEFT);
+            fences[temp].connect(Fence.RIGHT);
+        }
+
+        temp.x += 1;
+        temp.y -= 1; // DOWN
+        if (fences.ContainsKey(temp))
+        {
+            fence.connect(Fence.DOWN);
+            fences[temp].connect(Fence.UP);
+        }
+
+        temp.y += 2; // UP
+        if (fences.ContainsKey(temp))
+        {
+            fence.connect(Fence.UP);
+            fences[temp].connect(Fence.DOWN);
+        }
+
         return true;
     }
 

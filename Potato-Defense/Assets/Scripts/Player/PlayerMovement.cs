@@ -105,10 +105,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Collided with " + other.gameObject.name);
+        //Debug.Log("Collided with " + other.gameObject.name);
         if (other.gameObject.name.Contains("Enemy"))
         {
-            Debug.Log("Enemy Entered");
+            //Debug.Log("Enemy Entered");
             enemies.Add(other.gameObject.GetComponent<EnemyBehavior>());
         }
     }
@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 pos = transform.position;
         Farm state = farmManager.getState(pos);
         float duration = 2f;
-        Debug.Log(state);
+        //Debug.Log(state);
         switch (state)
         {
             case Farm.GRASS:

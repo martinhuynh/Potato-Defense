@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FenceBehavior : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject up, down, left, right;
     private int hp;
     private Vector3Int gridPos;
     private ItemManager itemManager;
@@ -13,6 +15,13 @@ public class FenceBehavior : MonoBehaviour
         this.gridPos = gridPos;
         this.itemManager = itemManager;
         hp = 10;
+        Color temp = new Color(255, 255, 255, 0);
+        up.GetComponent<SpriteRenderer>().color = temp;
+        down.GetComponent<SpriteRenderer>().color = temp;
+        right.GetComponent<SpriteRenderer>().color = temp;
+        left.GetComponent<SpriteRenderer>().color = temp;
+        GetComponent<SpriteRenderer>().sortingOrder = (int)(-100 * transform.position.y);
+
     }
 
     public void decrease(int power)
@@ -27,7 +36,6 @@ public class FenceBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
     }
 
     // Update is called once per frame
@@ -37,6 +45,50 @@ public class FenceBehavior : MonoBehaviour
         {
             Debug.Log("Enter");
             decrease(5);
+        }
+    }
+
+    public void connect(Fence link)
+    {
+        Color temp = new Color(255, 255, 255, 255);
+        temp.a = 255;
+        switch (link)
+        {
+            case Fence.UP:
+                up.GetComponent<SpriteRenderer>().color = temp;
+                break;
+            case Fence.DOWN:
+                down.GetComponent<SpriteRenderer>().color = temp;
+                break;
+            case Fence.RIGHT:
+                right.GetComponent<SpriteRenderer>().color = temp;
+                break;
+            case Fence.LEFT:
+                left.GetComponent<SpriteRenderer>().color = temp;
+                break;
+        }
+        GetComponent<SpriteRenderer>().sortingOrder = (int)(-100 * transform.position.y);
+
+    }
+
+    public void disconnect(Fence link)
+    {
+        Color temp = new Color(255, 255, 255, 0);
+        temp.a = 0;
+        switch (link)
+        {
+            case Fence.UP:
+                up.GetComponent<SpriteRenderer>().color = temp;
+                break;
+            case Fence.DOWN:
+                down.GetComponent<SpriteRenderer>().color = temp;
+                break;
+            case Fence.RIGHT:
+                right.GetComponent<SpriteRenderer>().color = temp;
+                break;
+            case Fence.LEFT:
+                left.GetComponent<SpriteRenderer>().color = temp;
+                break;
         }
     }
 

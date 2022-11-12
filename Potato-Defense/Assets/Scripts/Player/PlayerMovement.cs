@@ -80,10 +80,14 @@ public class PlayerMovement : MonoBehaviour
     {
         idle = false;
         UpdateAnimation(Action.ATTACK);
-        while (!Input.GetKeyUp(KeyCode.K))
+        List<EnemyBehavior> toRemove = new List<EnemyBehavior>();
+        for (int i = 0; i < enemies.Count; i++)
         {
-            yield return null;
+            if (enemies[i] == null) enemies.RemoveAt(i);
+            enemies[i].TakeDamage(2f);
         }
+        while (!Input.GetKeyUp(KeyCode.K)) yield return null;
+
         actionQueue.RemoveFirst();
         idle = true;
 
@@ -97,6 +101,24 @@ public class PlayerMovement : MonoBehaviour
         }
         UpdateAnimation(Action.IDLE);
         yield break;
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Collided with " + other.gameObject.name);
+        if (other.gameObject.name.Contains("Enemy"))
+        {
+            Debug.Log("Enemy Entered");
+            enemies.Add(other.gameObject.GetComponent<EnemyBehavior>());
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.name.Contains("Enemy"))
+        {
+            enemies.Remove(other.gameObject.GetComponent<EnemyBehavior>());
+        }
     }
 
     public IEnumerator farm()

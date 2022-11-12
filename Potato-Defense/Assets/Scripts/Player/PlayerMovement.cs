@@ -176,8 +176,6 @@ public class PlayerMovement : MonoBehaviour
         bool jumpable = mapManager.jumpable(pos, direction);
         if (jumpable)
         {
-            Debug.Log("Jumpable");
-            //distance_y = 1f;
             distance = 2f;
         }
         else if (!mapManager.onFenceValid(pos, direction))

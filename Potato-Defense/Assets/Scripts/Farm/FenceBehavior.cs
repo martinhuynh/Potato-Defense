@@ -21,6 +21,11 @@ public class FenceBehavior : MonoBehaviour
         right.GetComponent<SpriteRenderer>().color = temp;
         left.GetComponent<SpriteRenderer>().color = temp;
 
+        UpdateOrder();
+    }
+
+    public void UpdateOrder()
+    {
         int order = (int)(-100 * transform.position.y);
         GetComponent<SpriteRenderer>().sortingOrder = order;
         up.GetComponent<SpriteRenderer>().sortingOrder = order;
@@ -72,7 +77,7 @@ public class FenceBehavior : MonoBehaviour
                 left.GetComponent<SpriteRenderer>().color = temp;
                 break;
         }
-        GetComponent<SpriteRenderer>().sortingOrder = (int)(-100 * transform.position.y);
+        UpdateOrder();
 
     }
 
@@ -95,6 +100,7 @@ public class FenceBehavior : MonoBehaviour
                 left.GetComponent<SpriteRenderer>().color = temp;
                 break;
         }
+        UpdateOrder();
     }
 
 }

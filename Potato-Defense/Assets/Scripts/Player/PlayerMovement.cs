@@ -171,14 +171,45 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator move(Action direction)
     {
         idle = false;
-        UpdateAnimation(direction);
-        float distance = 1f;
         Vector3 pos = transform.position;
+        float distance = 1f;
+        bool jumpable = mapManager.jumpable(pos, direction);
+        if (jumpable)
+        {
+            distance = 2f;
+        }
+        else if (!mapManager.onFenceValid(pos, direction))
+        {
+            actionQueue.RemoveFirst();
+            idle = true;
+            yield break;
+        }
+        UpdateAnimation(direction);
+        
+        
         while (distance > 0)
         {
             float toMove = PlayerStats.movementSpeed * Time.fixedDeltaTime;
+            //float toMove_y = Time.fixedDeltaTime;
             distance -= toMove;
             if (distance < 0) toMove = 0;
+            int orderLayer = (int)(-100 * transform.position.y);
+
+            if (jumpable)
+            {
+                float jumpAmount = 2 * Mathf.Cos(distance - 1) * Time.fixedDeltaTime;
+                if (distance < 1.4 && distance > 1)
+                {
+                    orderLayer -= (direction == Action.DOWN) ? 60 : (direction == Action.UP) ? -60 : 0;
+                    pos.y += jumpAmount;
+                }
+                else if (distance > 0.6 && distance < 1)
+                {
+                    orderLayer += (direction == Action.DOWN) ? 60 : (direction == Action.UP) ? -60 : 0;
+                    pos.y -= jumpAmount;
+                }
+            }
+            GetComponent<Renderer>().sortingOrder = orderLayer;
             switch (direction)
             {
                 case Action.RIGHT:

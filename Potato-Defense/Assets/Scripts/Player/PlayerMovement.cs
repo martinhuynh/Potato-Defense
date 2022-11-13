@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
                 UpdateAnimation(Action.FARM);
                 while (duration > 0)
                 {
-                    float elapsed = PlayerStats.movementSpeed * Time.fixedDeltaTime;
+                    float elapsed = PlayerStats.farmingSpeed * Time.fixedDeltaTime;
                     duration -= elapsed;
                     yield return new WaitForFixedUpdate();
                 }
@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
                 UpdateAnimation(Action.FARM);
                 while (duration > 0)
                 {
-                    float elapsed = PlayerStats.movementSpeed * Time.fixedDeltaTime;
+                    float elapsed = PlayerStats.farmingSpeed * Time.fixedDeltaTime;
                     duration -= elapsed;
                     yield return new WaitForFixedUpdate();
                 }
@@ -191,21 +191,25 @@ public class PlayerMovement : MonoBehaviour
         {
             float toMove = PlayerStats.movementSpeed * Time.fixedDeltaTime;
             //float toMove_y = Time.fixedDeltaTime;
+            if (toMove >= distance)
+            {
+                toMove = distance;
+            }
             distance -= toMove;
-            if (distance < 0) toMove = 0;
+
             int orderLayer = (int)(-100 * transform.position.y);
 
             if (jumpable)
             {
-                float jumpAmount = 2 * Mathf.Cos(distance - 1) * Time.fixedDeltaTime;
+                float jumpAmount = 2 * PlayerStats.movementSpeed * Mathf.Cos(distance - 1) * Time.fixedDeltaTime;
                 if (distance < 1.4 && distance > 1)
                 {
-                    orderLayer -= (direction == Action.DOWN) ? 60 : (direction == Action.UP) ? -60 : 0;
+                    orderLayer -= (direction == Action.UP) ? -50 : 0;
                     pos.y += jumpAmount;
                 }
                 else if (distance > 0.6 && distance < 1)
                 {
-                    orderLayer += (direction == Action.DOWN) ? 60 : (direction == Action.UP) ? -60 : 0;
+                    orderLayer += (direction == Action.DOWN) ? 50 : 0;
                     pos.y -= jumpAmount;
                 }
             }
@@ -253,6 +257,10 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("Down", action == Action.DOWN);
         animator.SetBool("Attack", action == Action.ATTACK);
         animator.SetBool("Idle", action == Action.IDLE);
-        animator.speed = PlayerStats.movementSpeed;
+        if (action == Action.FARM)
+        {
+            animator.speed = 1 + ((PlayerStats.farmingSpeed - 1) / 2);
+        } else
+            animator.speed = PlayerStats.movementSpeed;
     }
 }

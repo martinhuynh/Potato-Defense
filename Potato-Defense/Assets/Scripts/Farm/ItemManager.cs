@@ -27,6 +27,71 @@ public class ItemManager : MonoBehaviour
         return !fences.ContainsKey(pos);
     }
 
+    // if gridPos exists then it will link with neighboring fences.
+    // if not then disconnect neighboring fences.
+    public void updateLink(Vector3Int gridPos, FenceBehavior fence)
+    {
+        // true = link, false = unlink.
+        bool linkOrUnlink = fences.ContainsKey(gridPos);
+        Vector3Int temp = gridPos;
+        temp.x += 1; // RIGHT
+        if (fences.ContainsKey(temp))
+        {
+            //Debug.Log(gridPos + " " + temp);
+            if (linkOrUnlink)
+            {
+                fence.connect(Fence.RIGHT);
+                fences[temp].connect(Fence.LEFT);
+            } else
+            {
+                fences[temp].disconnect(Fence.LEFT);
+            }
+        }
+
+        temp.x -= 2; // LEFT
+        if (fences.ContainsKey(temp))
+        {
+            if (linkOrUnlink)
+            {
+                fence.connect(Fence.LEFT);
+                fences[temp].connect(Fence.RIGHT);
+            }
+            else
+            {
+                fences[temp].disconnect(Fence.RIGHT);
+            }
+        }
+
+        temp.x += 1;
+        temp.y -= 1; // DOWN
+        if (fences.ContainsKey(temp))
+        {
+            if (linkOrUnlink)
+            {
+                fence.connect(Fence.DOWN);
+                fences[temp].connect(Fence.UP);
+            }
+            else
+            {
+                fences[temp].disconnect(Fence.UP);
+            }
+        }
+
+        temp.y += 2; // UP
+        if (fences.ContainsKey(temp))
+        {
+            if (linkOrUnlink)
+            {
+                fence.connect(Fence.UP);
+                fences[temp].connect(Fence.DOWN);
+            }
+            else
+            {
+                fences[temp].disconnect(Fence.DOWN);
+            }
+        }
+    }
+
     public bool place(Vector3 pos)
     {
         Vector3Int gridPos = map.WorldToCell(pos);
@@ -37,36 +102,7 @@ public class ItemManager : MonoBehaviour
         fence.transform.position = map.GetCellCenterWorld(gridPos);
         fences.Add(gridPos, fence);
 
-        Vector3Int temp = gridPos;
-        temp.x += 1; // RIGHT
-        if (fences.ContainsKey(temp))
-        {
-            //Debug.Log(gridPos + " " + temp);
-            fence.connect(Fence.RIGHT);
-            fences[temp].connect(Fence.LEFT);
-        }
-
-        temp.x -= 2; // LEFT
-        if (fences.ContainsKey(temp))
-        {
-            fence.connect(Fence.LEFT);
-            fences[temp].connect(Fence.RIGHT);
-        }
-
-        temp.x += 1;
-        temp.y -= 1; // DOWN
-        if (fences.ContainsKey(temp))
-        {
-            fence.connect(Fence.DOWN);
-            fences[temp].connect(Fence.UP);
-        }
-
-        temp.y += 2; // UP
-        if (fences.ContainsKey(temp))
-        {
-            fence.connect(Fence.UP);
-            fences[temp].connect(Fence.DOWN);
-        }
+        updateLink(gridPos, fence);
 
         return true;
     }

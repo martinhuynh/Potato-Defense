@@ -40,6 +40,7 @@ public class FenceBehavior : MonoBehaviour
         if (hp <= 0)
         {
             itemManager.remove(gridPos);
+            itemManager.updateLink(gridPos, this);
             Destroy(this.gameObject);
             return false;
         }
@@ -85,7 +86,7 @@ public class FenceBehavior : MonoBehaviour
 
     public void disconnect(Fence link)
     {
-        Color temp = new Color(255, 255, 255, 0);
+        Color temp = new Color(255, 255, 255, 255);
         temp.a = 0;
         switch (link)
         {
@@ -103,6 +104,7 @@ public class FenceBehavior : MonoBehaviour
                 break;
         }
         UpdateOrder();
+
     }
 
 }

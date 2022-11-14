@@ -64,7 +64,7 @@ public class ItemSlot : MonoBehaviour
             item.GetComponent<SpriteRenderer>().color = c;
             return true;
         }
-        c.a = 1;
+        c.a = 0;
         item.GetComponent<SpriteRenderer>().color = c;
         return false;
     }
@@ -78,7 +78,7 @@ public class ItemSlot : MonoBehaviour
     {
         isAvailable();
         quantity.text = PlayerInventory.getInventory(type) + "";
-        item.GetComponent<SpriteRenderer>().sprite = sprite;
+        //item.GetComponent<SpriteRenderer>().sprite = sprite;
 
     }
 

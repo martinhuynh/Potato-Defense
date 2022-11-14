@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class CropBehavior : MonoBehaviour
 {
@@ -13,13 +14,11 @@ public class CropBehavior : MonoBehaviour
     private Farm state;
 
     private Queue<Sprite> stages;
+    private Tile plowed;
 
     private WaveSystem waveSystem;
-    // Start is called before the first frame update
-    private void Start()
-    {
-        waveSystem = GameObject.Find("WaveSystem").GetComponent<WaveSystem>();
-    }
+    private Tilemap map;
+
     public void startGrowing(FarmManager fm, Vector3Int position, TileData tileData)
     {
         stages = new Queue<Sprite>();
@@ -36,6 +35,9 @@ public class CropBehavior : MonoBehaviour
 
     private void Start()
     {
+        waveSystem = GameObject.Find("WaveSystem").GetComponent<WaveSystem>();
+        map = GameObject.Find("Ground").GetComponent<Tilemap>();
+        plowed = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Tilesets/TilePalette/Dirt/Tilled Dirt_0.asset", typeof(Tile)) as Tile;
         harvest();
     }
 
@@ -59,9 +61,10 @@ public class CropBehavior : MonoBehaviour
     public bool decrease(int power)
     {
         hp -= power;
-        if (hp <= 0) { 
-            farmManager.destroyCrop(position); 
-            Destroy(this.gameObject); 
+        if (hp <= 0) {
+            GetComponent<SpriteRenderer>().sprite = null;
+            state = Farm.PLOWED;
+            map.SetTile(position, plowed);
             StopCoroutine(grow_crop());
             waveSystem.decreaseLives();
             return false;

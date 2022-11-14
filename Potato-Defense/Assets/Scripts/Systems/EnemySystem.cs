@@ -33,10 +33,8 @@ public class EnemySystem : MonoBehaviour
     {
         while (inWave)
         {
-            print("enemyspawn");
             if (Random.Range(0, 100) < generateSpawnChance())
             {
-                print("HIT: " + generateSpawnChance());
                 float weight = Random.Range(0, 100);
                 foreach (KeyValuePair<GameObject, float> enemy in enemies)
                 {
@@ -103,5 +101,10 @@ public class EnemySystem : MonoBehaviour
     {
         StopCoroutine(EnemySpawn());
         inWave = false;
+        GameObject[] enemiesLeft = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemiesLeft)
+        {
+            enemy.GetComponent<EnemyBehavior>().Die();
+        }
     }
 }

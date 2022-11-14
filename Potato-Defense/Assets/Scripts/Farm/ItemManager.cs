@@ -87,4 +87,15 @@ public class ItemManager : MonoBehaviour
     {
 
     }
+    
+    // Getters
+    public FenceBehavior getFence(Vector3Int fencePos)
+    {
+        return fences[fencePos];
+    }
+
+    public bool containsFence(FenceBehavior fence)
+    {
+        return fences.ContainsValue(fence);
+    }
 }

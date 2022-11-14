@@ -14,7 +14,7 @@ public class WaveSystem : MonoBehaviour
 
     private int curWave = -1;
     private bool inWave = false;
-    private float gracePeriod = 1f, gracePeriodEnd;
+    private float gracePeriod = 10f, gracePeriodEnd;
 
     private int curTarget, curLives;
 
@@ -32,7 +32,7 @@ public class WaveSystem : MonoBehaviour
         ((Wave) waves[0]).getEnemies().Add(enemy, 100f);
         // Wave 2
         waves.Add(new Wave(15, 5, 15));
-        ((Wave)waves[0]).getEnemies().Add(enemy, 100f);
+        ((Wave)waves[1]).getEnemies().Add(enemy, 100f);
     }
 
     // Update is called once per frame

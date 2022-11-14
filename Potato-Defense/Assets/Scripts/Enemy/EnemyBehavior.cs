@@ -40,7 +40,7 @@ public class EnemyBehavior : MonoBehaviour
         return false;
     }
 
-    private void Die()
+    public void Die()
     {
         if (gameObject.activeSelf)
         {

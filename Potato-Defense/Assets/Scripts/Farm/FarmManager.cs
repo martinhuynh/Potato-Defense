@@ -24,10 +24,13 @@ public class FarmManager : MonoBehaviour
 
     private Dictionary<Vector3Int, CropBehavior> crops;
 
+    private WaveSystem waveSystem;
+
     // Start is called before the first frame update
     void Start()
     {
         crops = new Dictionary<Vector3Int, CropBehavior>();
+        waveSystem = GameObject.Find("WaveSystem").GetComponent<WaveSystem>();
     }
 
     // Update is called once per frame
@@ -77,6 +80,7 @@ public class FarmManager : MonoBehaviour
         crops[gridPosition].harvest();
         Debug.Log("Harvested: " + PlayerInventory.potatoes);
         map.SetTile(gridPosition, dirt);
+        waveSystem.decreaseTarget();
     }
 
     // Plant at position.
@@ -98,5 +102,11 @@ public class FarmManager : MonoBehaviour
     {
         //PlayerInventory.potatoes++;
         destroyCrop(position);
+    }
+
+    // Getters
+    public Dictionary<Vector3Int, CropBehavior> getCrops()
+    {
+        return crops;
     }
 }

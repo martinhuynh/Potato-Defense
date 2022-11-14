@@ -34,14 +34,16 @@ public class FenceBehavior : MonoBehaviour
         right.GetComponent<SpriteRenderer>().sortingOrder = order;
     }
 
-    public void decrease(int power)
+    public bool decrease(int power)
     {
         hp -= power;
         if (hp <= 0)
         {
             itemManager.remove(gridPos);
             Destroy(this.gameObject);
+            return false;
         }
+        return true;
     }
     // Start is called before the first frame update
     void Start()

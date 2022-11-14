@@ -10,6 +10,7 @@ public class CropBehavior : MonoBehaviour
     private int hp;
     [SerializeField]
     private Sprite stage_1, stage_2, stage_done;
+    private Farm state;
 
     private Queue<Sprite> stages;
 
@@ -29,13 +30,30 @@ public class CropBehavior : MonoBehaviour
         this.tileData = tileData;
         hp = tileData.hp;
         this.position = position;
+        GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
         StartCoroutine(grow_crop());
+    }
+
+    private void Start()
+    {
+        harvest();
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
+    }
+
+    public void harvest()
+    {
+        GetComponent<SpriteRenderer>().sprite = null;
+        state = Farm.PLOWED;
+        PlayerInventory.potatoes++;
+    }
+
+    public Farm getState()
+    {
+        return state;
     }
 
     public bool decrease(int power)
@@ -64,6 +82,7 @@ public class CropBehavior : MonoBehaviour
     public IEnumerator grow_crop()
     {
         int size = stages.Count;
+        state = Farm.GROWING;
         for (int i = 0; i < size; i++)
         {
             // Update sprite
@@ -71,6 +90,7 @@ public class CropBehavior : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = newSprite;
             yield return new WaitForSeconds(1f);
         }
+        state = Farm.DONE;
     }
 
     // Getters

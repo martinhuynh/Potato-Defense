@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5743227754856335187}
   - component: {fileID: 7617553283893260145}
   - component: {fileID: 5157533062390329728}
+  - component: {fileID: 2325154214206980299}
   m_Layer: 0
   m_Name: Crop
   m_TagString: Untagged
@@ -100,3 +101,24 @@ MonoBehaviour:
   stage_1: {fileID: 204676377, guid: 96bff1fd0dd0f49a4a1c1d71fb2e1c07, type: 3}
   stage_2: {fileID: 514959037, guid: 808cfeb489c5b45168b20724589db992, type: 3}
   stage_done: {fileID: -1069676926, guid: b10a6040d374e456aa6f28853525b1d2, type: 3}
+--- !u!50 &2325154214206980299
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8491984372808110181}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

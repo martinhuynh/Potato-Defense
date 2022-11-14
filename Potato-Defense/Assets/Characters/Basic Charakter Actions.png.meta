@@ -120,10 +120,10 @@ TextureImporter:
       name: Basic Charakter Actions_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 535
-        width: 34
-        height: 34
+        x: 8
+        y: 537
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: Basic Charakter Actions_1
       rect:
         serializedVersion: 2
-        x: 55
-        y: 538
-        width: 34
-        height: 34
+        x: 56
+        y: 540
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: Basic Charakter Actions_2
       rect:
         serializedVersion: 2
-        x: 7
-        y: 487
-        width: 34
-        height: 34
+        x: 8
+        y: 488
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +183,10 @@ TextureImporter:
       name: Basic Charakter Actions_3
       rect:
         serializedVersion: 2
-        x: 55
-        y: 487
-        width: 34
-        height: 34
+        x: 56
+        y: 488
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,10 +204,10 @@ TextureImporter:
       name: Basic Charakter Actions_4
       rect:
         serializedVersion: 2
-        x: 7
-        y: 439
-        width: 34
-        height: 34
+        x: 8
+        y: 440
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: Basic Charakter Actions_5
       rect:
         serializedVersion: 2
-        x: 55
-        y: 439
-        width: 34
-        height: 34
+        x: 56
+        y: 440
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,10 +246,10 @@ TextureImporter:
       name: Basic Charakter Actions_6
       rect:
         serializedVersion: 2
-        x: 7
-        y: 391
-        width: 34
-        height: 34
+        x: 8
+        y: 392
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -267,10 +267,10 @@ TextureImporter:
       name: Basic Charakter Actions_7
       rect:
         serializedVersion: 2
-        x: 55
-        y: 391
-        width: 34
-        height: 34
+        x: 56
+        y: 392
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,10 +288,10 @@ TextureImporter:
       name: Basic Charakter Actions_8
       rect:
         serializedVersion: 2
-        x: 7
-        y: 343
-        width: 34
-        height: 34
+        x: 8
+        y: 296
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,10 +313,10 @@ TextureImporter:
       name: Basic Charakter Actions_9
       rect:
         serializedVersion: 2
-        x: 55
-        y: 343
-        width: 34
-        height: 34
+        x: 56
+        y: 346
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,10 +334,10 @@ TextureImporter:
       name: Basic Charakter Actions_10
       rect:
         serializedVersion: 2
-        x: 7
-        y: 295
-        width: 34
-        height: 34
+        x: 8
+        y: 346
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,10 +355,10 @@ TextureImporter:
       name: Basic Charakter Actions_11
       rect:
         serializedVersion: 2
-        x: 55
-        y: 295
-        width: 34
-        height: 34
+        x: 56
+        y: 296
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,10 +376,10 @@ TextureImporter:
       name: Basic Charakter Actions_12
       rect:
         serializedVersion: 2
-        x: 7
-        y: 247
-        width: 34
-        height: 34
+        x: 8
+        y: 248
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -397,10 +397,10 @@ TextureImporter:
       name: Basic Charakter Actions_13
       rect:
         serializedVersion: 2
-        x: 55
-        y: 247
-        width: 34
-        height: 34
+        x: 56
+        y: 248
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -418,10 +418,10 @@ TextureImporter:
       name: Basic Charakter Actions_14
       rect:
         serializedVersion: 2
-        x: 7
-        y: 199
-        width: 34
-        height: 34
+        x: 8
+        y: 200
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -439,10 +439,10 @@ TextureImporter:
       name: Basic Charakter Actions_15
       rect:
         serializedVersion: 2
-        x: 55
-        y: 199
-        width: 34
-        height: 34
+        x: 56
+        y: 200
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -460,10 +460,10 @@ TextureImporter:
       name: Basic Charakter Actions_16
       rect:
         serializedVersion: 2
-        x: 7
-        y: 151
-        width: 34
-        height: 34
+        x: 8
+        y: 152
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -481,10 +481,10 @@ TextureImporter:
       name: Basic Charakter Actions_17
       rect:
         serializedVersion: 2
-        x: 55
-        y: 151
-        width: 34
-        height: 34
+        x: 56
+        y: 152
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -502,10 +502,10 @@ TextureImporter:
       name: Basic Charakter Actions_18
       rect:
         serializedVersion: 2
-        x: 7
-        y: 103
-        width: 34
-        height: 34
+        x: 8
+        y: 104
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -523,10 +523,10 @@ TextureImporter:
       name: Basic Charakter Actions_19
       rect:
         serializedVersion: 2
-        x: 55
-        y: 103
-        width: 34
-        height: 34
+        x: 56
+        y: 104
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -544,10 +544,10 @@ TextureImporter:
       name: Basic Charakter Actions_20
       rect:
         serializedVersion: 2
-        x: 7
-        y: 55
-        width: 34
-        height: 34
+        x: 8
+        y: 56
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -565,10 +565,10 @@ TextureImporter:
       name: Basic Charakter Actions_21
       rect:
         serializedVersion: 2
-        x: 55
-        y: 55
-        width: 34
-        height: 34
+        x: 56
+        y: 56
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -586,10 +586,10 @@ TextureImporter:
       name: Basic Charakter Actions_22
       rect:
         serializedVersion: 2
-        x: 7
-        y: 7
-        width: 34
-        height: 34
+        x: 8
+        y: 8
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -607,10 +607,10 @@ TextureImporter:
       name: Basic Charakter Actions_23
       rect:
         serializedVersion: 2
-        x: 55
-        y: 7
-        width: 34
-        height: 34
+        x: 56
+        y: 8
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

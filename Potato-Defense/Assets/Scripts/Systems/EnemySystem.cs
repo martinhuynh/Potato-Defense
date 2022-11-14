@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class EnemySystem : MonoBehaviour
 {
-    [SerializeField] private GameObject[] enemies;
+    private Dictionary<GameObject, float> enemies;
 
     private Camera cam;
     private WaveProgressBarBehavior waveBar;
 
     private float spawnHeight, spawnWidth;
-    private bool inWave = true;
+    private bool inWave = false;
 
-    private float spawnSpeed = 10f;
+    private float spawnChance = 10f;
 
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
-        waveBar = GameObject.Find("WaveProgressBar").GetComponent<WaveProgressBarBehavior>();
+        waveBar = this.transform.parent.gameObject.GetComponentInChildren<WaveProgressBarBehavior>(true);
         spawnHeight = cam.orthographicSize;
         spawnWidth = spawnHeight * cam.aspect;
-        StartCoroutine(EnemySpawn());
     }
 
     // Update is called once per frame
@@ -30,15 +29,26 @@ public class EnemySystem : MonoBehaviour
         
     }
 
-    IEnumerator EnemySpawn()
+    public IEnumerator EnemySpawn()
     {
         while (inWave)
         {
-            GameObject enemy = enemies[Random.Range(0, enemies.Length)];
-
-            Vector3 spawnLocation = generateSpawnLocation();
-            Instantiate(enemy, spawnLocation, Quaternion.identity);
-            yield return new WaitForSeconds(generateWaitTime());
+            print("enemyspawn");
+            if (Random.Range(0, 100) < generateSpawnChance())
+            {
+                print("HIT: " + generateSpawnChance());
+                float weight = Random.Range(0, 100);
+                foreach (KeyValuePair<GameObject, float> enemy in enemies)
+                {
+                    if (weight <= enemy.Value)
+                    {
+                        Vector3 spawnLocation = generateSpawnLocation();
+                        Instantiate(enemy.Key, spawnLocation, Quaternion.identity);
+                        break;
+                    }
+                }
+            }
+            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -64,16 +74,34 @@ public class EnemySystem : MonoBehaviour
         return new Vector3(0, 0, 0);
     }
 
-    private float generateWaitTime()
+    private float generateSpawnChance()
     {
         if (waveBar.slider.value < 50f)
         {
-            return spawnSpeed - waveBar.slider.value / 25f;
+            return spawnChance + waveBar.slider.value / 2;
         }
         if (waveBar.slider.value < 75f)
         {
-            return spawnSpeed - waveBar.slider.value / 25f * 1.5f;
+            return (spawnChance + waveBar.slider.value / 2) * 1.5f;
         }
-        return spawnSpeed - waveBar.slider.value / 25f * 2f;
+        return (spawnChance + waveBar.slider.value / 2) * 2f;
+    }
+
+    public void setSpawnParameters(Wave wave)
+    {
+        spawnChance = wave.getSpawnChance();
+        enemies = wave.getEnemies();
+    }
+
+    public void startSpawn()
+    {
+        inWave = true;
+        StartCoroutine(EnemySpawn());
+    }
+
+    public void stopSpawn()
+    {
+        StopCoroutine(EnemySpawn());
+        inWave = false;
     }
 }

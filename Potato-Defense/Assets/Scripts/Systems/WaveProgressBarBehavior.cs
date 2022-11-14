@@ -15,6 +15,7 @@ public class WaveProgressBarBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -29,5 +30,16 @@ public class WaveProgressBarBehavior : MonoBehaviour
         if (slider.value >= 50f && slider.value < 75f) slider.fillRect.GetComponent<Image>().color = yellow;
         else if (slider.value >= 75f) slider.fillRect.GetComponent<Image>().color = red;
         else slider.fillRect.GetComponent<Image>().color = green;
+    }
+
+    public void resetWaveProgBar()
+    {
+        slider.value = 0;
+        gameObject.SetActive(false);
+    }
+
+    public void startWaveProgBar()
+    {
+        gameObject.SetActive(true);
     }
 }

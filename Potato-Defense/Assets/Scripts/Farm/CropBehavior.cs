@@ -12,7 +12,13 @@ public class CropBehavior : MonoBehaviour
     private Sprite stage_1, stage_2, stage_done;
 
     private Queue<Sprite> stages;
+
+    private WaveSystem waveSystem;
     // Start is called before the first frame update
+    private void Start()
+    {
+        waveSystem = GameObject.Find("WaveSystem").GetComponent<WaveSystem>();
+    }
     public void startGrowing(FarmManager fm, Vector3Int position, TileData tileData)
     {
         stages = new Queue<Sprite>();
@@ -39,6 +45,7 @@ public class CropBehavior : MonoBehaviour
             farmManager.destroyCrop(position); 
             Destroy(this.gameObject); 
             StopCoroutine(grow_crop());
+            waveSystem.decreaseLives();
             return false;
         }
         return true;

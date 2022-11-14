@@ -74,6 +74,7 @@ public class EnemyMovement : MonoBehaviour
                 onCrop = true;
                 initialPos = transform.position;
                 jumpPeak = initialPos + new Vector3(0, 0.4f);
+                nextJump = Time.time + 2f;
             }
         }
     }
@@ -100,26 +101,32 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector3 jumpPeak, initialPos;
     private bool reachedPeak = false;
+    private float nextJump;
     private void AttackCrop()
     {
         if (!reachedPeak)
         {
             transform.position = Vector3.MoveTowards(transform.position, jumpPeak, 1f * Time.smoothDeltaTime);
             if (transform.position == jumpPeak) reachedPeak = true;
-        } else
+        } 
+        else
         {
             transform.position = Vector3.MoveTowards(transform.position, initialPos, 2f * Time.smoothDeltaTime);
             if (transform.position == initialPos)
             {
-                if (farmManager.getCrops().ContainsKey(Vector3Int.FloorToInt(initialPos)))
+                if (Time.time >= nextJump)
                 {
-                    if (!crop.decrease(1)) onCrop = false;
-                    
-                } else
-                {
-                    onCrop = false;
+                    if (farmManager.getCrops().ContainsKey(Vector3Int.FloorToInt(initialPos)))
+                    {
+                        if (!crop.decrease(1)) onCrop = false;
+                    } 
+                    else
+                    {
+                        onCrop = false;
+                    }
+                    nextJump = Time.time + 2f;
+                    reachedPeak = false;
                 }
-                reachedPeak = false;
             }
         }
     }

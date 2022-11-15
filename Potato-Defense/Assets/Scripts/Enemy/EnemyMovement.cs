@@ -132,7 +132,6 @@ public class EnemyMovement : MonoBehaviour
         Vector3 pos = closestCrop.getPosition();
         pos.x = Mathf.Floor(pos.x) + 0.5f;
         pos.y = Mathf.Floor(pos.y) + 0.5f;
-        print(pos);
         return pos;
     }
 

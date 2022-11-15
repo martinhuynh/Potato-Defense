@@ -48,13 +48,13 @@ public class MenuManager : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            mShop.gameObject.SetActive(true);
-            escButton.gameObject.SetActive(false);
-            mButton.gameObject.SetActive(false);
-            IsInShop();
-        }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    mShop.gameObject.SetActive(true);
+        //    escButton.gameObject.SetActive(false);
+        //    mButton.gameObject.SetActive(false);
+        //    IsInShop();
+        //}
     }
 
     public void PauseGame()

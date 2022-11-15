@@ -84,6 +84,7 @@ public class WaveSystem : MonoBehaviour
         waveProgBar.resetWaveProgBar();
         enemySystem.stopSpawn();
         curWave++;
+        if (curWave == waves.Count) return;
         curTarget = ((Wave)waves[curWave]).getTarget();
         curLives = ((Wave)waves[curWave]).getLives();
     }

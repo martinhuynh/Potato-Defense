@@ -14,7 +14,7 @@ public class FenceBehavior : MonoBehaviour
     {
         this.gridPos = gridPos;
         this.itemManager = itemManager;
-        hp = 10;
+        hp = 20;
         Color temp = new Color(255, 255, 255, 0);
         up.GetComponent<SpriteRenderer>().color = temp;
         down.GetComponent<SpriteRenderer>().color = temp;
@@ -34,14 +34,17 @@ public class FenceBehavior : MonoBehaviour
         right.GetComponent<SpriteRenderer>().sortingOrder = order;
     }
 
-    public void decrease(int power)
+    public bool decrease(int power)
     {
         hp -= power;
         if (hp <= 0)
         {
             itemManager.remove(gridPos);
+            itemManager.updateLink(gridPos, this);
             Destroy(this.gameObject);
+            return false;
         }
+        return true;
     }
     // Start is called before the first frame update
     void Start()
@@ -83,7 +86,7 @@ public class FenceBehavior : MonoBehaviour
 
     public void disconnect(Fence link)
     {
-        Color temp = new Color(255, 255, 255, 0);
+        Color temp = new Color(255, 255, 255, 255);
         temp.a = 0;
         switch (link)
         {
@@ -101,6 +104,7 @@ public class FenceBehavior : MonoBehaviour
                 break;
         }
         UpdateOrder();
+
     }
 
 }

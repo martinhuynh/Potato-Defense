@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class CropBehavior : MonoBehaviour
 {
@@ -13,7 +14,11 @@ public class CropBehavior : MonoBehaviour
     private Farm state;
 
     private Queue<Sprite> stages;
-    // Start is called before the first frame update
+    private Tile plowed;
+
+    private WaveSystem waveSystem;
+    private Tilemap map;
+
     public void startGrowing(FarmManager fm, Vector3Int position, TileData tileData)
     {
         stages = new Queue<Sprite>();
@@ -30,6 +35,9 @@ public class CropBehavior : MonoBehaviour
 
     private void Start()
     {
+        waveSystem = GameObject.Find("WaveSystem").GetComponent<WaveSystem>();
+        map = GameObject.Find("Ground").GetComponent<Tilemap>();
+        plowed = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Tilesets/TilePalette/Dirt/Tilled Dirt_0.asset", typeof(Tile)) as Tile;
         harvest();
     }
 
@@ -50,10 +58,18 @@ public class CropBehavior : MonoBehaviour
         return state;
     }
 
-    public void decrease(int power)
+    public bool decrease(int power)
     {
         hp -= power;
-        if (hp <= 0) { Destroy(this); StopCoroutine(grow_crop()); }
+        if (hp <= 0) {
+            GetComponent<SpriteRenderer>().sprite = null;
+            state = Farm.PLOWED;
+            map.SetTile(position, plowed);
+            StopCoroutine(grow_crop());
+            waveSystem.decreaseLives();
+            return false;
+        }
+        return true;
     }
 
     public bool done()
@@ -75,8 +91,14 @@ public class CropBehavior : MonoBehaviour
             // Update sprite
             Sprite newSprite = stages.Dequeue();
             GetComponent<SpriteRenderer>().sprite = newSprite;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(10f);
         }
         state = Farm.DONE;
+    }
+
+    // Getters
+    public Vector3Int getPosition()
+    {
+        return position;
     }
 }

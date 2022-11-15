@@ -73,7 +73,7 @@ public class MenuManager : MonoBehaviour
 
         pauseMenu.gameObject.SetActive(false);
         escButton.gameObject.SetActive(true);
-        mButton.gameObject.SetActive(true);
+        //mButton.gameObject.SetActive(true);
     }
 
     public void IsInShop()

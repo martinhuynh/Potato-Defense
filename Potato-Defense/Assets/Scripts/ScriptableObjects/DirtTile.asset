@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b88ab3f69ad4e8f9cd51112babaf9e, type: 3}
+  m_Name: DirtTile
+  m_EditorClassIdentifier: 
+  state: 1
+  hp: 10
+  tiles:
+  - {fileID: 11400000, guid: baa928d2e97ff47499570e3a4551d622, type: 2}
+  - {fileID: 11400000, guid: 7ac712ee6ed0947e384a4563d8ca7308, type: 2}
+  destroyable: 0

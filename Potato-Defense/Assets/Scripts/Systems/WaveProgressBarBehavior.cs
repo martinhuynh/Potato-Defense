@@ -10,7 +10,7 @@ public class WaveProgressBarBehavior : MonoBehaviour
     public Color yellow;
     public Color red;
 
-    private float progressSpeed = 1f;
+    private float progressSpeed = 0.5f;
 
     // Start is called before the first frame update
     void Start()

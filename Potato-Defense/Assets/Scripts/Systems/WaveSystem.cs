@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaveSystem : MonoBehaviour
 {
     private EnemySystem enemySystem;
+    private WinLoseSystem winLoseSystem;
     private WaveProgressBarBehavior waveProgBar;
 
     private ArrayList waves;
@@ -12,7 +13,7 @@ public class WaveSystem : MonoBehaviour
     [SerializeField]
     private GameObject enemy;
 
-    private int curWave = -1;
+    private int curWave = 0;
     private bool inWave = false;
     private float gracePeriod = 10f, gracePeriodEnd;
 
@@ -23,16 +24,20 @@ public class WaveSystem : MonoBehaviour
     {
         enemySystem = GameObject.Find("EnemySystem").GetComponent<EnemySystem>();
         waveProgBar = GameObject.Find("WaveProgressBar").GetComponent<WaveProgressBarBehavior>();
+        winLoseSystem = GameObject.Find("WinLoseSystem").GetComponent<WinLoseSystem>();
 
         waves = new ArrayList();
         gracePeriodEnd = gracePeriod;
         
         // Wave 1
-        waves.Add(new Wave(10, 5, 7));
+        waves.Add(new Wave(10, 5, 30));
         ((Wave) waves[0]).getEnemies().Add(enemy, 100f);
         // Wave 2
-        waves.Add(new Wave(15, 5, 15));
+        waves.Add(new Wave(15, 5, 30));
         ((Wave)waves[1]).getEnemies().Add(enemy, 100f);
+
+        curTarget = ((Wave)waves[curWave]).getTarget();
+        curLives = ((Wave)waves[curWave]).getLives();
     }
 
     // Update is called once per frame
@@ -64,11 +69,8 @@ public class WaveSystem : MonoBehaviour
 
     private void StartWave()
     {
-        curWave++;
         inWave = true;
 
-        curTarget = ((Wave)waves[curWave]).getTarget();
-        curLives = ((Wave)waves[curWave]).getLives();
         waveProgBar.startWaveProgBar();
         
         enemySystem.setSpawnParameters((Wave)waves[curWave]);
@@ -81,22 +83,28 @@ public class WaveSystem : MonoBehaviour
         gracePeriodEnd = gracePeriod + Time.time;
         waveProgBar.resetWaveProgBar();
         enemySystem.stopSpawn();
+        curWave++;
+        curTarget = ((Wave)waves[curWave]).getTarget();
+        curLives = ((Wave)waves[curWave]).getLives();
     }
 
     private void WinWave()
     {
         StopWave();
-        if (curWave == waves.Count - 1) WinGame();
+        if (curWave == waves.Count) WinGame();
     }
 
     private void WinGame()
     {
-        print("WIN!");
+        winLoseSystem.Win();
+        Destroy(this.gameObject);
     }
 
     private void Lose()
     {
         StopWave();
+        winLoseSystem.Lose();
+        Destroy(this.gameObject);
     }
 
     public void decreaseLives()
@@ -124,5 +132,10 @@ public class WaveSystem : MonoBehaviour
     public bool isInWave()
     {
         return inWave;
+    }
+
+    public float getGracePeriodEnd()
+    {
+        return gracePeriodEnd;
     }
 }

@@ -46,7 +46,7 @@ public class EnemySystem : MonoBehaviour
                     }
                 }
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
@@ -76,13 +76,13 @@ public class EnemySystem : MonoBehaviour
     {
         if (waveBar.slider.value < 50f)
         {
-            return spawnChance + waveBar.slider.value / 2;
+            return spawnChance;
         }
         if (waveBar.slider.value < 75f)
         {
-            return (spawnChance + waveBar.slider.value / 2) * 1.5f;
+            return spawnChance * 1.5f;
         }
-        return (spawnChance + waveBar.slider.value / 2) * 2f;
+        return spawnChance * 2f;
     }
 
     public void setSpawnParameters(Wave wave)

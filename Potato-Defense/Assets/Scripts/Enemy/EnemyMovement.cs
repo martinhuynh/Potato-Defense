@@ -9,7 +9,7 @@ public class EnemyMovement : MonoBehaviour
 
     private Animator anim;
 
-    private float speed = 2f;
+    private float speed = 1f;
     private bool isMoving = false, isAttacking = false;
     private bool onCrop = false;
     private Vector3 movePoint, target;
@@ -132,6 +132,7 @@ public class EnemyMovement : MonoBehaviour
         Vector3 pos = closestCrop.getPosition();
         pos.x = Mathf.Floor(pos.x) + 0.5f;
         pos.y = Mathf.Floor(pos.y) + 0.5f;
+        print(pos);
         return pos;
     }
 

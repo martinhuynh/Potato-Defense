@@ -14,7 +14,7 @@ public class FenceBehavior : MonoBehaviour
     {
         this.gridPos = gridPos;
         this.itemManager = itemManager;
-        hp = 10;
+        hp = 20;
         Color temp = new Color(255, 255, 255, 0);
         up.GetComponent<SpriteRenderer>().color = temp;
         down.GetComponent<SpriteRenderer>().color = temp;

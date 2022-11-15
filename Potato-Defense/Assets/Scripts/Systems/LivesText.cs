@@ -23,13 +23,6 @@ public class LivesText : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (waveSystem.isInWave())
-        {
-            textMP.text = "Lives: " + waveSystem.getLives();
-        }
-        else
-        {
-            textMP.text = "";
-        }
+        textMP.text = "Lives: " + waveSystem.getLives();
     }
 }

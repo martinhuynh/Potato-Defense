@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class TargetText : MonoBehaviour
+public class WaveTimerText : MonoBehaviour
 {
     WaveSystem waveSystem;
     TMP_Text textMP;
@@ -23,6 +23,13 @@ public class TargetText : MonoBehaviour
 
     private void FixedUpdate()
     {
-        textMP.text = "Target Potatoes Left: " + waveSystem.getTarget();
+        if (!waveSystem.isInWave())
+        {
+            textMP.text = "Wave Starting in\n" + Mathf.Ceil(waveSystem.getGracePeriodEnd() - Time.time);
+        }
+        else
+        {
+            textMP.text = "";
+        }
     }
 }

@@ -91,6 +91,7 @@ public class CropBehavior : MonoBehaviour
             // Update sprite
             Sprite newSprite = stages.Dequeue();
             GetComponent<SpriteRenderer>().sprite = newSprite;
+            if (size - 1 == i) break;
             yield return new WaitForSeconds(10f);
         }
         state = Farm.DONE;

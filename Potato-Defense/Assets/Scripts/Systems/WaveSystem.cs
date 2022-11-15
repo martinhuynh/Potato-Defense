@@ -28,10 +28,10 @@ public class WaveSystem : MonoBehaviour
 
         waves = new ArrayList();
         gracePeriodEnd = gracePeriod;
-        
+
         // Wave 1
         waves.Add(new Wave(10, 5, 30));
-        ((Wave) waves[0]).getEnemies().Add(enemy, 100f);
+        ((Wave)waves[0]).getEnemies().Add(enemy, 100f);
         // Wave 2
         waves.Add(new Wave(15, 5, 30));
         ((Wave)waves[1]).getEnemies().Add(enemy, 100f);
@@ -55,12 +55,14 @@ public class WaveSystem : MonoBehaviour
             {
                 StartWave();
             }
-        } else
+        }
+        else
         {
             if (curLives <= 0)
             {
                 Lose();
-            } else if (curTarget <= 0)
+            }
+            else if (curTarget <= 0)
             {
                 WinWave();
             }
@@ -72,7 +74,7 @@ public class WaveSystem : MonoBehaviour
         inWave = true;
 
         waveProgBar.startWaveProgBar();
-        
+
         enemySystem.setSpawnParameters((Wave)waves[curWave]);
         enemySystem.startSpawn();
     }
@@ -84,6 +86,7 @@ public class WaveSystem : MonoBehaviour
         waveProgBar.resetWaveProgBar();
         enemySystem.stopSpawn();
         curWave++;
+        if (curWave == waves.Count) return;
         curTarget = ((Wave)waves[curWave]).getTarget();
         curLives = ((Wave)waves[curWave]).getLives();
     }

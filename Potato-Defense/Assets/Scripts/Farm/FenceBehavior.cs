@@ -99,21 +99,21 @@ public class FenceBehavior : MonoBehaviour
 
     public void disconnect(Fence link)
     {
-        Color temp = new Color(255, 255, 255, 255);
+        Color temp = new Color(255, 255, 255, 0);
         temp.a = 0;
         switch (link)
         {
             case Fence.UP:
-                up.GetComponent<SpriteRenderer>().color = opacity;
+                up.GetComponent<SpriteRenderer>().color = temp;
                 break;
             case Fence.DOWN:
-                down.GetComponent<SpriteRenderer>().color = opacity;
+                down.GetComponent<SpriteRenderer>().color = temp;
                 break;
             case Fence.RIGHT:
-                right.GetComponent<SpriteRenderer>().color = opacity;
+                right.GetComponent<SpriteRenderer>().color = temp;
                 break;
             case Fence.LEFT:
-                left.GetComponent<SpriteRenderer>().color = opacity;
+                left.GetComponent<SpriteRenderer>().color = temp;
                 break;
         }
         UpdateOrder();

@@ -15,6 +15,7 @@ public class CropBehavior : MonoBehaviour
     private Color opacity;
 
     private Queue<Sprite> stages;
+    [SerializeField]
     private Tile plowed;
 
     private WaveSystem waveSystem;
@@ -40,7 +41,7 @@ public class CropBehavior : MonoBehaviour
     {
         waveSystem = GameObject.Find("WaveSystem").GetComponent<WaveSystem>();
         map = GameObject.Find("Ground").GetComponent<Tilemap>();
-        plowed = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Tilesets/TilePalette/Dirt/Tilled Dirt_0.asset", typeof(Tile)) as Tile;
+        //plowed = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Tilesets/TilePalette/Dirt/Tilled Dirt_0.asset", typeof(Tile)) as Tile;
         harvest();
     }
 

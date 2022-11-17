@@ -83,6 +83,7 @@ public class CropBehavior : MonoBehaviour
             map.SetTile(position, plowed);
             StopCoroutine(grow_crop());
             waveSystem.decreaseLives();
+            
             return false;
         }
         return true;

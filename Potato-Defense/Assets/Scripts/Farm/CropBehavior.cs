@@ -8,10 +8,11 @@ public class CropBehavior : MonoBehaviour
     private Vector3Int position;
     private TileData tileData;
     private FarmManager farmManager;
-    private int hp;
+    private int hp, startHP;
     [SerializeField]
     private Sprite stage_1, stage_2, stage_done;
     private Farm state;
+    private Color opacity;
 
     private Queue<Sprite> stages;
     [SerializeField]
@@ -29,6 +30,8 @@ public class CropBehavior : MonoBehaviour
         farmManager = fm;
         this.tileData = tileData;
         hp = tileData.hp;
+        startHP = hp;
+        opacity = GetComponent<SpriteRenderer>().color;
         this.position = position;
         GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
         StartCoroutine(grow_crop());
@@ -45,6 +48,10 @@ public class CropBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            decrease(2);
+        }
     }
 
     public void harvest()
@@ -59,9 +66,16 @@ public class CropBehavior : MonoBehaviour
         return state;
     }
 
+    private void setOpacity(float alpha)
+    {
+        opacity.a = alpha;
+        GetComponent<SpriteRenderer>().color = opacity;
+    }
+
     public bool decrease(int power)
     {
         hp -= power;
+        setOpacity((float)hp / (float)startHP);
         if (hp <= 0) {
             GetComponent<SpriteRenderer>().sprite = null;
             state = Farm.PLOWED;
@@ -92,6 +106,7 @@ public class CropBehavior : MonoBehaviour
             // Update sprite
             Sprite newSprite = stages.Dequeue();
             GetComponent<SpriteRenderer>().sprite = newSprite;
+            GetComponent<SpriteRenderer>().color = opacity;
             if (size - 1 == i) break;
             yield return new WaitForSeconds(10f);
         }

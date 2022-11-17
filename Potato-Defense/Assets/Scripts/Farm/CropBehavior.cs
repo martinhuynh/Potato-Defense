@@ -32,6 +32,7 @@ public class CropBehavior : MonoBehaviour
         hp = tileData.hp;
         startHP = hp;
         opacity = GetComponent<SpriteRenderer>().color;
+        opacity.a = 1f;
         this.position = position;
         GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
         StartCoroutine(grow_crop());

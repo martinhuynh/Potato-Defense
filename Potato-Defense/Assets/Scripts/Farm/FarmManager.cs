@@ -41,6 +41,11 @@ public class FarmManager : MonoBehaviour
 
     public bool isAvailable(Vector3Int pos)
     {
+        return !crops.ContainsKey(pos);
+    }
+
+    public bool isOnlyPlowed(Vector3Int pos)
+    {
         return !crops.ContainsKey(pos) || crops[pos].getState() != Farm.GROWING && crops[pos].getState() != Farm.DONE;
     }
 

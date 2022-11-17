@@ -62,7 +62,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void upgradeFarming()
     {
-        if (skillPoint > 0 && farmingLevel < 4)
+        if (skillPoint > 0 && farmingLevel < 3)
         {
             farmingSpeed += 0.5f;
             skillPoint -= 1;
@@ -72,7 +72,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void upgradeAttacking()
     {
-        if (skillPoint > 0 && attackLevel < 4)
+        if (skillPoint > 0 && attackLevel < 3)
         {
             attackPower += 0.5f;
             skillPoint -= 1;
@@ -83,7 +83,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void upgradeCarpenter()
     {
-        if (skillPoint > 0 && carpenterLevel < 4)
+        if (skillPoint > 0 && carpenterLevel < 3)
         {
             carpenterSkill += 0.5f;
             skillPoint -= 1;

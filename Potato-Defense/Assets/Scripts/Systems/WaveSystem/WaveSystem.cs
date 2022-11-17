@@ -141,4 +141,9 @@ public class WaveSystem : MonoBehaviour
     {
         return gracePeriodEnd;
     }
+
+    public int getWavesLeft()
+    {
+        return waves.Count - curWave;
+    }
 }

@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
 
 
 public class MenuManager : MonoBehaviour
 {
     public PauseMenu pauseMenu;
     public aButton escButton;
-    /*public aButton mButton;
+    public aButton mButton;
     public aShop mShop;
-    */
+
     public static bool gameIsPaused = false;
     public static bool inShop = false; 
     /*to decided whether should suspend Escape key
@@ -32,9 +33,9 @@ public class MenuManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                /* pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
-                 escButton.gameObject.SetActive(!escButton.gameObject.activeSelf);
-                 mButton.gameObject.SetActive(!mButton.gameObject.activeSelf);*/
+                pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
+                escButton.gameObject.SetActive(!escButton.gameObject.activeSelf);
+                mButton.gameObject.SetActive(!mButton.gameObject.activeSelf);
                 //put display button and pause menu job to PauseGame and ResumeGame functions
 
                 if (gameIsPaused == false)
@@ -47,14 +48,27 @@ public class MenuManager : MonoBehaviour
                 }
             }
         }
-        
-        //if (Input.GetKeyDown(KeyCode.M))
-        //{
-        //    mShop.gameObject.SetActive(true);
-        //    escButton.gameObject.SetActive(false);
-        //    mButton.gameObject.SetActive(false);
-        //    IsInShop();
-        //}
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+
+            if(inShop == false)
+            {
+                mShop.gameObject.SetActive(true);
+                escButton.gameObject.SetActive(false);
+                mButton.gameObject.SetActive(false);
+                IsInShop();
+            }
+            else
+            {
+                mShop.gameObject.SetActive(false);
+                escButton.gameObject.SetActive(true);
+                mButton.gameObject.SetActive(true);
+                NotInShop();
+            }
+
+           
+        }
     }
 
     public void PauseGame()
@@ -64,7 +78,7 @@ public class MenuManager : MonoBehaviour
 
         pauseMenu.gameObject.SetActive(true);
         escButton.gameObject.SetActive(false);
-       // mButton.gameObject.SetActive(false);
+        mButton.gameObject.SetActive(false);
     }
     public void ResumeGame()
     {
@@ -73,7 +87,7 @@ public class MenuManager : MonoBehaviour
 
         pauseMenu.gameObject.SetActive(false);
         escButton.gameObject.SetActive(true);
-        //mButton.gameObject.SetActive(true);
+        mButton.gameObject.SetActive(true);
     }
 
     public void IsInShop()
@@ -85,4 +99,9 @@ public class MenuManager : MonoBehaviour
         inShop = false;
     }
 
+    public void restartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+    }
 }

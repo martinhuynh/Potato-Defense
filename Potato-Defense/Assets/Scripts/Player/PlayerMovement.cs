@@ -127,6 +127,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3 pos = transform.position;
         Farm state = farmManager.getState(pos);
         float duration = 2f;
+        if (mapManager.isItem(pos))
+        {
+            actionQueue.RemoveFirst();
+            idle = true;
+            yield break;
+        }
         //Debug.Log(state);
         switch (state)
         {

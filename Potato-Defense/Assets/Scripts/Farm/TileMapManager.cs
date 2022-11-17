@@ -56,6 +56,12 @@ public class TileMapManager : MonoBehaviour
         return itemManager.isAvailable(gridPos) == true && farmManager.isAvailable(gridPos);
     }
 
+    public bool isItem(Vector3 pos)
+    {
+        Vector3Int gridPos = groundMap.WorldToCell(pos);
+        return !itemManager.isAvailable(gridPos);
+    }
+
     public bool isOnlyPlowed(Vector3 pos)
     {
         Vector3Int gridPos = groundMap.WorldToCell(pos);

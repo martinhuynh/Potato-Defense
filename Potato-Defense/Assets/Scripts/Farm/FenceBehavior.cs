@@ -6,21 +6,29 @@ public class FenceBehavior : MonoBehaviour
 {
     [SerializeField]
     private GameObject up, down, left, right;
-    private int hp;
+    private int hp, startHP;
     private Vector3Int gridPos;
     private ItemManager itemManager;
+    private Color opacity;
 
     public void start(Vector3Int gridPos, ItemManager itemManager)
     {
         this.gridPos = gridPos;
         this.itemManager = itemManager;
-        hp = 10;
+        hp = 20;
+        startHP = hp;
+        opacity = GetComponent<SpriteRenderer>().color;
         Color temp = new Color(255, 255, 255, 0);
         up.GetComponent<SpriteRenderer>().color = temp;
         down.GetComponent<SpriteRenderer>().color = temp;
         right.GetComponent<SpriteRenderer>().color = temp;
         left.GetComponent<SpriteRenderer>().color = temp;
 
+        UpdateOrder();
+    }
+
+    public void UpdateOrder()
+    {
         int order = (int)(-100 * transform.position.y);
         GetComponent<SpriteRenderer>().sortingOrder = order;
         up.GetComponent<SpriteRenderer>().sortingOrder = order;
@@ -29,14 +37,29 @@ public class FenceBehavior : MonoBehaviour
         right.GetComponent<SpriteRenderer>().sortingOrder = order;
     }
 
-    public void decrease(int power)
+    private void setOpacity(float alpha)
+    {
+        opacity.a = alpha;
+        GetComponent<SpriteRenderer>().color = opacity;
+        if (up.GetComponent<SpriteRenderer>().color.a != 0) up.GetComponent<SpriteRenderer>().color = opacity;
+        if (down.GetComponent<SpriteRenderer>().color.a != 0) down.GetComponent<SpriteRenderer>().color = opacity;
+        if (right.GetComponent<SpriteRenderer>().color.a != 0) right.GetComponent<SpriteRenderer>().color = opacity;
+        if (left.GetComponent<SpriteRenderer>().color.a != 0) left.GetComponent<SpriteRenderer>().color = opacity;
+    }
+
+    public bool decrease(int power)
     {
         hp -= power;
+        float opacity = (float)hp / (float)startHP;
+        setOpacity(opacity);
         if (hp <= 0)
         {
             itemManager.remove(gridPos);
+            itemManager.updateLink(gridPos, this);
             Destroy(this.gameObject);
+            return false;
         }
+        return true;
     }
     // Start is called before the first frame update
     void Start()
@@ -48,31 +71,29 @@ public class FenceBehavior : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
-            Debug.Log("Enter");
+            //Debug.Log("Enter");
             decrease(5);
         }
     }
 
     public void connect(Fence link)
     {
-        Color temp = new Color(255, 255, 255, 255);
-        temp.a = 255;
         switch (link)
         {
             case Fence.UP:
-                up.GetComponent<SpriteRenderer>().color = temp;
+                up.GetComponent<SpriteRenderer>().color = opacity;
                 break;
             case Fence.DOWN:
-                down.GetComponent<SpriteRenderer>().color = temp;
+                down.GetComponent<SpriteRenderer>().color = opacity;
                 break;
             case Fence.RIGHT:
-                right.GetComponent<SpriteRenderer>().color = temp;
+                right.GetComponent<SpriteRenderer>().color = opacity;
                 break;
             case Fence.LEFT:
-                left.GetComponent<SpriteRenderer>().color = temp;
+                left.GetComponent<SpriteRenderer>().color = opacity;
                 break;
         }
-        GetComponent<SpriteRenderer>().sortingOrder = (int)(-100 * transform.position.y);
+        UpdateOrder();
 
     }
 
@@ -95,6 +116,8 @@ public class FenceBehavior : MonoBehaviour
                 left.GetComponent<SpriteRenderer>().color = temp;
                 break;
         }
+        UpdateOrder();
+
     }
 
 }

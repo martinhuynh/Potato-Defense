@@ -21,11 +21,12 @@ public class PlayerMovement : MonoBehaviour
 
     // Input queue
     private LinkedList<IEnumerator> actionQueue = new LinkedList<IEnumerator>();
+    private bool fence = false, farm = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -37,46 +38,48 @@ public class PlayerMovement : MonoBehaviour
         IEnumerator newAction = null;
         if (Input.GetKeyDown(KeyCode.J))
         {
-            //newAction = new KeyValuePair<Action, float>(Action.FARM, 1f);
-            newAction = farm();
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            newAction = move(Action.UP);
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            newAction = move(Action.LEFT);
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            newAction = move(Action.DOWN);
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            newAction = move(Action.RIGHT);
+            newAction = farmAction();
         }
         else if (Input.GetKeyDown(KeyCode.H))
         {
             // Should go to what item is selected (7,8,9,0) and place it.
-            if (HotbarManager.selected.type == ItemEnum.FENCE)
-            {
-                newAction = placeFence();
-            } else
-                return;
+            fence = true;
+            return;
+        }
+        else if (Input.GetKeyUp(KeyCode.H))
+        {
+            fence = false;
+            return;
         }
         else if (Input.GetKeyDown(KeyCode.K))
         {
-            if (actionQueue.Count != 0) return;
             newAction = attack();
+            if (actionQueue.Count == 1) actionQueue.RemoveLast();
+            actionQueue.AddLast(newAction);
+            return;
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            newAction = move(Action.UP);
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            newAction = move(Action.LEFT);
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            newAction = move(Action.DOWN);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            newAction = move(Action.RIGHT);
         }
         else
         {
             return;
         }
-
         // At most have next input queued.
-        if (actionQueue.Count == 2) actionQueue.RemoveLast();
+        if (actionQueue.Count == 1) actionQueue.RemoveLast();
         actionQueue.AddLast(newAction);
     }
 
@@ -125,12 +128,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public IEnumerator farm()
+    public IEnumerator farmAction()
     {
         idle = false;
         Vector3 pos = transform.position;
         Farm state = farmManager.getState(pos);
         float duration = 2f;
+        if (mapManager.isItem(pos))
+        {
+            actionQueue.RemoveFirst();
+            idle = true;
+            yield break;
+        }
         //Debug.Log(state);
         switch (state)
         {
@@ -138,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
                 UpdateAnimation(Action.FARM);
                 while (duration > 0)
                 {
-                    float elapsed = PlayerStats.movementSpeed * Time.fixedDeltaTime;
+                    float elapsed = PlayerStats.farmingSpeed * Time.fixedDeltaTime;
                     duration -= elapsed;
                     yield return new WaitForFixedUpdate();
                 }
@@ -151,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
                 UpdateAnimation(Action.FARM);
                 while (duration > 0)
                 {
-                    float elapsed = PlayerStats.movementSpeed * Time.fixedDeltaTime;
+                    float elapsed = PlayerStats.farmingSpeed * Time.fixedDeltaTime;
                     duration -= elapsed;
                     yield return new WaitForFixedUpdate();
                 }
@@ -163,26 +172,60 @@ public class PlayerMovement : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator placeFence()
+    public void placeFence()
     {
-        idle = false;
         itemManager.place(transform.position);
-        actionQueue.RemoveFirst();
-        idle = true;
-        yield break;
     }
 
     public IEnumerator move(Action direction)
     {
         idle = false;
-        UpdateAnimation(direction);
-        float distance = 1f;
         Vector3 pos = transform.position;
+        float distance = 1f;
+        bool jumpable = mapManager.jumpable(pos, direction);
+        if (jumpable)
+        {
+            distance = 2f;
+        }
+        else if (!mapManager.onFenceValid(pos, direction))
+        {
+            actionQueue.RemoveFirst();
+            idle = true;
+            yield break;
+        }
+        UpdateAnimation(direction);
+
+
+        float jumped = 0f;
         while (distance > 0)
         {
             float toMove = PlayerStats.movementSpeed * Time.fixedDeltaTime;
+            //float toMove_y = Time.fixedDeltaTime;
+            if (toMove >= distance)
+            {
+                toMove = distance;
+            }
             distance -= toMove;
-            if (distance < 0) toMove = 0;
+            int orderLayer = (int)(-100 * transform.position.y);
+
+            if (jumpable)
+            {
+                float jumpAmount = 2 * Mathf.Cos(distance - 1) * Time.fixedDeltaTime;
+                if (distance < 1.4 && distance > 1)
+                {
+                    orderLayer -= (direction == Action.UP) ? -50 : 0;
+                    pos.y += jumpAmount;
+                    jumped += jumpAmount;
+                }
+                else if (distance > 0.6 && distance < 1)
+                {
+                    orderLayer += (direction == Action.DOWN) ? 50 : 0;
+                    pos.y -= jumpAmount;
+                    jumped -= jumpAmount;
+                }
+            }
+            GetComponent<Renderer>().sortingOrder = orderLayer;
+            if (distance == 0) pos.y -= jumped;
             switch (direction)
             {
                 case Action.RIGHT:
@@ -214,6 +257,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(actionQueue.First.Value);
         }
         else if (idle) UpdateAnimation(Action.STILL);
+        if (fence) placeFence();
     }
 
 
@@ -226,6 +270,11 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("Down", action == Action.DOWN);
         animator.SetBool("Attack", action == Action.ATTACK);
         animator.SetBool("Idle", action == Action.IDLE);
-        animator.speed = PlayerStats.movementSpeed;
+        if (action == Action.FARM)
+        {
+            animator.speed = 1 + ((PlayerStats.farmingSpeed - 1) / 2);
+        }
+        else
+            animator.speed = PlayerStats.movementSpeed;
     }
 }

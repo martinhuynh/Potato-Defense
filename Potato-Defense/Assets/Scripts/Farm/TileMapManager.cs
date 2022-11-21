@@ -35,10 +35,37 @@ public class TileMapManager : MonoBehaviour
         }
     }
 
+    // Check if theres a fence in that direction and that the tile after it is not a fence.
+    // Also player is not on a fence.
+    public bool jumpable(Vector3 pos, Action direction)
+    {
+        Vector3Int temp = getNewPosition(pos, direction);
+        return !itemManager.isAvailable(temp) && itemManager.isAvailable(getNewPosition(temp, direction));
+    }
+
+    // Used to check if the player is on a fence, only allow the player to move on a free tile.
+    public bool onFenceValid(Vector3 pos, Action direction)
+    {
+        Vector3Int temp = getNewPosition(pos, direction);
+        return itemManager.isAvailable(temp);
+    }
+
     public bool isAvailable(Vector3 pos, Action direction)
     {
         Vector3Int gridPos = getNewPosition(pos, direction);
         return itemManager.isAvailable(gridPos) == true && farmManager.isAvailable(gridPos);
+    }
+
+    public bool isItem(Vector3 pos)
+    {
+        Vector3Int gridPos = groundMap.WorldToCell(pos);
+        return !itemManager.isAvailable(gridPos);
+    }
+
+    public bool isOnlyPlowed(Vector3 pos)
+    {
+        Vector3Int gridPos = groundMap.WorldToCell(pos);
+        return itemManager.isAvailable(gridPos) == true && farmManager.isOnlyPlowed(gridPos);
     }
 
     public bool isAvailable(Vector3 pos)

@@ -101,6 +101,7 @@ MonoBehaviour:
   stage_1: {fileID: 204676377, guid: 96bff1fd0dd0f49a4a1c1d71fb2e1c07, type: 3}
   stage_2: {fileID: 514959037, guid: 808cfeb489c5b45168b20724589db992, type: 3}
   stage_done: {fileID: -1069676926, guid: b10a6040d374e456aa6f28853525b1d2, type: 3}
+  plowed: {fileID: 11400000, guid: baa928d2e97ff47499570e3a4551d622, type: 2}
 --- !u!50 &2325154214206980299
 Rigidbody2D:
   serializedVersion: 4

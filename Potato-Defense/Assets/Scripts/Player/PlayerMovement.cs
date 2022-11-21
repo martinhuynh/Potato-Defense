@@ -21,11 +21,12 @@ public class PlayerMovement : MonoBehaviour
 
     // Input queue
     private LinkedList<IEnumerator> actionQueue = new LinkedList<IEnumerator>();
+    private bool fence = false, farm = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -37,42 +38,48 @@ public class PlayerMovement : MonoBehaviour
         IEnumerator newAction = null;
         if (Input.GetKeyDown(KeyCode.J))
         {
-            //newAction = new KeyValuePair<Action, float>(Action.FARM, 1f);
-            newAction = farm();
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            newAction = move(Action.UP);
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            newAction = move(Action.LEFT);
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            newAction = move(Action.DOWN);
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            newAction = move(Action.RIGHT);
+            newAction = farmAction();
         }
         else if (Input.GetKeyDown(KeyCode.H))
         {
             // Should go to what item is selected (7,8,9,0) and place it.
-            newAction = placeFence();
+            fence = true;
+            return;
+        }
+        else if (Input.GetKeyUp(KeyCode.H))
+        {
+            fence = false;
+            return;
         }
         else if (Input.GetKeyDown(KeyCode.K))
         {
-            if (actionQueue.Count != 0) return;
             newAction = attack();
+            if (actionQueue.Count == 1) actionQueue.RemoveLast();
+            actionQueue.AddLast(newAction);
+            return;
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            newAction = move(Action.UP);
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            newAction = move(Action.LEFT);
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            newAction = move(Action.DOWN);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            newAction = move(Action.RIGHT);
         }
         else
         {
             return;
         }
-
         // At most have next input queued.
-        if (actionQueue.Count == 2) actionQueue.RemoveLast();
+        if (actionQueue.Count == 1) actionQueue.RemoveLast();
         actionQueue.AddLast(newAction);
     }
 
@@ -121,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public IEnumerator farm()
+    public IEnumerator farmAction()
     {
         idle = false;
         Vector3 pos = transform.position;
@@ -165,13 +172,9 @@ public class PlayerMovement : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator placeFence()
+    public void placeFence()
     {
-        idle = false;
         itemManager.place(transform.position);
-        actionQueue.RemoveFirst();
-        idle = true;
-        yield break;
     }
 
     public IEnumerator move(Action direction)
@@ -254,6 +257,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(actionQueue.First.Value);
         }
         else if (idle) UpdateAnimation(Action.STILL);
+        if (fence) placeFence();
     }
 
 

@@ -12,7 +12,9 @@ public class EnemySystem : MonoBehaviour
     private float spawnHeight, spawnWidth;
     private bool inWave = false;
 
-    private float spawnChance = 10f;
+    private float spawnChanceDecrease = 25f;
+    private float spawnCooldownRangeLow = 7f;
+    private float spawnCooldownRangeHigh = 15f;
 
     // Start is called before the first frame update
     void Start()
@@ -33,26 +35,38 @@ public class EnemySystem : MonoBehaviour
     {
         while (inWave)
         {
-            if (Random.Range(0, 100) < generateSpawnChance())
+            float spawnChance = 100f;
+            Queue<GameObject> enemiesToSpawn = new Queue<GameObject>() { };
+            int spawnSide = Random.Range(0, 4); // North, East, South, West
+            while (Random.Range(0, 100) < spawnChance)
             {
                 float weight = Random.Range(0, 100);
                 foreach (KeyValuePair<GameObject, float> enemy in enemies)
                 {
                     if (weight <= enemy.Value)
                     {
-                        Vector3 spawnLocation = generateSpawnLocation();
-                        Instantiate(enemy.Key, spawnLocation, Quaternion.identity);
+                        enemiesToSpawn.Enqueue(enemy.Key);
                         break;
                     }
                 }
+                spawnChance -= generateSpawnChanceDecrease();
             }
-            yield return new WaitForSeconds(3f);
+            StartCoroutine(Spawn(spawnSide, enemiesToSpawn));
+            yield return new WaitForSeconds(Random.Range(spawnCooldownRangeLow, spawnCooldownRangeHigh));
         }
     }
 
-    private Vector3 generateSpawnLocation()
+    public IEnumerator Spawn(int spawnSide, Queue<GameObject> enemiesToSpawn)
     {
-        int spawnSide = Random.Range(0, 4); // North, East, South, West
+        while(enemiesToSpawn.Count != 0)
+        {
+            Instantiate(enemiesToSpawn.Dequeue(), generateSpawnLocation(spawnSide), transform.rotation);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    private Vector3 generateSpawnLocation(int spawnSide)
+    {
         if (spawnSide == 0)
         {
             return new Vector3(Mathf.Floor(Random.Range(-spawnWidth, spawnWidth)) + 0.5f, Mathf.Floor(spawnHeight + 1) + 0.5f, 0);
@@ -72,22 +86,22 @@ public class EnemySystem : MonoBehaviour
         return new Vector3(0, 0, 0);
     }
 
-    private float generateSpawnChance()
+    private float generateSpawnChanceDecrease()
     {
         if (waveBar.slider.value < 50f)
         {
-            return spawnChance;
+            return spawnChanceDecrease;
         }
         if (waveBar.slider.value < 75f)
         {
-            return spawnChance * 1.5f;
+            return spawnChanceDecrease / 2f;
         }
-        return spawnChance * 2f;
+        return spawnChanceDecrease / 4f;
     }
 
     public void setSpawnParameters(Wave wave)
     {
-        spawnChance = wave.getSpawnChance();
+        spawnChanceDecrease = wave.getSpawnChanceDecrease();
         enemies = wave.getEnemies();
     }
 

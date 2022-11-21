@@ -12,7 +12,7 @@ public class PlayerStats : MonoBehaviour
     public static float carpenterSkill = 1.0f;
     
     //skill points should get from PlayerMovement.cs
-    public int skillPoint = 6;
+    public static int skillPoint = 3;
 
     //counter for how many upgrade player has clicked
     //indicator for minus functions and changing progress bars' assets

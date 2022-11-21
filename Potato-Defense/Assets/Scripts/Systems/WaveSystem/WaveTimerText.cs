@@ -25,7 +25,8 @@ public class WaveTimerText : MonoBehaviour
     {
         if (!waveSystem.isInWave())
         {
-            textMP.text = "Wave Starting in\n" + Mathf.Ceil(waveSystem.getGracePeriodEnd() - Time.time);
+            textMP.text = "Wave Starting in " + Mathf.Ceil(waveSystem.getGracePeriodEnd() - Time.time) +
+                "\n \n +3 Skill points!\n Open shop to use!";
         }
         else
         {

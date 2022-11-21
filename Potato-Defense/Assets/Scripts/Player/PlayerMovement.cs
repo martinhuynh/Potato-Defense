@@ -181,6 +181,12 @@ public class PlayerMovement : MonoBehaviour
     {
         idle = false;
         Vector3 pos = transform.position;
+        if (!mapManager.isGround(pos, direction))
+        {
+            idle = true;
+            actionQueue.RemoveFirst();
+            yield break;
+        }
         float distance = 1f;
         bool jumpable = mapManager.jumpable(pos, direction);
         if (jumpable)

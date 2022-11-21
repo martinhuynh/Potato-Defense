@@ -43,12 +43,12 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.H))
         {
             // Should go to what item is selected (7,8,9,0) and place it.
-            fence = true;
+            if (HotbarManager.selected.type == ItemEnum.FENCE) fence = true;
             return;
         }
         else if (Input.GetKeyUp(KeyCode.H))
         {
-            fence = false;
+            if (HotbarManager.selected.type == ItemEnum.FENCE) fence = false;
             return;
         }
         else if (Input.GetKeyDown(KeyCode.K))

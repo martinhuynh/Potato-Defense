@@ -39,7 +39,7 @@ public class TileMapManager : MonoBehaviour
     {
         Vector3Int gridPos = getNewPosition(pos, direction);
         TileData tileData = GetTileData(gridPos);
-        return (tileData != null) && (tileData.state == TileType.GRASS);
+        return (tileData != null);
     }
 
     // Check if theres a fence in that direction and that the tile after it is not a fence.

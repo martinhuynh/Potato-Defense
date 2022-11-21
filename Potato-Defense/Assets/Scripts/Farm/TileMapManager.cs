@@ -40,7 +40,7 @@ public class TileMapManager : MonoBehaviour
     public bool jumpable(Vector3 pos, Action direction)
     {
         Vector3Int temp = getNewPosition(pos, direction);
-        return !itemManager.isAvailable(temp) && itemManager.isAvailable(getNewPosition(temp, direction)) && itemManager.isAvailable(groundMap.WorldToCell(pos));
+        return !itemManager.isAvailable(temp) && itemManager.isAvailable(getNewPosition(temp, direction));
     }
 
     // Used to check if the player is on a fence, only allow the player to move on a free tile.

@@ -40,13 +40,13 @@ public class PlayerMovement : MonoBehaviour
         {
             newAction = farmAction();
         }
-        else if (Input.GetKeyDown(KeyCode.H))
+        else if (Input.GetKeyDown(KeyCode.I))
         {
             // Should go to what item is selected (7,8,9,0) and place it.
             if (HotbarManager.selected.type == ItemEnum.FENCE) fence = true;
             return;
         }
-        else if (Input.GetKeyUp(KeyCode.H))
+        else if (Input.GetKeyUp(KeyCode.I))
         {
             if (HotbarManager.selected.type == ItemEnum.FENCE) fence = false;
             return;

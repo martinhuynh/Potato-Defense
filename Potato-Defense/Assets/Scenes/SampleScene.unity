@@ -12610,7 +12610,7 @@ GameObject:
   - component: {fileID: 1427511581}
   - component: {fileID: 1427511580}
   m_Layer: 5
-  m_Name: Instruction
+  m_Name: Keys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12658,19 +12658,19 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Keys:
 
-    H: Fence
+    I: Use
 
     J: Plow/Plant/Harvest
 
     K: Attack
 
-    M:
-    Shop
+    M: Shop
 
-    ESC: Pause Menu'
+    ESC:
+    Pause Menu'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12700,7 +12700,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535

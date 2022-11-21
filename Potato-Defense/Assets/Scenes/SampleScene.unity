@@ -11628,8 +11628,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Win: Harvest the target amount of potatoes.\n\nLose condition: Lives is
     how many crops enemies \ncould destroy before you lose.\n\nFarming: To plow,
-    hit J. To plant hit J on a plowed \ntile. To harvest, hit J when crop is done.\n\nDefense:
-    Build fences around the crops."
+    hit i. To plant hit i again. To harvest hit i again.\n\nDefense: Build fences
+    around the crops."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

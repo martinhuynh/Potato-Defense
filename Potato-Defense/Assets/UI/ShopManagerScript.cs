@@ -20,6 +20,7 @@ public class ShopManagerScript : MonoBehaviour
     void Start()
     {
         CoinsTXT.text = "Coins:" + coins.ToString();
+        PlayerStats.restart();
         
         //Item ID's
         shopItems[1, 1] = 1;

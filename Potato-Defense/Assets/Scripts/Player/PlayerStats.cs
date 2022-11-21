@@ -47,6 +47,11 @@ public class PlayerStats : MonoBehaviour
     {
     }
 
+    public void addSkillPoints(int pointsEarned)
+    {
+        skillPoint += pointsEarned;
+    }
+
     //upgrading functions, put these funciton onto the buttons
     //need to have if statement to check for skillpoints
     public void upgradeMoving()

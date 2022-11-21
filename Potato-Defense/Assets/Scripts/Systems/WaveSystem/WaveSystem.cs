@@ -7,6 +7,7 @@ public class WaveSystem : MonoBehaviour
     private EnemySystem enemySystem;
     private WinLoseSystem winLoseSystem;
     private WaveProgressBarBehavior waveProgBar;
+    private PlayerStats playerStats;
 
     private ArrayList waves;
 
@@ -25,12 +26,13 @@ public class WaveSystem : MonoBehaviour
         enemySystem = GameObject.Find("EnemySystem").GetComponent<EnemySystem>();
         waveProgBar = GameObject.Find("WaveProgressBar").GetComponent<WaveProgressBarBehavior>();
         winLoseSystem = GameObject.Find("WinLoseSystem").GetComponent<WinLoseSystem>();
+        playerStats = GameObject.Find("PlayerStatsObject").GetComponent<PlayerStats>();
 
         waves = new ArrayList();
         gracePeriodEnd = gracePeriod;
 
         // Wave 1
-        waves.Add(new Wave(10, 5, 30));
+        waves.Add(new Wave(10, 5, 25));
         ((Wave)waves[0]).getEnemies().Add(enemy, 100f);
         // Wave 2
         waves.Add(new Wave(15, 5, 30));
@@ -94,6 +96,7 @@ public class WaveSystem : MonoBehaviour
     private void WinWave()
     {
         StopWave();
+        playerStats.addSkillPoints(3);
         if (curWave == waves.Count) WinGame();
     }
 

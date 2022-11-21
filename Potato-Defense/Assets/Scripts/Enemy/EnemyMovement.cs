@@ -10,6 +10,7 @@ public class EnemyMovement : MonoBehaviour
     private Animator anim;
 
     private float speed = 1f;
+    private int attackPower = 5;
     private bool isMoving = false, isAttacking = false;
     private bool onCrop = false;
     private Vector3 movePoint, target;
@@ -154,7 +155,7 @@ public class EnemyMovement : MonoBehaviour
                 {
                     if (crop.getState() == Farm.GROWING || crop.getState() == Farm.DONE)
                     {
-                        if (!crop.decrease(1)) onCrop = false;
+                        if (!crop.decrease(attackPower)) onCrop = false;
                     } 
                     else
                     {
@@ -178,7 +179,7 @@ public class EnemyMovement : MonoBehaviour
             if (transform.position == AttackPeak) {
                 if (itemManager.containsFence(targetFence))
                 {
-                    if (!targetFence.decrease(2))
+                    if (!targetFence.decrease(attackPower / 2))
                     {
                         fenceDestroyed = true;
                     }

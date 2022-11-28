@@ -40,15 +40,15 @@ public class PlayerMovement : MonoBehaviour
         {
             newAction = farmAction();
         }
-        else if (Input.GetKeyDown(KeyCode.H))
+        else if (Input.GetKeyDown(KeyCode.I))
         {
             // Should go to what item is selected (7,8,9,0) and place it.
-            fence = true;
+            if (HotbarManager.selected.type == ItemEnum.FENCE) fence = true;
             return;
         }
-        else if (Input.GetKeyUp(KeyCode.H))
+        else if (Input.GetKeyUp(KeyCode.I))
         {
-            fence = false;
+            if (HotbarManager.selected.type == ItemEnum.FENCE) fence = false;
             return;
         }
         else if (Input.GetKeyDown(KeyCode.K))
@@ -181,6 +181,12 @@ public class PlayerMovement : MonoBehaviour
     {
         idle = false;
         Vector3 pos = transform.position;
+        if (!mapManager.isGround(pos, direction))
+        {
+            idle = true;
+            actionQueue.RemoveFirst();
+            yield break;
+        }
         float distance = 1f;
         bool jumpable = mapManager.jumpable(pos, direction);
         if (jumpable)

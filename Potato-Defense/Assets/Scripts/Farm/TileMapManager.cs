@@ -35,6 +35,13 @@ public class TileMapManager : MonoBehaviour
         }
     }
 
+    public bool isGround(Vector3 pos, Action direction)
+    {
+        Vector3Int gridPos = getNewPosition(pos, direction);
+        TileData tileData = GetTileData(gridPos);
+        return (tileData != null);
+    }
+
     // Check if theres a fence in that direction and that the tile after it is not a fence.
     // Also player is not on a fence.
     public bool jumpable(Vector3 pos, Action direction)

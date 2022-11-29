@@ -12,7 +12,8 @@ public class PlayerStats : MonoBehaviour
     public static float carpenterSkill = 1.0f;
     
     //skill points should get from PlayerMovement.cs
-    public int skillPoint = 6;
+    public static int skillPoint = 3;
+    private static int startPoints = 3;
 
     //counter for how many upgrade player has clicked
     //indicator for minus functions and changing progress bars' assets
@@ -32,6 +33,11 @@ public class PlayerStats : MonoBehaviour
     public GameObject progressBarAttack;
     public GameObject progressBarCarpenter;
 
+    public static void restart()
+    {
+        skillPoint = startPoints;
+    }
+
 
     void Update()
     {
@@ -45,6 +51,11 @@ public class PlayerStats : MonoBehaviour
 
     public PlayerStats()
     {
+    }
+
+    public void addSkillPoints(int pointsEarned)
+    {
+        skillPoint += pointsEarned;
     }
 
     //upgrading functions, put these funciton onto the buttons

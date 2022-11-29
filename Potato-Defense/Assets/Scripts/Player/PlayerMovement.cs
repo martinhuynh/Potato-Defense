@@ -43,12 +43,13 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.I))
         {
             // Should go to what item is selected (7,8,9,0) and place it.
-            if (HotbarManager.selected.type == ItemEnum.FENCE) fence = true;
+            HotbarManager.use = true;
+            if (HotbarManager.use && actionQueue.Count == 0) useItem();
             return;
         }
         else if (Input.GetKeyUp(KeyCode.I))
         {
-            if (HotbarManager.selected.type == ItemEnum.FENCE) fence = false;
+            HotbarManager.use = false;
             return;
         }
         else if (Input.GetKeyDown(KeyCode.K))
@@ -169,12 +170,19 @@ public class PlayerMovement : MonoBehaviour
         }
         actionQueue.RemoveFirst();
         idle = true;
+        if (HotbarManager.use) useItem();
         yield break;
     }
 
-    public void placeFence()
+    public void useItem()
     {
-        itemManager.place(transform.position);
+        ItemEnum item = HotbarManager.selected.type;
+        switch(item)
+        {
+            case ItemEnum.FENCE:
+                itemManager.place(transform.position);
+                break;
+        }
     }
 
     public IEnumerator move(Action direction)
@@ -251,6 +259,7 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         idle = true;
+        if (HotbarManager.use) useItem();
         actionQueue.RemoveFirst();
         yield break;
     }
@@ -263,7 +272,6 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(actionQueue.First.Value);
         }
         else if (idle) UpdateAnimation(Action.STILL);
-        if (fence) placeFence();
     }
 
 

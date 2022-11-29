@@ -10,6 +10,7 @@ public class HotbarManager : MonoBehaviour
 
     private Dictionary<KeyCode, ItemSlot> itemKeys;
     public static ItemSlot selected;
+    public static bool use = false;
 
 
     [SerializeField]
@@ -74,6 +75,7 @@ public class HotbarManager : MonoBehaviour
             if (s.Equals(exclude)) continue;
             s.unselect();
         }
+        use = false;
         selected = exclude;
     }
 

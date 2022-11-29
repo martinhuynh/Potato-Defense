@@ -37,6 +37,7 @@ public class CropBehavior : MonoBehaviour
         GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
         StartCoroutine(grow_crop());
     }
+    
 
     private void Start()
     {

@@ -13,7 +13,7 @@ public class ItemSlot : MonoBehaviour
     [SerializeField]
     private Select selectAsset;
     [SerializeField]
-    private Sprite sprite = null;
+    private Sprite sprite;
     [SerializeField]
     private TextMeshProUGUI quantity;
 
@@ -78,7 +78,7 @@ public class ItemSlot : MonoBehaviour
     {
         isAvailable();
         quantity.text = PlayerInventory.getInventory(type) + "";
-        //item.GetComponent<SpriteRenderer>().sprite = sprite;
+        item.GetComponent<SpriteRenderer>().sprite = sprite;
 
     }
 

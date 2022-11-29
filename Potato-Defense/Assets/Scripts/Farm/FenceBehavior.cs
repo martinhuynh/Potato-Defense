@@ -76,6 +76,13 @@ public class FenceBehavior : MonoBehaviour
         }
     }
 
+    public void repair()
+    {
+        hp += (int) PlayerStats.repair;
+        if (hp > startHP) hp = startHP;
+        setOpacity((float)hp / (float)startHP);
+    }
+
     public void connect(Fence link)
     {
         switch (link)

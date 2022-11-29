@@ -182,6 +182,9 @@ public class PlayerMovement : MonoBehaviour
             case ItemEnum.FENCE:
                 itemManager.place(transform.position);
                 break;
+            case ItemEnum.REPAIR:
+                itemManager.repair(transform.position);
+                break;
         }
     }
 

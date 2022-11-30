@@ -113,7 +113,7 @@ public class ItemManager : MonoBehaviour
     {
         Vector3Int gridPos = map.WorldToCell(pos);
         if (fences.ContainsKey(gridPos)) return false;
-        if (!mapManager.isOnlyPlowed(pos)) return false;
+        if (!mapManager.isAvailable(pos)) return false;
         FenceBehavior fence = Instantiate(fencePrefab);
         fence.start(gridPos, this);
         fence.transform.position = map.GetCellCenterWorld(gridPos);

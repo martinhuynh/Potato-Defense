@@ -189,36 +189,22 @@ public class PlayerMovement : MonoBehaviour
     {
         idle = false;
         Vector3 pos = transform.position;
-        if (!mapManager.isGround(pos, direction))
-        {
-            idle = true;
-            actionQueue.RemoveFirst();
-            yield break;
-        }
         float distance = 1f;
         bool jumpable = mapManager.jumpable(pos, direction);
-        if (jumpable)
+        if (jumpable) distance = 2f;
+        else if (!mapManager.isWalkable(pos, direction))
         {
-            distance = 2f;
-        }
-        else if (!mapManager.onFenceValid(pos, direction))
-        {
-            actionQueue.RemoveFirst();
             idle = true;
+            actionQueue.RemoveFirst();
             yield break;
         }
         UpdateAnimation(direction);
-
 
         float jumped = 0f;
         while (distance > 0)
         {
             float toMove = PlayerStats.movementSpeed * Time.fixedDeltaTime;
-            //float toMove_y = Time.fixedDeltaTime;
-            if (toMove >= distance)
-            {
-                toMove = distance;
-            }
+            if (toMove >= distance) toMove = distance;
             distance -= toMove;
             int orderLayer = (int)(-100 * transform.position.y);
 

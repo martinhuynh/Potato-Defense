@@ -92,6 +92,23 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    public void repair(Vector3 pos)
+    {
+        Vector3Int gridPos = map.WorldToCell(pos);
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int a = -1; a <= 1; a++)
+            {
+                Vector3Int temp = new Vector3Int(gridPos.x + i, gridPos.y + a);
+                Debug.Log(temp);
+                if (fences.ContainsKey(temp))
+                {
+                    fences[temp].repair();
+                }
+            }
+        }
+    }
+
     public bool place(Vector3 pos)
     {
         Vector3Int gridPos = map.WorldToCell(pos);

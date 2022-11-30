@@ -44,6 +44,14 @@ public class PlayerInventory : MonoBehaviour
         {
             return item4 != 0;
         }
+        else if (type == ItemEnum.REPAIR)
+        {
+            return true;
+        }
+        else if (type == ItemEnum.DELETE)
+        {
+            return true;
+        }
         return false;
     }
 

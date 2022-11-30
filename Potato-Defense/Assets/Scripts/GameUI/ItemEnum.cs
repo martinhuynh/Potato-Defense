@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum ItemEnum
 {
-    FENCE, LURE, ITEM3, ITEM4
+    FENCE, LURE, REPAIR, DELETE, ITEM3, ITEM4
 } 

@@ -30,7 +30,7 @@ public class FenceBehavior : MonoBehaviour
     public void UpdateOrder()
     {
         int order = (int)(-100 * transform.position.y);
-        GetComponent<SpriteRenderer>().sortingOrder = order;
+        GetComponent<SpriteRenderer>().sortingOrder = order - 1;
         up.GetComponent<SpriteRenderer>().sortingOrder = order;
         down.GetComponent<SpriteRenderer>().sortingOrder = order;
         left.GetComponent<SpriteRenderer>().sortingOrder = order;

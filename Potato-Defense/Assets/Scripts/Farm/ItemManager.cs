@@ -125,8 +125,9 @@ public class ItemManager : MonoBehaviour
         if (fences.ContainsKey(gridPos)) return false;
         if (!mapManager.isAvailable(pos)) return false;
         FenceBehavior fence = Instantiate(fencePrefab);
-        fence.start(gridPos, this);
         fence.transform.position = map.GetCellCenterWorld(gridPos);
+        fence.start(gridPos, this);
+        
         fences.Add(gridPos, fence);
 
         updateLink(gridPos, fence);

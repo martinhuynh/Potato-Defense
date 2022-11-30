@@ -13,6 +13,8 @@ public class WaveSystem : MonoBehaviour
 
     [SerializeField]
     private GameObject enemy;
+    [SerializeField]
+    private GameObject charger;
     private GameObject readyButton;
 
     private int curWave = 0;
@@ -33,11 +35,15 @@ public class WaveSystem : MonoBehaviour
         waves = new ArrayList();
 
         // Wave 1
-        waves.Add(new Wave(10, 5, 25));
+        waves.Add(new Wave(6, 5, 45));
         ((Wave)waves[0]).getEnemies().Add(enemy, 100f);
         // Wave 2
-        waves.Add(new Wave(15, 5, 30));
+        waves.Add(new Wave(10, 5, 25));
         ((Wave)waves[1]).getEnemies().Add(enemy, 100f);
+        // Wave 3
+        waves.Add(new Wave(15, 5, 15));
+        ((Wave)waves[2]).getEnemies().Add(charger, 10f);
+        ((Wave)waves[2]).getEnemies().Add(enemy, 100f);
 
         curTarget = ((Wave)waves[curWave]).getTarget();
         curLives = ((Wave)waves[curWave]).getLives();

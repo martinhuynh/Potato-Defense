@@ -28,10 +28,11 @@ public class SelectBehavior : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            pressed();
+            StartCoroutine(press());
         }
         else if (Input.GetKeyUp(KeyCode.Mouse0))
         {
+            StopCoroutine(press());
             released();
         }
     }
@@ -48,5 +49,17 @@ public class SelectBehavior : MonoBehaviour
     void released()
     {
         GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
+    }
+
+    public IEnumerator press()
+    {
+        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+        if (hotbarManager.getSelected() == ItemEnum.DELETE)
+        {
+            itemManager.delete(transform.position);
+        }
+        yield return new WaitForSeconds(0.23f);
+        released();
+        yield return null;
     }
 }

@@ -13,7 +13,6 @@ public class ShopManagerScript : MonoBehaviour
 
     public PlayerStats playerStatsRef;
     public float coins;
-    private int mskillPoints;
     public TextMeshProUGUI CoinsTXT;
     public TextMeshProUGUI SkillPointTXT;
 
@@ -21,6 +20,7 @@ public class ShopManagerScript : MonoBehaviour
     void Start()
     {
         CoinsTXT.text = "Coins:" + coins.ToString();
+        PlayerStats.restart();
         
         //Item ID's
         shopItems[1, 1] = 1;
@@ -59,12 +59,12 @@ public class ShopManagerScript : MonoBehaviour
     void Update()
     {
         loadSkillpoint();        
-        SkillPointTXT.text = "SKill Points: " + mskillPoints.ToString();
+        SkillPointTXT.text = "SKill Points: " + PlayerStats.skillPoint.ToString();
     }
 
     public void loadSkillpoint()
     {
-        mskillPoints = playerStatsRef.returnSkillPoint();
+        //mskillPoints = playerStatsRef.returnSkillPoint();
         //if (mskillPoints > 0) Debug.Log("skill point loaded to the shop manager");
     }
 }

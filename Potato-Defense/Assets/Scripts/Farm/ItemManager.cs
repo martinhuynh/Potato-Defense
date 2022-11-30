@@ -15,7 +15,7 @@ public class ItemManager : MonoBehaviour
     private TileMapManager mapManager;
 
     // Temporary. only for fence right now.
-    private Dictionary<Vector3Int, FenceBehavior> fences;
+    private static Dictionary<Vector3Int, FenceBehavior> fences;
 
     public void remove(Vector3Int pos)
     {
@@ -107,6 +107,16 @@ public class ItemManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void delete(Vector3 pos)
+    {
+        Vector3Int gridPos = map.WorldToCell(pos);
+        if (fences.ContainsKey(gridPos))
+        {
+            Destroy(fences[gridPos].gameObject);
+        }
+        Debug.Log("Delete " + fences.ContainsKey(gridPos));
     }
 
     public bool place(Vector3 pos)

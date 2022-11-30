@@ -54,12 +54,17 @@ public class FenceBehavior : MonoBehaviour
         setOpacity(opacity);
         if (hp <= 0)
         {
-            itemManager.remove(gridPos);
-            itemManager.updateLink(gridPos, this);
             Destroy(this.gameObject);
             return false;
         }
         return true;
+    }
+
+    public void OnDestroy()
+    {
+        itemManager.remove(gridPos);
+        itemManager.updateLink(gridPos, this);
+        
     }
     // Start is called before the first frame update
     void Start()

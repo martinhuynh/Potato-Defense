@@ -23,18 +23,22 @@ public class CropBehavior : MonoBehaviour
 
     public void startGrowing(FarmManager fm, Vector3Int position, TileData tileData)
     {
-        stages = new Queue<Sprite>();
-        stages.Enqueue(null);
-        stages.Enqueue(stage_2);
-        stages.Enqueue(stage_done);
         farmManager = fm;
         this.tileData = tileData;
         hp = tileData.hp;
         startHP = hp;
-        opacity = GetComponent<SpriteRenderer>().color;
-        opacity.a = 1f;
         this.position = position;
+        startGrowing();
+    }
+
+    private void startGrowing()
+    {
         GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
+        setOpacity(1f);
+        stages = new Queue<Sprite>();
+        stages.Enqueue(null);
+        stages.Enqueue(stage_2);
+        stages.Enqueue(stage_done);
         StartCoroutine(grow_crop());
     }
     
@@ -43,8 +47,10 @@ public class CropBehavior : MonoBehaviour
     {
         waveSystem = GameObject.Find("WaveSystem").GetComponent<WaveSystem>();
         map = GameObject.Find("Ground").GetComponent<Tilemap>();
+        opacity = new Color(255, 255, 255, 1f);
         //plowed = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Tilesets/TilePalette/Dirt/Tilled Dirt_0.asset", typeof(Tile)) as Tile;
         GetComponent<SpriteRenderer>().sprite = null;
+        
         state = Farm.GROWING;
     }
 
@@ -85,7 +91,7 @@ public class CropBehavior : MonoBehaviour
             map.SetTile(position, plowed);
             StopCoroutine(grow_crop());
             waveSystem.decreaseLives();
-            StartCoroutine(grow_crop());
+            startGrowing();
             return false;
         }
         return true;

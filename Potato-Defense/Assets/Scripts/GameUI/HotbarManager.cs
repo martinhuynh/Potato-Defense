@@ -11,6 +11,8 @@ public class HotbarManager : MonoBehaviour
     private Dictionary<KeyCode, ItemSlot> itemKeys;
     public static ItemSlot selected;
     public static bool use = false;
+    [SerializeField]
+    SelectBehavior selectBehavior;
 
 
     [SerializeField]
@@ -64,7 +66,6 @@ public class HotbarManager : MonoBehaviour
             select(selected);
         }
 
-
     }
 
     private void select(ItemSlot exclude)
@@ -77,8 +78,13 @@ public class HotbarManager : MonoBehaviour
         }
         use = false;
         selected = exclude;
+        selectBehavior.gameObject.SetActive(exclude.type == ItemEnum.DELETE);
     }
 
+    public ItemEnum getSelected()
+    {
+        return selected.type;
+    }
 
     
 

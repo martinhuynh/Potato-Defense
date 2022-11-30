@@ -43,7 +43,8 @@ public class CropBehavior : MonoBehaviour
         waveSystem = GameObject.Find("WaveSystem").GetComponent<WaveSystem>();
         map = GameObject.Find("Ground").GetComponent<Tilemap>();
         //plowed = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Tilesets/TilePalette/Dirt/Tilled Dirt_0.asset", typeof(Tile)) as Tile;
-        harvest();
+        GetComponent<SpriteRenderer>().sprite = null;
+        state = Farm.GROWING;
     }
 
     // Update is called once per frame
@@ -59,7 +60,7 @@ public class CropBehavior : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().sprite = null;
         state = Farm.PLOWED;
-        PlayerInventory.potatoes++;
+        //PlayerInventory.potatoes++;
     }
 
     public Farm getState()
@@ -83,7 +84,7 @@ public class CropBehavior : MonoBehaviour
             map.SetTile(position, plowed);
             StopCoroutine(grow_crop());
             waveSystem.decreaseLives();
-            
+            StartCoroutine(grow_crop());
             return false;
         }
         return true;

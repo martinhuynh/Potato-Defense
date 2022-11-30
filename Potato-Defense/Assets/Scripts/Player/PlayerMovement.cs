@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        farmManager.plow(transform.position);
     }
 
     // Update is called once per frame
@@ -153,9 +153,6 @@ public class PlayerMovement : MonoBehaviour
                     yield return new WaitForFixedUpdate();
                 }
                 farmManager.plow(pos);
-                break;
-            case Farm.PLOWED:
-                farmManager.plant(pos);
                 break;
             case Farm.DONE:
                 UpdateAnimation(Action.FARM);

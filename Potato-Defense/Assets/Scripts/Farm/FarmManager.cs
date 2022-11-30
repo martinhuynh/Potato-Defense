@@ -63,21 +63,8 @@ public class FarmManager : MonoBehaviour
         CropBehavior newCrop = Instantiate(crop);
         crops.Add(gridPosition, newCrop);
         newCrop.transform.position = map.GetCellCenterWorld(gridPosition);
+        plant(position);
     }
-
-    //// Check if tile plantable.
-    //public bool plowable(Vector3 position)
-    //{
-    //    Vector3Int gridPosition = map.WorldToCell(position);
-    //    return mapManager.GetTileData(gridPosition).state == TileType.GRASS;
-    //}
-
-    //public bool harvestable(Vector3 position)
-    //{
-    //    Vector3Int gridPosition = map.WorldToCell(position);
-    //    CropBehavior crop = crops[gridPosition];
-    //    return crop.done();
-    //}
 
     public void harvest(Vector3 position)
     {
@@ -86,6 +73,7 @@ public class FarmManager : MonoBehaviour
         Debug.Log("Harvested: " + PlayerInventory.potatoes);
         map.SetTile(gridPosition, dirt);
         waveSystem.decreaseTarget();
+        plant(position);
     }
 
     // Plant at position.

@@ -13,6 +13,10 @@ public class HotbarManager : MonoBehaviour
     public static bool use = false;
     [SerializeField]
     SelectBehavior selectBehavior;
+    [SerializeField]
+    GameObject repair;
+    [SerializeField]
+    GameObject place;
 
 
     [SerializeField]
@@ -79,6 +83,8 @@ public class HotbarManager : MonoBehaviour
         use = false;
         selected = exclude;
         selectBehavior.gameObject.SetActive(exclude.type == ItemEnum.DELETE);
+        repair.gameObject.SetActive(exclude.type == ItemEnum.REPAIR);
+        place.gameObject.SetActive(exclude.type == ItemEnum.FENCE);
     }
 
     public ItemEnum getSelected()

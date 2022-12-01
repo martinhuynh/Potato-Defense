@@ -60,6 +60,7 @@ MonoBehaviour:
   - {fileID: 6670933836864857065}
   - {fileID: 6670933838361407505}
   - {fileID: 6670933837660255541}
+  selectBehavior: {fileID: 0}
   type: 0
 --- !u!223 &5822655836827592544
 Canvas:
@@ -194,6 +195,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 891097383250191167, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
         type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 731eaef49f6494119b91c5a3c820576e,
+        type: 3}
+    - target: {fileID: 891097383250191167, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
+        type: 3}
       propertyPath: hotbarManager
       value: 
       objectReference: {fileID: 5822655836827592545}
@@ -317,8 +324,14 @@ PrefabInstance:
     - target: {fileID: 891097383250191167, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
         type: 3}
       propertyPath: type
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 891097383250191167, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
+        type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 07003edc6e079474ea3cbbb371c8f404,
+        type: 3}
     - target: {fileID: 891097383250191167, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
         type: 3}
       propertyPath: hotbarManager
@@ -574,6 +587,12 @@ PrefabInstance:
       propertyPath: type
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 891097383250191167, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
+        type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64c296af0887d4d2496e65147c2a3b79,
+        type: 3}
     - target: {fileID: 891097383250191167, guid: 5afd2b4e515c34f9e9529aa0edb37a82,
         type: 3}
       propertyPath: hotbarManager

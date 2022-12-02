@@ -20,6 +20,9 @@ public class FarmManager : MonoBehaviour
     private Tile plowed;
 
     [SerializeField]
+    private Tile grass;
+
+    [SerializeField]
     private TileMapManager mapManager;
 
     private Dictionary<Vector3Int, CropBehavior> crops;
@@ -45,6 +48,7 @@ public class FarmManager : MonoBehaviour
         if (crops.Count > 1 && crops.ContainsKey(gridPos))
         {
             Debug.Log(gridPos);
+            map.SetTile(gridPos, grass);
             Destroy(crops[gridPos].gameObject);
             crops.Remove(gridPos);
         }
@@ -96,10 +100,19 @@ public class FarmManager : MonoBehaviour
         return true;
     }
 
-    public void destroyCrop(Vector3Int position)
+    public bool destroyCrop(Vector3Int position)
     {
+        if (crops.Count == 1) return false;
         Destroy(crops[position].gameObject);
         crops.Remove(position);
+        map.SetTile(position, grass);
+        return true;
+    }
+
+    public bool destroyCrop(Vector3 position)
+    {
+        Vector3Int gridPos = map.WorldToCell(position);
+        return destroyCrop(gridPos);
     }
 
     public void harvest(Vector3Int position)

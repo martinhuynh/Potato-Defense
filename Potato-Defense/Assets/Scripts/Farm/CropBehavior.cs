@@ -28,7 +28,6 @@ public class CropBehavior : MonoBehaviour
         farmManager = fm;
         this.tileData = tileData;
         hp = tileData.hp;
-        startHP = hp;
         this.position = position;
         startGrowing();
     }
@@ -37,6 +36,8 @@ public class CropBehavior : MonoBehaviour
     {
         GetComponent<Renderer>().sortingOrder = (int)(-100 * transform.position.y);
         setOpacity(1f);
+        hp = startHP;
+        state = Farm.GROWING;
         stages = new Queue<Sprite>();
         stages.Enqueue(null);
         stages.Enqueue(stage_2);
@@ -89,11 +90,12 @@ public class CropBehavior : MonoBehaviour
         setOpacity((float)hp / (float)startHP);
         if (hp <= 0) {
             GetComponent<SpriteRenderer>().sprite = null;
-            state = Farm.PLOWED;
-            map.SetTile(position, plowed);
             StopCoroutine(grow_crop());
             waveSystem.decreaseLives();
-            startGrowing();
+            if (!farmManager.destroyCrop(transform.position))
+            {
+                startGrowing();
+            }
             return false;
         }
         return true;
@@ -106,7 +108,6 @@ public class CropBehavior : MonoBehaviour
 
     public void OnDestroy()
     {
-        map.SetTile(position, grass);
         StopCoroutine(grow_crop());
     }
 

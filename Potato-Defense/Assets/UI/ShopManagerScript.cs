@@ -29,7 +29,7 @@ public class ShopManagerScript : MonoBehaviour
 
 
         //Price
-        shopItems[2, 1] = 50;
+        shopItems[2, 1] = 10;
         shopItems[2, 2] = 999;
         shopItems[2, 3] = 999;
 

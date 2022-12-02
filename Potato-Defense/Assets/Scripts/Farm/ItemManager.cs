@@ -124,6 +124,7 @@ public class ItemManager : MonoBehaviour
         Vector3Int gridPos = map.WorldToCell(pos);
         if (fences.ContainsKey(gridPos)) return false;
         if (!mapManager.isAvailable(pos)) return false;
+        //if (PlayerInventory.potatoes >= )
         FenceBehavior fence = Instantiate(fencePrefab);
         fence.transform.position = map.GetCellCenterWorld(gridPos);
         fence.start(gridPos, this);

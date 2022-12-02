@@ -41,9 +41,16 @@ public class WaveSystem : MonoBehaviour
         waves.Add(new Wave(10, 5, 25));
         ((Wave)waves[1]).getEnemies().Add(enemy, 100f);
         // Wave 3
-        waves.Add(new Wave(15, 5, 15));
+        waves.Add(new Wave(15, 5, 20));
         ((Wave)waves[2]).getEnemies().Add(charger, 10f);
         ((Wave)waves[2]).getEnemies().Add(enemy, 100f);
+        // Wave 4
+        waves.Add(new Wave(20, 5, 15));
+        ((Wave)waves[3]).getEnemies().Add(charger, 15f);
+        ((Wave)waves[3]).getEnemies().Add(enemy, 100f);
+        // Wave 5
+        waves.Add(new Wave(30, 5, 100));
+        ((Wave)waves[4]).getEnemies().Add(charger, 100f);
 
         curTarget = ((Wave)waves[curWave]).getTarget();
         curLives = ((Wave)waves[curWave]).getLives();

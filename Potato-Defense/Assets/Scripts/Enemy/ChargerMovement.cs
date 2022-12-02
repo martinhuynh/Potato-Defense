@@ -50,6 +50,8 @@ public class ChargerMovement : MonoBehaviour
     {
         for (int i = 0; i < warningTime; i++)
         {
+            skull.SetActive(true);
+            skullArrow.SetActive(true);
             foreach(Vector3Int pos in warningPositions) {
                 map.SetTile(pos, warning);
             }
@@ -58,6 +60,8 @@ public class ChargerMovement : MonoBehaviour
             {
                 map.SetTile(pos, null);
             }
+            skull.SetActive(false);
+            skullArrow.SetActive(false);
             yield return new WaitForSeconds(0.25f);
         }
         skull.SetActive(false);

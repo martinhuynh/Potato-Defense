@@ -14816,5 +14816,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hotbar
       objectReference: {fileID: 0}
+    - target: {fileID: 5822655836827592551, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48278bcceda4849dc92b104905d10e8b, type: 3}

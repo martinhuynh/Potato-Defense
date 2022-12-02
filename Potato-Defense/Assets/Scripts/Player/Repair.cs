@@ -34,7 +34,7 @@ public class Repair : MonoBehaviour
             opacity -= 6 * Time.fixedDeltaTime;
             opacity %= 360;
             foreach (SpriteRenderer renderer in GetComponent<CanvasRenderer>().GetComponentsInChildren<SpriteRenderer>()) {
-                renderer.color = new Color(255, 255, 255, 1 - Mathf.Cos(opacity));
+                renderer.color = new Color(255, 255, 255, (1 - Mathf.Cos(opacity)) * 0.3f);
             }
             yield return new WaitForFixedUpdate();
         }

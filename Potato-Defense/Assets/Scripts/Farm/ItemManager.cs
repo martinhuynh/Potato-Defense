@@ -116,7 +116,7 @@ public class ItemManager : MonoBehaviour
         {
             Destroy(fences[gridPos].gameObject);
         }
-        Debug.Log("Delete " + fences.ContainsKey(gridPos));
+        //Debug.Log("Delete " + fences.ContainsKey(gridPos));
     }
 
     public bool place(Vector3 pos)

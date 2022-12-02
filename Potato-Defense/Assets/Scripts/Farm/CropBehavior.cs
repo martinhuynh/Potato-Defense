@@ -17,6 +17,8 @@ public class CropBehavior : MonoBehaviour
     private Queue<Sprite> stages;
     [SerializeField]
     private Tile plowed;
+    [SerializeField]
+    private Tile grass;
 
     private WaveSystem waveSystem;
     private Tilemap map;
@@ -104,6 +106,7 @@ public class CropBehavior : MonoBehaviour
 
     public void OnDestroy()
     {
+        map.SetTile(position, grass);
         StopCoroutine(grow_crop());
     }
 

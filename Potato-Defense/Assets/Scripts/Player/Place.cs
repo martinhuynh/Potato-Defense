@@ -10,7 +10,7 @@ public class Place : MonoBehaviour
         //StartCoroutine(blink());
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         StartCoroutine(blink());
     }
@@ -30,12 +30,11 @@ public class Place : MonoBehaviour
     private IEnumerator blink()
     {
         float opacity = 360f;
-        bool toggle = false;
         while (true)
         {
             opacity -= 6 * Time.fixedDeltaTime;
             opacity %= 360;
-            GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1 - Mathf.Cos(opacity));
+            GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, (1 - Mathf.Cos(opacity)) * 0.3f);
             yield return new WaitForFixedUpdate();
         }
     }

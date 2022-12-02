@@ -39,6 +39,17 @@ public class FarmManager : MonoBehaviour
         
     }
 
+    public void delete(Vector3 pos)
+    {
+        Vector3Int gridPos = map.WorldToCell(pos);
+        if (crops.Count > 1 && crops.ContainsKey(gridPos))
+        {
+            Debug.Log(gridPos);
+            Destroy(crops[gridPos].gameObject);
+            crops.Remove(gridPos);
+        }
+    }
+
     public bool isAvailable(Vector3Int pos)
     {
         return !crops.ContainsKey(pos);

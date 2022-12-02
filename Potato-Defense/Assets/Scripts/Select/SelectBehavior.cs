@@ -10,7 +10,7 @@ public class SelectBehavior : MonoBehaviour
     [SerializeField]
     private HotbarManager hotbarManager;
     [SerializeField]
-    private ItemManager itemManager;
+    private TileMapManager mapManager;
 
     // Start is called before the first frame update
     void Start()
@@ -37,15 +37,6 @@ public class SelectBehavior : MonoBehaviour
         }
     }
 
-    void pressed()
-    {
-        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-        if (hotbarManager.getSelected() == ItemEnum.DELETE)
-        {
-            itemManager.delete(transform.position);
-        }
-    }
-
     void released()
     {
         GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
@@ -56,7 +47,7 @@ public class SelectBehavior : MonoBehaviour
         GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
         if (hotbarManager.getSelected() == ItemEnum.DELETE)
         {
-            itemManager.delete(transform.position);
+            mapManager.delete(transform.position);
         }
         yield return new WaitForSeconds(0.23f);
         released();

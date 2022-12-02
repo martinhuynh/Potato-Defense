@@ -2161,6 +2161,7 @@ MonoBehaviour:
   plowed: {fileID: 11400000, guid: 7ac712ee6ed0947e384a4563d8ca7308, type: 2}
   grass: {fileID: 11400000, guid: 167348cf440004530914a10bc70b9d95, type: 2}
   mapManager: {fileID: 1905277889}
+  hotbarManager: {fileID: 2019236034}
 --- !u!1 &474817739
 GameObject:
   m_ObjectHideFlags: 0
@@ -12074,6 +12075,7 @@ MonoBehaviour:
   fencePrefab: {fileID: 541843036715603173, guid: f7072563642af4f4490ccb1d6cd8609f,
     type: 3}
   mapManager: {fileID: 1905277889}
+  hotbarManager: {fileID: 2019236034}
 --- !u!1 &1417994651
 GameObject:
   m_ObjectHideFlags: 0
@@ -15627,7 +15629,7 @@ PrefabInstance:
     - target: {fileID: 5822655836827592546, guid: 48278bcceda4849dc92b104905d10e8b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -180.10364
+      value: -170
       objectReference: {fileID: 0}
     - target: {fileID: 5822655836827592546, guid: 48278bcceda4849dc92b104905d10e8b,
         type: 3}
@@ -15698,5 +15700,40 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 731eaef49f6494119b91c5a3c820576e,
         type: 3}
+    - target: {fileID: 8025157787551569799, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: m_text
+      value: $10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025157787551569799, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.3018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025157787551569799, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.3018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025157787551569799, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.3018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025157787551569799, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4283256141
+      objectReference: {fileID: 0}
+    - target: {fileID: 8281391189938756553, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775432286395670757, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48278bcceda4849dc92b104905d10e8b, type: 3}

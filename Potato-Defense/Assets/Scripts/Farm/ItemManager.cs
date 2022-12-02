@@ -14,6 +14,9 @@ public class ItemManager : MonoBehaviour
     [SerializeField]
     private TileMapManager mapManager;
 
+    [SerializeField]
+    private HotbarManager hotbarManager;
+
     // Temporary. only for fence right now.
     private static Dictionary<Vector3Int, FenceBehavior> fences;
 
@@ -124,7 +127,14 @@ public class ItemManager : MonoBehaviour
         Vector3Int gridPos = map.WorldToCell(pos);
         if (fences.ContainsKey(gridPos)) return false;
         if (!mapManager.isAvailable(pos)) return false;
-        //if (PlayerInventory.potatoes >= )
+        ItemSlot slot = HotbarManager.selected;
+
+        if (PlayerInventory.potatoes >= ShopManagerScript.shopItems[2, 1])
+        {
+            PlayerInventory.potatoes -= ShopManagerScript.shopItems[2, 1];
+            hotbarManager.refreshItem();
+        }
+        else return false;
         FenceBehavior fence = Instantiate(fencePrefab);
         fence.transform.position = map.GetCellCenterWorld(gridPos);
         fence.start(gridPos, this);

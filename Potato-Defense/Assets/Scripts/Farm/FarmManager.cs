@@ -25,9 +25,14 @@ public class FarmManager : MonoBehaviour
     [SerializeField]
     private TileMapManager mapManager;
 
+    [SerializeField]
+    private HotbarManager hotbarManager;
+
     private Dictionary<Vector3Int, CropBehavior> crops;
 
     private WaveSystem waveSystem;
+
+    private readonly int credit = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -85,7 +90,9 @@ public class FarmManager : MonoBehaviour
     {
         Vector3Int gridPosition = map.WorldToCell(position);
         crops[gridPosition].harvest();
-        Debug.Log("Harvested: " + PlayerInventory.potatoes);
+        //Debug.Log("Harvested: " + PlayerInventory.potatoes);
+        PlayerInventory.potatoes += credit;
+        hotbarManager.refreshItem();
         map.SetTile(gridPosition, dirt);
         waveSystem.decreaseTarget();
         plant(position);

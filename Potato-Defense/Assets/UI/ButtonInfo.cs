@@ -16,6 +16,6 @@ public class ButtonInfo : MonoBehaviour
     void Update()
     {
        // PriceTxt.text = "$" + ShopManager.GetComponent<ShopManagerScript>().shopItems[2, ItemID].ToString();
-        QuantityTxt.text = "Inventory: " + ShopManager.GetComponent<ShopManagerScript>().shopItems[3, ItemID].ToString();
+        QuantityTxt.text = "Inventory: " + ShopManagerScript.shopItems[3, ItemID].ToString();
     }
 }

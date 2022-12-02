@@ -28,6 +28,7 @@ public class CropBehavior : MonoBehaviour
         farmManager = fm;
         this.tileData = tileData;
         hp = tileData.hp;
+        startHP = hp;
         this.position = position;
         startGrowing();
     }

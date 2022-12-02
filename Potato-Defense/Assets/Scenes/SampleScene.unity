@@ -2159,6 +2159,7 @@ MonoBehaviour:
   crop: {fileID: 5157533062390329728, guid: c8eb8327d42a84c0aa7d0f4927d67be9, type: 3}
   dirt: {fileID: 11400000, guid: baa928d2e97ff47499570e3a4551d622, type: 2}
   plowed: {fileID: 11400000, guid: 7ac712ee6ed0947e384a4563d8ca7308, type: 2}
+  grass: {fileID: 11400000, guid: 167348cf440004530914a10bc70b9d95, type: 2}
   mapManager: {fileID: 1905277889}
 --- !u!1 &474817739
 GameObject:
@@ -3367,7 +3368,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatsRef: {fileID: 1854104477}
-  coins: 1000
   CoinsTXT: {fileID: 1394031410}
   SkillPointTXT: {fileID: 922054356}
 --- !u!1 &617483321
@@ -15657,13 +15657,46 @@ PrefabInstance:
     - target: {fileID: 6670933836864857065, guid: 48278bcceda4849dc92b104905d10e8b,
         type: 3}
       propertyPath: type
-      value: 6
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670933836864857065, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: -262837873, guid: 8c72754a206754b338af0e7e5e649d00,
+        type: 3}
+    - target: {fileID: 6670933837660255541, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: type
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6670933837660255541, guid: 48278bcceda4849dc92b104905d10e8b,
         type: 3}
       propertyPath: sprite
       value: 
       objectReference: {fileID: 21300000, guid: b1ba3eb62d72343158539f5a8c0884d4,
+        type: 3}
+    - target: {fileID: 6670933837709515392, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: type
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670933837709515392, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 07003edc6e079474ea3cbbb371c8f404,
+        type: 3}
+    - target: {fileID: 6670933838361407505, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670933838361407505, guid: 48278bcceda4849dc92b104905d10e8b,
+        type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 731eaef49f6494119b91c5a3c820576e,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48278bcceda4849dc92b104905d10e8b, type: 3}

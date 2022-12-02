@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public static int fence = 10, lure = 0, item3 = 0, item4 = 0, potatoes = 0;
+    public static int fence = 10, lure = 0, item3 = 0, item4 = 0, potatoes = 10;
 
     public static void use(ItemEnum type)
     {

@@ -181,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
     public void useItem()
     {
         ItemEnum item = HotbarManager.selected.type;
-        switch(item)
+        switch (item)
         {
             case ItemEnum.FENCE:
                 itemManager.place(transform.position);

@@ -8,6 +8,7 @@ public class WaveSystem : MonoBehaviour
     private WinLoseSystem winLoseSystem;
     private WaveProgressBarBehavior waveProgBar;
     private PlayerStats playerStats;
+    private FarmManager farmManager;
 
     private ArrayList waves;
 
@@ -30,6 +31,7 @@ public class WaveSystem : MonoBehaviour
         waveProgBar = GameObject.Find("WaveProgressBar").GetComponent<WaveProgressBarBehavior>();
         winLoseSystem = GameObject.Find("WinLoseSystem").GetComponent<WinLoseSystem>();
         playerStats = GameObject.Find("PlayerStatsObject").GetComponent<PlayerStats>();
+        farmManager = GameObject.Find("FarmManager").GetComponent<FarmManager>();
         readyButton = GameObject.Find("ReadyButton");
 
         waves = new ArrayList();
@@ -95,6 +97,8 @@ public class WaveSystem : MonoBehaviour
 
         enemySystem.setSpawnParameters((Wave)waves[curWave]);
         enemySystem.startSpawn();
+
+        farmManager.toggleGrowth(true);
     }
 
     private void StopWave()
@@ -107,6 +111,7 @@ public class WaveSystem : MonoBehaviour
         if (curWave == waves.Count) return;
         curTarget = ((Wave)waves[curWave]).getTarget();
         curLives = ((Wave)waves[curWave]).getLives();
+        farmManager.toggleGrowth(false);
     }
 
     private void WinWave()

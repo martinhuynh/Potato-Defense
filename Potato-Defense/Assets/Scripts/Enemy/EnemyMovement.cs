@@ -137,7 +137,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private Vector3 jumpPeak, initialPos;
-    private bool reachedPeak = false;
+    private bool reachedPeak = false, attacked = false;
     private float nextJump;
     private void AttackCrop()
     {
@@ -151,18 +151,29 @@ public class EnemyMovement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, initialPos, 2f * Time.smoothDeltaTime);
             if (transform.position == initialPos)
             {
-                if (Time.time >= nextJump)
+                if (!crop)
+                {
+                    onCrop = false;
+                    reachedPeak = false;
+                    return;
+                }
+                if (!attacked)
                 {
                     if (crop.getState() == Farm.GROWING || crop.getState() == Farm.DONE)
                     {
+                        attacked = true;
                         if (!crop.decrease(attackPower)) onCrop = false;
-                    } 
+                    }
                     else
                     {
                         onCrop = false;
                     }
+                }
+                if (Time.time >= nextJump)
+                {
                     nextJump = Time.time + 2f;
                     reachedPeak = false;
+                    attacked = false;
                 }
             }
         }

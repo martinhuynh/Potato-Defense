@@ -36,11 +36,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 pos = transform.position;
 
         IEnumerator newAction = null;
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            newAction = farmAction();
-        }
-        else if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             // Should go to what item is selected (7,8,9,0) and place it.
             HotbarManager.use = true;
@@ -142,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 pos = transform.position;
         Farm state = farmManager.getState(pos);
         float duration = 2f;
-        if (mapManager.isItem(pos))
+        if (mapManager.isItem(pos) || farmManager.isPaused())
         {
             actionQueue.RemoveFirst();
             idle = true;

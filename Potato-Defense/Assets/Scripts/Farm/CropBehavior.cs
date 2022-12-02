@@ -23,6 +23,8 @@ public class CropBehavior : MonoBehaviour
     private WaveSystem waveSystem;
     private Tilemap map;
 
+    private Coroutine thread = null;
+
     public void startGrowing(FarmManager fm, Vector3Int position, TileData tileData)
     {
         farmManager = fm;
@@ -40,10 +42,21 @@ public class CropBehavior : MonoBehaviour
         hp = startHP;
         state = Farm.GROWING;
         stages = new Queue<Sprite>();
-        stages.Enqueue(null);
         stages.Enqueue(stage_2);
         stages.Enqueue(stage_done);
-        StartCoroutine(grow_crop());
+        thread = StartCoroutine(grow_crop());
+    }
+
+    public void toggleGrowth(bool pause)
+    {
+        Debug.Log(pause);
+        if (pause)
+        {
+            StopCoroutine(thread);
+        } else
+        {
+            thread = StartCoroutine(grow_crop());
+        }
     }
     
 
@@ -91,7 +104,7 @@ public class CropBehavior : MonoBehaviour
         setOpacity((float)hp / (float)startHP);
         if (hp <= 0) {
             GetComponent<SpriteRenderer>().sprite = null;
-            StopCoroutine(grow_crop());
+            StopCoroutine(thread);
             waveSystem.decreaseLives();
             if (!farmManager.destroyCrop(transform.position))
             {
@@ -109,7 +122,7 @@ public class CropBehavior : MonoBehaviour
 
     public void OnDestroy()
     {
-        StopCoroutine(grow_crop());
+        StopCoroutine(thread);
     }
 
     public IEnumerator grow_crop()
@@ -119,11 +132,10 @@ public class CropBehavior : MonoBehaviour
         for (int i = 0; i < size; i++)
         {
             // Update sprite
+            yield return new WaitForSeconds(10f);
             Sprite newSprite = stages.Dequeue();
             GetComponent<SpriteRenderer>().sprite = newSprite;
             GetComponent<SpriteRenderer>().color = opacity;
-            if (size - 1 == i) break;
-            yield return new WaitForSeconds(10f);
         }
         state = Farm.DONE;
     }

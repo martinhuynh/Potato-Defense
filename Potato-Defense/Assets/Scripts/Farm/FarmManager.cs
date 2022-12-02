@@ -32,7 +32,9 @@ public class FarmManager : MonoBehaviour
 
     private WaveSystem waveSystem;
 
-    private readonly int credit = 5;
+    private readonly int credit = 10;
+
+    private bool paused = false;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +46,10 @@ public class FarmManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.J)) {
+            paused = !paused;
+            toggleGrowth(paused);
+        }
     }
 
     public void delete(Vector3 pos)
@@ -67,6 +72,21 @@ public class FarmManager : MonoBehaviour
     public bool isOnlyPlowed(Vector3Int pos)
     {
         return !crops.ContainsKey(pos) || crops[pos].getState() != Farm.GROWING && crops[pos].getState() != Farm.DONE;
+    }
+
+    // true = grow, false = stop
+    public void toggleGrowth(bool pause)
+    {
+        foreach (KeyValuePair <Vector3Int, CropBehavior> crop in crops)
+        {
+            crop.Value.toggleGrowth(pause);
+        }
+        paused = pause;
+    }
+
+    public bool isPaused()
+    {
+        return paused;
     }
 
     public Farm getState(Vector3 pos)

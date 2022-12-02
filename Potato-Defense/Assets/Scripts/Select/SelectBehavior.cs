@@ -26,11 +26,11 @@ public class SelectBehavior : MonoBehaviour
         gridPos.z = (int)current.z;
         transform.position = ground.GetCellCenterWorld(gridPos);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             StartCoroutine(press());
         }
-        else if (Input.GetKeyUp(KeyCode.Mouse0))
+        else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             StopCoroutine(press());
             released();

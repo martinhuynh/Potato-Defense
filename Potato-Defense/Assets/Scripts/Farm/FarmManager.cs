@@ -133,4 +133,10 @@ public class FarmManager : MonoBehaviour
     {
         return crops;
     }
+
+    public CropBehavior getCropAt(Vector3Int pos)
+    {
+        if (!crops.ContainsKey(pos)) return null;
+        return crops[pos];
+    }
 }

@@ -23,14 +23,14 @@ public class WaveTimerText : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!waveSystem.isInWave())
-        {
-            textMP.text = "Wave Starting in " + Mathf.Ceil(waveSystem.getGracePeriodEnd() - Time.time) +
-                "\n \n +3 Skill points!\n Open shop to use!";
-        }
-        else
-        {
-            textMP.text = "";
-        }
+        //if (!waveSystem.isInWave())
+        //{
+        //    textMP.text = "Wave Starting in " + Mathf.Ceil(waveSystem.getGracePeriodEnd() - Time.time) +
+        //        "\n \n +3 Skill points!\n Open shop to use!";
+        //}
+        //else
+        //{
+        //    textMP.text = "";
+        //}
     }
 }

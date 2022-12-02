@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("Collided with " + other.gameObject.name);
-        if (other.gameObject.name.Contains("Enemy"))
+        if (other.gameObject.tag.Contains("Enemy"))
         {
             //Debug.Log("Enemy Entered");
             enemies.Add(other.gameObject.GetComponent<EnemyBehavior>());
@@ -130,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.name.Contains("Enemy"))
+        if (other.gameObject.tag.Contains("Enemy"))
         {
             enemies.Remove(other.gameObject.GetComponent<EnemyBehavior>());
         }

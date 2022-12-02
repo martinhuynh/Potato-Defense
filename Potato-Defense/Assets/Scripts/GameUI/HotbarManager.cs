@@ -17,6 +17,7 @@ public class HotbarManager : MonoBehaviour
     GameObject repair;
     [SerializeField]
     GameObject place;
+    private int current = 0;
 
 
     [SerializeField]
@@ -26,26 +27,35 @@ public class HotbarManager : MonoBehaviour
     void Start()
     {
         selected = itemSlots[0];
-        
         itemKeys = new Dictionary<KeyCode, ItemSlot>();
 
-        itemKeys.Add(KeyCode.Alpha7, itemSlots[0]);
-        itemKeys.Add(KeyCode.Alpha8, itemSlots[1]);
-        itemKeys.Add(KeyCode.Alpha9, itemSlots[2]);
-        itemKeys.Add(KeyCode.Alpha0, itemSlots[3]);
+        itemKeys.Add(KeyCode.Alpha1, itemSlots[0]);
+        itemKeys.Add(KeyCode.Alpha2, itemSlots[1]);
+        itemKeys.Add(KeyCode.Alpha3, itemSlots[2]);
+        itemKeys.Add(KeyCode.Alpha4, itemSlots[3]);
         select(selected);
 
-        itemSlots[0].key.text = "7";
-        itemSlots[1].key.text = "8";
-        itemSlots[2].key.text = "9";
-        itemSlots[3].key.text = "0";
+        itemSlots[0].key.text = "1";
+        itemSlots[1].key.text = "2";
+        itemSlots[2].key.text = "3";
+        itemSlots[3].key.text = "4";
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+        {
+            current = (current + 1) % itemKeys.Count;
+            select(itemSlots[current]);
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
+        {
+            current = (current - 1 < 0) ? itemKeys.Count - 1 : current - 1;
+            select(itemSlots[current]);
+        }
+        else if (Input.GetKeyDown(KeyCode.H))
         {
             if (selected.isAvailable()) selected.use(); ;
         }

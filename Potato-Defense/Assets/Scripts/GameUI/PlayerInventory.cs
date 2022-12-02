@@ -52,6 +52,10 @@ public class PlayerInventory : MonoBehaviour
         {
             return true;
         }
+        else if (type == ItemEnum.HOE)
+        {
+            return true;
+        }
         return false;
     }
 

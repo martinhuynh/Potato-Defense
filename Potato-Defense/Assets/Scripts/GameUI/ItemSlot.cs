@@ -34,7 +34,7 @@ public class ItemSlot : MonoBehaviour
 
     public void select()
     {
-        Debug.Log(type + " selected");
+        //Debug.Log(type + " selected");
         selectAsset.select();
     }
 

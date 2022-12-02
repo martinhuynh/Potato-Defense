@@ -40,19 +40,26 @@ public class PlayerMovement : MonoBehaviour
         {
             newAction = farmAction();
         }
-        else if (Input.GetKeyDown(KeyCode.I))
+        else if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             // Should go to what item is selected (7,8,9,0) and place it.
             HotbarManager.use = true;
-            if (HotbarManager.use && actionQueue.Count == 0) useItem();
-            return;
+            if (HotbarManager.selected.type == ItemEnum.HOE)
+            {
+                newAction = farmAction();
+            }
+            else if (HotbarManager.use && actionQueue.Count == 0)
+            {
+                useItem();
+                return;
+            }
         }
-        else if (Input.GetKeyUp(KeyCode.I))
+        else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             HotbarManager.use = false;
             return;
         }
-        else if (Input.GetKeyDown(KeyCode.K))
+        else if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             newAction = attack();
             if (actionQueue.Count == 1) actionQueue.RemoveLast();
@@ -94,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
             if (enemies[i] == null) enemies.RemoveAt(i);
             enemies[i].TakeDamage(PlayerStats.attackPower);
         }
-        while (!Input.GetKeyUp(KeyCode.K)) yield return null;
+        while (!Input.GetKeyUp(KeyCode.Mouse0)) yield return null;
 
         actionQueue.RemoveFirst();
         idle = true;

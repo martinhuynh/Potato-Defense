@@ -134,16 +134,17 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator farmAction()
     {
-        idle = false;
-        Vector3 pos = transform.position;
-        Farm state = farmManager.getState(pos);
-        float duration = 2f;
-        if (mapManager.isItem(pos) || farmManager.isPaused())
+        IEnumerator stop()
         {
             actionQueue.RemoveFirst();
             idle = true;
             yield break;
         }
+        idle = false;
+        Vector3 pos = transform.position;
+        Farm state = farmManager.getState(pos);
+        float duration = 2f;
+        if (mapManager.isItem(pos)) yield return stop();
         //Debug.Log(state);
         switch (state)
         {
@@ -158,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
                 farmManager.plow(pos);
                 break;
             case Farm.DONE:
+                if (farmManager.isPaused()) yield return stop();
                 UpdateAnimation(Action.FARM);
                 while (duration > 0)
                 {

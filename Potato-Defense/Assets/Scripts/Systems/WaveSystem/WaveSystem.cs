@@ -16,6 +16,8 @@ public class WaveSystem : MonoBehaviour
     private GameObject enemy;
     [SerializeField]
     private GameObject charger;
+    [SerializeField]
+    private GameObject rusher;
     private GameObject readyButton;
 
     private int curWave = 0;
@@ -44,15 +46,17 @@ public class WaveSystem : MonoBehaviour
         ((Wave)waves[1]).getEnemies().Add(enemy, 100f);
         // Wave 3
         waves.Add(new Wave(15, 5, 20));
-        ((Wave)waves[2]).getEnemies().Add(charger, 10f);
+        ((Wave)waves[2]).getEnemies().Add(rusher, 20f);
         ((Wave)waves[2]).getEnemies().Add(enemy, 100f);
         // Wave 4
         waves.Add(new Wave(20, 5, 15));
-        ((Wave)waves[3]).getEnemies().Add(charger, 15f);
+        ((Wave)waves[3]).getEnemies().Add(rusher, 40f);
         ((Wave)waves[3]).getEnemies().Add(enemy, 100f);
         // Wave 5
         waves.Add(new Wave(30, 5, 100));
-        ((Wave)waves[4]).getEnemies().Add(charger, 100f);
+        ((Wave)waves[4]).getEnemies().Add(charger, 10f);
+        ((Wave)waves[4]).getEnemies().Add(rusher, 40f);
+        ((Wave)waves[4]).getEnemies().Add(enemy, 100f);
 
         curTarget = ((Wave)waves[curWave]).getTarget();
         curLives = ((Wave)waves[curWave]).getLives();

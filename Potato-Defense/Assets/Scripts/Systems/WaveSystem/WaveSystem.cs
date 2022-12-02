@@ -53,7 +53,7 @@ public class WaveSystem : MonoBehaviour
         ((Wave)waves[3]).getEnemies().Add(rusher, 40f);
         ((Wave)waves[3]).getEnemies().Add(enemy, 100f);
         // Wave 5
-        waves.Add(new Wave(30, 5, 100));
+        waves.Add(new Wave(30, 5, 15));
         ((Wave)waves[4]).getEnemies().Add(charger, 10f);
         ((Wave)waves[4]).getEnemies().Add(rusher, 40f);
         ((Wave)waves[4]).getEnemies().Add(enemy, 100f);

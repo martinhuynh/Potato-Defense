@@ -657,7 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 674657338652552642, guid: cb9a199dbd066d14da325390a3cbe69f, type: 3}
   charger: {fileID: 443355725543303912, guid: be3652c1ff74d6243910e7a51cc9fda0, type: 3}
-  rusher: {fileID: 7053047566375595397, guid: ad67a95d9839f474abbfb88808706485, type: 3}
+  rusher: {fileID: 1620480282034443708, guid: ad67a95d9839f474abbfb88808706485, type: 3}
 --- !u!1 &152001931
 GameObject:
   m_ObjectHideFlags: 0

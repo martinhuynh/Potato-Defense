@@ -131,7 +131,7 @@ public class ItemManager : MonoBehaviour
 
         if (!PlayerInventory.isAvailable(ItemEnum.FENCE)) return false;
         PlayerInventory.use(ItemEnum.FENCE);
-        
+        ShopManagerScript.shopItems[3, 1] = PlayerInventory.fence;
         FenceBehavior fence = Instantiate(fencePrefab);
         fence.transform.position = map.GetCellCenterWorld(gridPos);
         fence.start(gridPos, this);

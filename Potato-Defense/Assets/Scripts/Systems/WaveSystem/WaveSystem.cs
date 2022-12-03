@@ -24,7 +24,7 @@ public class WaveSystem : MonoBehaviour
     private bool inWave = false;
     private bool gracePeriodReady = false;
 
-    private int curTarget, curLives;
+    private int curPotatoes = 0, curTarget, curLives;
 
     // Start is called before the first frame update
     void Start()
@@ -84,7 +84,7 @@ public class WaveSystem : MonoBehaviour
             {
                 Lose();
             }
-            else if (curTarget <= 0)
+            else if (curPotatoes >= curTarget)
             {
                 WinWave();
             }
@@ -115,6 +115,7 @@ public class WaveSystem : MonoBehaviour
         if (curWave == waves.Count) return;
         curTarget = ((Wave)waves[curWave]).getTarget();
         curLives = ((Wave)waves[curWave]).getLives();
+        curPotatoes = 0;
         farmManager.toggleGrowth(false);
     }
 
@@ -143,9 +144,9 @@ public class WaveSystem : MonoBehaviour
         curLives--;
     }
 
-    public void decreaseTarget()
+    public void increasePotatoes()
     {
-        curTarget--;
+        curPotatoes++;
     }
 
     public void readyUp()
@@ -163,6 +164,11 @@ public class WaveSystem : MonoBehaviour
     public int getTarget()
     {
         return curTarget;
+    }
+
+    public int getPotatoes()
+    {
+        return curPotatoes;
     }
 
     public bool isInWave()

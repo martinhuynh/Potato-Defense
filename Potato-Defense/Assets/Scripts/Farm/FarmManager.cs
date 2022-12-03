@@ -115,7 +115,7 @@ public class FarmManager : MonoBehaviour
         PlayerInventory.potatoes += credit;
         hotbarManager.refreshItem();
         map.SetTile(gridPosition, dirt);
-        waveSystem.decreaseTarget();
+        waveSystem.increasePotatoes();
         plant(position);
     }
 

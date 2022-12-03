@@ -129,12 +129,9 @@ public class ItemManager : MonoBehaviour
         if (!mapManager.isAvailable(pos)) return false;
         ItemSlot slot = HotbarManager.selected;
 
-        if (PlayerInventory.potatoes >= ShopManagerScript.shopItems[2, 1])
-        {
-            PlayerInventory.potatoes -= ShopManagerScript.shopItems[2, 1];
-            hotbarManager.refreshItem();
-        }
-        else return false;
+        if (!PlayerInventory.isAvailable(ItemEnum.FENCE)) return false;
+        PlayerInventory.use(ItemEnum.FENCE);
+        
         FenceBehavior fence = Instantiate(fencePrefab);
         fence.transform.position = map.GetCellCenterWorld(gridPos);
         fence.start(gridPos, this);

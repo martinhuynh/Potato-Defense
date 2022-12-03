@@ -36,6 +36,7 @@ public class HotbarManager : MonoBehaviour
             itemSlots[i].key.text = i + 1 + "";
         }
         select(selected);
+        refreshItem();
     }
 
     // Update is called once per frame
@@ -93,6 +94,7 @@ public class HotbarManager : MonoBehaviour
     // Call whenever a purchase is made.
     public void refreshItem()
     {
-        itemSlots[1].transform.Find("Item").GetComponent<SpriteRenderer>().color = (PlayerInventory.potatoes >= ShopManagerScript.shopItems[2, 1]) ? new Color(255, 255, 255, 1f) : new Color(255, 255, 255, 0.4f);
+        Debug.Log("Refresh. " + PlayerInventory.fence);
+        itemSlots[1].transform.Find("Item").GetComponent<SpriteRenderer>().color = (PlayerInventory.fence > 0) ? new Color(255, 255, 255, 1f) : new Color(255, 255, 255, 0.4f);
     }
 }

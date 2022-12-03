@@ -14,6 +14,7 @@ public class ShopManagerScript : MonoBehaviour
     public PlayerStats playerStatsRef;
     public TextMeshProUGUI CoinsTXT;
     public TextMeshProUGUI SkillPointTXT;
+    private HotbarManager hotbarManager;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,7 @@ public class ShopManagerScript : MonoBehaviour
         shopItems[3, 2] = 0;
         shopItems[3, 3] = 0;
 
-
+        hotbarManager = GameObject.Find("Hotbar").GetComponent<HotbarManager>();
     }
 
     public void Buy()
@@ -53,13 +54,20 @@ public class ShopManagerScript : MonoBehaviour
             
             ButtonRef.GetComponent<ButtonInfo>().QuantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
         }
+        refreshQuantity();
+    }
+
+    void refreshQuantity()
+    {
+        PlayerInventory.fence = shopItems[3, 1];
+        hotbarManager.refreshItem();
     }
 
     void Update()
     {
         loadSkillpoint();
         // Inefficient. Should be called when shop is opened on on every update.
-        SkillPointTXT.text = "SKill Points: " + PlayerStats.skillPoint.ToString();
+        SkillPointTXT.text = "Skill Points: " + PlayerStats.skillPoint.ToString();
         CoinsTXT.text = "Coins:" + PlayerInventory.potatoes.ToString();
     }
 

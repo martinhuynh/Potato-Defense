@@ -1056,7 +1056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 674657338652552642, guid: cb9a199dbd066d14da325390a3cbe69f, type: 3}
   charger: {fileID: 443355725543303912, guid: be3652c1ff74d6243910e7a51cc9fda0, type: 3}
-  rusher: {fileID: 0}
+  rusher: {fileID: 1620480282034443708, guid: ad67a95d9839f474abbfb88808706485, type: 3}
 --- !u!1 &152001931
 GameObject:
   m_ObjectHideFlags: 0
@@ -17446,7 +17446,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $50 Fence
+  m_text: $10 Fence
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9467bb89639954f2d95ec99301ee25aa, type: 2}
   m_sharedMaterial: {fileID: -1298088387653362770, guid: 9467bb89639954f2d95ec99301ee25aa,

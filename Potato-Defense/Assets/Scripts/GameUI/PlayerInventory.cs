@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public static int fence = 10, lure = 0, item3 = 0, item4 = 0, potatoes = 10;
+    private static HotbarManager hotbarManager;
+    public static int fence = 0, lure = 0, item3 = 0, item4 = 0, potatoes = 10;
+
+    private void Start()
+    {
+        
+    }
 
     public static void use(ItemEnum type)
     {
@@ -24,6 +30,8 @@ public class PlayerInventory : MonoBehaviour
         {
             PlayerInventory.item4--;
         }
+        hotbarManager = GameObject.Find("Hotbar").GetComponent<HotbarManager>();
+        hotbarManager.refreshItem();
     }
 
     public static bool isAvailable(ItemEnum type)

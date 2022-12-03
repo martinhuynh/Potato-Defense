@@ -56,17 +56,7 @@ public class ItemSlot : MonoBehaviour
 
     public bool isAvailable()
     {
-        Color c = item.GetComponent<SpriteRenderer>().color;
-
-        if (PlayerInventory.isAvailable(type))
-        {
-            c.a = 255;
-            item.GetComponent<SpriteRenderer>().color = c;
-            return true;
-        }
-        c.a = 0;
-        item.GetComponent<SpriteRenderer>().color = c;
-        return false;
+        return (PlayerInventory.isAvailable(type));
     }
 
 

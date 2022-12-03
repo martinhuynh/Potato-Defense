@@ -251,10 +251,12 @@ public class RusherMovement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, initialAttackPos, 1f * Time.smoothDeltaTime);
             if (transform.position == initialAttackPos)
             {
-                if (fenceDestroyed || !itemManager.containsFence(targetFence))
+                if (fenceDestroyed || !itemManager.containsFence(targetFence) || (pathfind.FindPath(new PathfindTileData(Vector3Int.FloorToInt(transform.position) + new Vector3(0.5f, 0.5f)), new PathfindTileData(target)).Count > 0))
                 {
                     isAttacking = false;
                     fenceDestroyed = false;
+                    reachedPoint = true;
+                    reachedAttackPeak = false;
                     return;
                 }
                 if (Time.time >= nextAttack)

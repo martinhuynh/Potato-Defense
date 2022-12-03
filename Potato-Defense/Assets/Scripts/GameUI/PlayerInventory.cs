@@ -85,7 +85,7 @@ public class PlayerInventory : MonoBehaviour
         else if (type == ItemEnum.ITEM4)
         {
             return PlayerInventory.item4;
-        }else return 0;
+        }else return -1;
     }
 
 }

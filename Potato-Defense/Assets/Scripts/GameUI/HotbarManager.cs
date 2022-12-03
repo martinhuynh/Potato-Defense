@@ -52,10 +52,7 @@ public class HotbarManager : MonoBehaviour
             current = (current - 1 < 0) ? itemKeys.Count - 1 : current - 1;
             select(itemSlots[current]);
         }
-        else if (Input.GetKeyDown(KeyCode.H))
-        {
-            if (selected.isAvailable()) selected.use(); ;
-        }
+        
 
         foreach (KeyCode key in keys)
         {
@@ -96,5 +93,9 @@ public class HotbarManager : MonoBehaviour
     {
         Debug.Log("Refresh. " + PlayerInventory.fence);
         itemSlots[1].transform.Find("Item").GetComponent<SpriteRenderer>().color = (PlayerInventory.fence > 0) ? new Color(255, 255, 255, 1f) : new Color(255, 255, 255, 0.4f);
+        foreach (ItemSlot item in itemSlots)
+        {
+            item.refresh();
+        }
     }
 }

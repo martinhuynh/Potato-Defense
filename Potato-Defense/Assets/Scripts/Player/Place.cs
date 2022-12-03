@@ -32,6 +32,11 @@ public class Place : MonoBehaviour
         float opacity = 360f;
         while (true)
         {
+            if (!PlayerInventory.isAvailable(ItemEnum.FENCE))
+            {
+                GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0f);
+                while (!PlayerInventory.isAvailable(ItemEnum.FENCE)) yield return new WaitForFixedUpdate();
+            }
             opacity -= 6 * Time.fixedDeltaTime;
             opacity %= 360;
             GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, (1 - Mathf.Cos(opacity)) * 0.3f);

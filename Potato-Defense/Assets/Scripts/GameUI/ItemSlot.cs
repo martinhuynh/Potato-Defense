@@ -20,7 +20,6 @@ public class ItemSlot : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI key;
 
-
     [SerializeField]
     private GameObject item;
 
@@ -44,15 +43,19 @@ public class ItemSlot : MonoBehaviour
         selectAsset.unselect();
     }
 
-    
-
-
-    public void use()
+    public void refresh()
     {
-        PlayerInventory.use(type);
-        quantity.text = PlayerInventory.getInventory(type) + "";
-        if (isAvailable()) return;
+        int amount = PlayerInventory.getInventory(type);
+        quantity.SetText((amount == -1) ? "" : amount.ToString());
     }
+
+
+    //public void use()
+    //{
+    //    PlayerInventory.use(type);
+    //    quantity.text = PlayerInventory.getInventory(type) + "";
+    //    if (isAvailable()) return;
+    //}
 
     public bool isAvailable()
     {

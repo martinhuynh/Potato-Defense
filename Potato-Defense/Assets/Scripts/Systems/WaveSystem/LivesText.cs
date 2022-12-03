@@ -23,6 +23,7 @@ public class LivesText : MonoBehaviour
 
     private void FixedUpdate()
     {
-        textMP.text = "Lives: " + waveSystem.getLives();
+        textMP.text = waveSystem.getLives() + " / 5";
+        //textMP.text = "Lives: " + waveSystem.getLives();
     }
 }

@@ -34,7 +34,7 @@ public class FarmManager : MonoBehaviour
 
     private readonly int credit = 10;
 
-    private bool paused = false;
+    private bool paused = true;
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +57,7 @@ public class FarmManager : MonoBehaviour
         Vector3Int gridPos = map.WorldToCell(pos);
         if (crops.Count > 1 && crops.ContainsKey(gridPos))
         {
-            Debug.Log(gridPos);
+            //Debug.Log(gridPos);
             map.SetTile(gridPos, grass);
             Destroy(crops[gridPos].gameObject);
             crops.Remove(gridPos);
@@ -81,6 +81,7 @@ public class FarmManager : MonoBehaviour
         {
             crop.Value.toggleGrowth(pause);
         }
+        //Debug.Log(pausde);
         paused = pause;
     }
 

@@ -34,7 +34,7 @@ public class FarmManager : MonoBehaviour
 
     private readonly int credit = 10;
 
-    private bool paused = true;
+    private bool grow = false;
 
     // Start is called before the first frame update
     void Start()
@@ -47,8 +47,8 @@ public class FarmManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.J)) {
-            paused = !paused;
-            toggleGrowth(paused);
+            grow = !grow;
+            toggleGrowth(grow);
         }
     }
 
@@ -75,19 +75,19 @@ public class FarmManager : MonoBehaviour
     }
 
     // true = grow, false = stop
-    public void toggleGrowth(bool pause)
+    public void toggleGrowth(bool grow)
     {
         foreach (KeyValuePair <Vector3Int, CropBehavior> crop in crops)
         {
-            crop.Value.toggleGrowth(pause);
+            crop.Value.toggleGrowth(grow);
         }
-        //Debug.Log(pausde);
-        paused = pause;
+        Debug.Log(grow);
+        this.grow = grow;
     }
 
-    public bool isPaused()
+    public bool isGrowing()
     {
-        return paused;
+        return grow;
     }
 
     public Farm getState(Vector3 pos)

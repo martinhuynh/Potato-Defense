@@ -44,13 +44,13 @@ public class CropBehavior : MonoBehaviour
         stages = new Queue<Sprite>();
         stages.Enqueue(stage_2);
         stages.Enqueue(stage_done);
-        if (!farmManager.isPaused()) thread = StartCoroutine(grow_crop());
+        if (farmManager.isGrowing()) thread = StartCoroutine(grow_crop());
     }
 
-    public void toggleGrowth(bool pause)
+    public void toggleGrowth(bool grow)
     {
         //Debug.Log(pause);
-        if (pause)
+        if (!grow)
         {
             //Debug.Log("paused");
             StopCoroutine(thread);
@@ -123,7 +123,7 @@ public class CropBehavior : MonoBehaviour
 
     public void OnDestroy()
     {
-        StopCoroutine(thread);
+        if (thread != null) StopCoroutine(thread);
     }
 
     public IEnumerator grow_crop()

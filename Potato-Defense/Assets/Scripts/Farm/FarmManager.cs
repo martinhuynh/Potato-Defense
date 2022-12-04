@@ -103,7 +103,7 @@ public class FarmManager : MonoBehaviour
         map.SetTile(gridPosition, dirt);
         CropBehavior newCrop = Instantiate(crop);
         crops.Add(gridPosition, newCrop);
-        newCrop.transform.position = map.GetCellCenterWorld(gridPosition);
+        newCrop.setPosition(map.GetCellCenterWorld(gridPosition));
         plant(position);
     }
 

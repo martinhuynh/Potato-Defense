@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 public class CropBehavior : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class CropBehavior : MonoBehaviour
     private Tile plowed;
     [SerializeField]
     private Tile grass;
+
+    [SerializeField]
+    private TextMeshPro credits;
 
     private WaveSystem waveSystem;
     private Tilemap map;
@@ -68,6 +72,9 @@ public class CropBehavior : MonoBehaviour
         opacity = new Color(255, 255, 255, 1f);
         //plowed = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Tilesets/TilePalette/Dirt/Tilled Dirt_0.asset", typeof(Tile)) as Tile;
         GetComponent<SpriteRenderer>().sprite = null;
+        Color color = credits.color;
+        color.a = 0f;
+        credits.color = color;
         
         state = Farm.GROWING;
     }
@@ -86,6 +93,39 @@ public class CropBehavior : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = null;
         state = Farm.PLOWED;
         //PlayerInventory.potatoes++;
+        StartCoroutine(creditText());
+    }
+
+    public void setPosition(Vector3 pos)
+    {
+        this.transform.position = pos;
+        credits.transform.position = pos;
+    }
+
+    private IEnumerator creditText()
+    {
+        Color color = credits.color;
+        color.a = 1f;
+        credits.color = color;
+        float duration = 1f;
+        while (duration >= 0)
+        {
+            if (duration <= 0.4f) {
+                color.a -= Time.fixedDeltaTime * 3.3f;
+                if (color.a < 0) color.a = 0;
+                credits.color = color;
+            }
+
+            Vector3 pos = credits.transform.position;
+            pos.y += Time.fixedDeltaTime;
+            credits.transform.position = pos;
+            duration -= Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        color.a = 0f;
+        credits.color = color;
+        credits.transform.position = transform.position;
+        yield break;
     }
 
     public Farm getState()
@@ -133,7 +173,7 @@ public class CropBehavior : MonoBehaviour
         for (int i = 0; i < size; i++)
         {
             // Update sprite
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(1f);
             Sprite newSprite = stages.Dequeue();
             GetComponent<SpriteRenderer>().sprite = newSprite;
             GetComponent<SpriteRenderer>().color = opacity;

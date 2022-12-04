@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         idle = false;
         UpdateAnimation(Action.ATTACK);
         List<EnemyBehavior> toRemove = new List<EnemyBehavior>();
-        for (int i = 0; i < enemies.Count; i++)
+        for (int i = 0; i < 1 && enemies.Count != 0; i++)
         {
             if (enemies[i] == null) enemies.RemoveAt(i);
             enemies[i].TakeDamage(PlayerStats.attackPower);

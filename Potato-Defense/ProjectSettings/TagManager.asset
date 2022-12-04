@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Event
+  - Fence
   layers:
   - Default
   - TransparentFX

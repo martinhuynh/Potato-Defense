@@ -11,6 +11,14 @@ public class HotbarManager : MonoBehaviour
     private Dictionary<KeyCode, ItemSlot> itemKeys;
     public static ItemSlot selected;
     public static bool use = false;
+    [SerializeField]
+    SelectBehavior selectBehavior;
+    [SerializeField]
+    GameObject repair;
+    [SerializeField]
+    GameObject place;
+    private int current = 0;
+    private KeyCode[] keys = { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5 };
 
 
     [SerializeField]
@@ -20,50 +28,41 @@ public class HotbarManager : MonoBehaviour
     void Start()
     {
         selected = itemSlots[0];
-        
         itemKeys = new Dictionary<KeyCode, ItemSlot>();
 
-        itemKeys.Add(KeyCode.Alpha7, itemSlots[0]);
-        itemKeys.Add(KeyCode.Alpha8, itemSlots[1]);
-        itemKeys.Add(KeyCode.Alpha9, itemSlots[2]);
-        itemKeys.Add(KeyCode.Alpha0, itemSlots[3]);
+        for (int i = 0; i < itemSlots.Length; i++)
+        {
+            itemKeys.Add(keys[i], itemSlots[i]);
+            itemSlots[i].key.text = i + 1 + "";
+        }
         select(selected);
-
-        itemSlots[0].key.text = "7";
-        itemSlots[1].key.text = "8";
-        itemSlots[2].key.text = "9";
-        itemSlots[3].key.text = "0";
-
+        refreshItem();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
         {
-            if (selected.isAvailable()) selected.use(); ;
+            current = (current + 1) % itemKeys.Count;
+            select(itemSlots[current]);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
         {
-            selected = itemKeys[KeyCode.Alpha7];
-            select(selected);
+            current = (current - 1 < 0) ? itemKeys.Count - 1 : current - 1;
+            select(itemSlots[current]);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            selected = itemKeys[KeyCode.Alpha8];
-            select(selected);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            selected = itemKeys[KeyCode.Alpha9];
-            select(selected);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            selected = itemKeys[KeyCode.Alpha0];
-            select(selected);
-        }
+        
 
+        foreach (KeyCode key in keys)
+        {
+            if (Input.GetKeyDown(key))
+            {
+                selected = itemKeys[key];
+                select(selected);
+                break;
+            }
+        }
 
     }
 
@@ -77,14 +76,26 @@ public class HotbarManager : MonoBehaviour
         }
         use = false;
         selected = exclude;
+        selectBehavior.gameObject.SetActive(exclude.type == ItemEnum.DELETE);
+        repair.gameObject.SetActive(exclude.type == ItemEnum.REPAIR);
+        place.gameObject.SetActive(exclude.type == ItemEnum.FENCE);
     }
 
+    public ItemEnum getSelected()
+    {
+        return selected.type;
+    }
 
     
 
     // Call whenever a purchase is made.
     public void refreshItem()
     {
-
+        Debug.Log("Refresh. " + PlayerInventory.fence);
+        itemSlots[1].transform.Find("Item").GetComponent<SpriteRenderer>().color = (PlayerInventory.fence > 0) ? new Color(255, 255, 255, 1f) : new Color(255, 255, 255, 0.4f);
+        foreach (ItemSlot item in itemSlots)
+        {
+            item.refresh();
+        }
     }
 }

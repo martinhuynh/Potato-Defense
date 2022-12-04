@@ -30,7 +30,7 @@ public class FenceBehavior : MonoBehaviour
     public void UpdateOrder()
     {
         int order = (int)(-100 * transform.position.y);
-        GetComponent<SpriteRenderer>().sortingOrder = order;
+        GetComponent<SpriteRenderer>().sortingOrder = order - 1;
         up.GetComponent<SpriteRenderer>().sortingOrder = order;
         down.GetComponent<SpriteRenderer>().sortingOrder = order;
         left.GetComponent<SpriteRenderer>().sortingOrder = order;
@@ -54,12 +54,17 @@ public class FenceBehavior : MonoBehaviour
         setOpacity(opacity);
         if (hp <= 0)
         {
-            itemManager.remove(gridPos);
-            itemManager.updateLink(gridPos, this);
             Destroy(this.gameObject);
             return false;
         }
         return true;
+    }
+
+    public void OnDestroy()
+    {
+        itemManager.remove(gridPos);
+        itemManager.updateLink(gridPos, this);
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -74,6 +79,13 @@ public class FenceBehavior : MonoBehaviour
             //Debug.Log("Enter");
             decrease(5);
         }
+    }
+
+    public void repair()
+    {
+        hp += (int) PlayerStats.repair;
+        if (hp > startHP) hp = startHP;
+        setOpacity((float)hp / (float)startHP);
     }
 
     public void connect(Fence link)

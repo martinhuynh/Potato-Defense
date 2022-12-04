@@ -20,6 +20,8 @@ public class CropBehavior : MonoBehaviour
     private Tile plowed;
     [SerializeField]
     private Tile grass;
+    [SerializeField]
+    private PotatoHarvested potatoHarvested;
 
     [SerializeField]
     private TextMeshPro credits;
@@ -94,6 +96,7 @@ public class CropBehavior : MonoBehaviour
         state = Farm.PLOWED;
         //PlayerInventory.potatoes++;
         StartCoroutine(creditText());
+        Instantiate(potatoHarvested, transform.position, Quaternion.identity);
     }
 
     public void setPosition(Vector3 pos)

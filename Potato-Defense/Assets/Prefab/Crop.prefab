@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8491984372808110181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.48889142, y: 0.44255745, z: -0.035732765}
+  m_LocalPosition: {x: 0.48889142, y: 0.44255745, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -277,6 +277,8 @@ MonoBehaviour:
   stage_done: {fileID: -1069676926, guid: b10a6040d374e456aa6f28853525b1d2, type: 3}
   plowed: {fileID: 11400000, guid: baa928d2e97ff47499570e3a4551d622, type: 2}
   grass: {fileID: 11400000, guid: 167348cf440004530914a10bc70b9d95, type: 2}
+  potatoHarvested: {fileID: 6697503461369177656, guid: 479a4bed674b34e27943797e097e3876,
+    type: 3}
   credits: {fileID: 4377973153694758496}
 --- !u!50 &2325154214206980299
 Rigidbody2D:

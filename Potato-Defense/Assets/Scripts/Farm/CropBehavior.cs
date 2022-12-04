@@ -176,7 +176,7 @@ public class CropBehavior : MonoBehaviour
         for (int i = 0; i < size; i++)
         {
             // Update sprite
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(10f);
             Sprite newSprite = stages.Dequeue();
             GetComponent<SpriteRenderer>().sprite = newSprite;
             GetComponent<SpriteRenderer>().color = opacity;

@@ -88,4 +88,10 @@ public class PlayerInventory : MonoBehaviour
         }else return -1;
     }
 
+    public static void reset()
+    {
+        fence = 0;
+        potatoes = 10;
+    }
+
 }

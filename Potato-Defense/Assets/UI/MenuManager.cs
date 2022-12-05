@@ -102,6 +102,8 @@ public class MenuManager : MonoBehaviour
     public void restartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        PlayerInventory.reset();
+        PlayerStats.restart();
         Time.timeScale = 1;
     }
 }

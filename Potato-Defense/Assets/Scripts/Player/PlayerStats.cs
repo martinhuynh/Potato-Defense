@@ -36,6 +36,10 @@ public class PlayerStats : MonoBehaviour
     public static void restart()
     {
         skillPoint = startPoints;
+        movementSpeed = 2.0f;
+        farmingSpeed = 2.0f;
+        attackPower = 2.0f;
+        repair = 2.0f;
     }
 
 

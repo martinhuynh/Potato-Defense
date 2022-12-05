@@ -95,6 +95,7 @@ public class CropBehavior : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = null;
         state = Farm.PLOWED;
         //PlayerInventory.potatoes++;
+        hp = startHP;
         StartCoroutine(creditText());
         Instantiate(potatoHarvested, transform.position, Quaternion.identity);
     }

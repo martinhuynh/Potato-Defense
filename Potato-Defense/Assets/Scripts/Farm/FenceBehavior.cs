@@ -74,11 +74,11 @@ public class FenceBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            //Debug.Log("Enter");
-            decrease(5);
-        }
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    //Debug.Log("Enter");
+        //    decrease(5);
+        //}
     }
 
     public void repair()

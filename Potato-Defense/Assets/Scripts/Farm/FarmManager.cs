@@ -46,10 +46,10 @@ public class FarmManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J)) {
-            grow = !grow;
-            toggleGrowth(grow);
-        }
+        //if (Input.GetKeyDown(KeyCode.J)) {
+        //    grow = !grow;
+        //    toggleGrowth(grow);
+        //}
     }
 
     public void delete(Vector3 pos)

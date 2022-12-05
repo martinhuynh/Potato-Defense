@@ -49,7 +49,7 @@ public class MenuManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
 
             if(inShop == false)

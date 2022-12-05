@@ -1055,8 +1055,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 674657338652552642, guid: cb9a199dbd066d14da325390a3cbe69f, type: 3}
-  charger: {fileID: 443355725543303912, guid: be3652c1ff74d6243910e7a51cc9fda0, type: 3}
-  rusher: {fileID: 1620480282034443708, guid: ad67a95d9839f474abbfb88808706485, type: 3}
+  charger: {fileID: 0}
+  rusher: {fileID: 0}
 --- !u!1 &152001931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2797,9 +2797,9 @@ MonoBehaviour:
   crop: {fileID: 5157533062390329728, guid: c8eb8327d42a84c0aa7d0f4927d67be9, type: 3}
   dirt: {fileID: 11400000, guid: baa928d2e97ff47499570e3a4551d622, type: 2}
   plowed: {fileID: 11400000, guid: 7ac712ee6ed0947e384a4563d8ca7308, type: 2}
-  grass: {fileID: 11400000, guid: 167348cf440004530914a10bc70b9d95, type: 2}
+  grass: {fileID: 0}
   mapManager: {fileID: 1905277889}
-  hotbarManager: {fileID: 1666393789}
+  hotbarManager: {fileID: 0}
 --- !u!1 &491501270
 GameObject:
   m_ObjectHideFlags: 0
@@ -13622,7 +13622,7 @@ MonoBehaviour:
   fencePrefab: {fileID: 541843036715603173, guid: f7072563642af4f4490ccb1d6cd8609f,
     type: 3}
   mapManager: {fileID: 1905277889}
-  hotbarManager: {fileID: 1666393789}
+  hotbarManager: {fileID: 0}
 --- !u!1 &1426382066
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
+    public AudioSource buyingSoundEffect;
+
     public static float movementSpeed = 2.0f;
     public static float farmingSpeed = 2.0f;
     public static float attackPower = 2.0f;
@@ -73,7 +75,8 @@ public class PlayerStats : MonoBehaviour
             movementLevel += 1;           
             //Debug.Log("movement level is " + movementLevel);
         }
-        
+
+        buyingSoundEffect.Play();
     }
     public void upgradeFarming()
     {
@@ -83,7 +86,7 @@ public class PlayerStats : MonoBehaviour
             skillPoint -= 1;
             farmingLevel += 1;
         }
-          
+        buyingSoundEffect.Play();
     }
     public void upgradeAttacking()
     {
@@ -93,8 +96,8 @@ public class PlayerStats : MonoBehaviour
             skillPoint -= 1;
             attackLevel +=1;
         }
+        buyingSoundEffect.Play();
 
-        
     }
     public void upgradeCarpenter()
     {
@@ -105,7 +108,7 @@ public class PlayerStats : MonoBehaviour
             carpenterLevel +=1;
 
         }
-       
+        buyingSoundEffect.Play();
     }
 
     //minus player stats function
@@ -118,6 +121,7 @@ public class PlayerStats : MonoBehaviour
             movementLevel -= 1;
             //Debug.Log("movement level is " + movementLevel);
         }
+        buyingSoundEffect.Play();
     }
     public void minusFarming()
     {
@@ -127,6 +131,7 @@ public class PlayerStats : MonoBehaviour
             skillPoint += 1;
             farmingLevel -= 1;
         }
+        buyingSoundEffect.Play();
     }
     public void minusAttacking()
     {
@@ -136,6 +141,7 @@ public class PlayerStats : MonoBehaviour
             skillPoint += 1;
             attackLevel -= 1;
         }
+        buyingSoundEffect.Play();
     }
     public void minusCarpenter()
     {
@@ -145,6 +151,7 @@ public class PlayerStats : MonoBehaviour
             skillPoint += 1;
             carpenterLevel -= 1;
         }
+        buyingSoundEffect.Play();
     }
 
     //changing progress bars' assets funtions
@@ -167,6 +174,7 @@ public class PlayerStats : MonoBehaviour
         {
             progressBarMovement.gameObject.GetComponent<SpriteRenderer>().sprite = levelThree;
         }
+
     }
 
     public void changingAssetFarming()
@@ -187,6 +195,7 @@ public class PlayerStats : MonoBehaviour
         {
             progressBarFarm.gameObject.GetComponent<SpriteRenderer>().sprite = levelThree;
         }
+
     }
 
     public void changingAssetAttacking()

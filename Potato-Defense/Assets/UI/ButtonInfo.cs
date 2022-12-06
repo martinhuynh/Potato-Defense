@@ -16,6 +16,8 @@ public class ButtonInfo : MonoBehaviour
     public Color originalColor;
     private ColorBlock cb;
 
+  
+
     void Start()
     {
         cb = button.colors;

@@ -7,19 +7,19 @@ using TMPro;
 public class ShopManagerScript : MonoBehaviour
 {
 
-    public int[,] shopItems = new int[5,5];
+    public static int[,] shopItems = new int[5,5];
     //number stands for number of item to have in shop, one extra just in case
     //first number is for the items' ID in the first colum, second number is for items' price in second colum
 
     public PlayerStats playerStatsRef;
-    public float coins;
     public TextMeshProUGUI CoinsTXT;
     public TextMeshProUGUI SkillPointTXT;
+    private HotbarManager hotbarManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        CoinsTXT.text = "Coins:" + coins.ToString();
+        CoinsTXT.text = "Coins:" + PlayerInventory.potatoes.ToString();
         PlayerStats.restart();
         
         //Item ID's
@@ -29,7 +29,7 @@ public class ShopManagerScript : MonoBehaviour
 
 
         //Price
-        shopItems[2, 1] = 50;
+        shopItems[2, 1] = 10;
         shopItems[2, 2] = 999;
         shopItems[2, 3] = 999;
 
@@ -39,29 +39,43 @@ public class ShopManagerScript : MonoBehaviour
         shopItems[3, 2] = 0;
         shopItems[3, 3] = 0;
 
-
+        hotbarManager = GameObject.Find("Hotbar").GetComponent<HotbarManager>();
     }
 
     public void Buy()
     {
         GameObject ButtonRef = GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
 
-        if (coins >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID]) //check if player have enough coins for that item
+        if (PlayerInventory.potatoes >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID]) //check if player have enough coins for that item
         {
-            coins -= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID]; //subtract coins
+            PlayerInventory.potatoes -= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID]; //subtract coins
             shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID]++; //increse item quantity by 1
-            CoinsTXT.text = "Coins:" + coins.ToString();    //update text when purchase
+            CoinsTXT.text = "Coins:" + PlayerInventory.potatoes.ToString();    //update text when purchase
             
             ButtonRef.GetComponent<ButtonInfo>().QuantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
         }
+        refreshQuantity();
+    }
+
+    void refreshQuantity()
+    {
+        PlayerInventory.fence = shopItems[3, 1];
+        hotbarManager.refreshItem();
     }
 
     void Update()
     {
-        loadSkillpoint();        
-        SkillPointTXT.text = "SKill Points: " + PlayerStats.skillPoint.ToString();
+        loadSkillpoint();
+        // Inefficient. Should be called when shop is opened on on every update.
+        SkillPointTXT.text = "Skill Points: " + PlayerStats.skillPoint.ToString();
+        CoinsTXT.text = "Coins:" + PlayerInventory.potatoes.ToString();
     }
 
+    private void OnEnable()
+    {
+        
+
+    }
     public void loadSkillpoint()
     {
         //mskillPoints = playerStatsRef.returnSkillPoint();

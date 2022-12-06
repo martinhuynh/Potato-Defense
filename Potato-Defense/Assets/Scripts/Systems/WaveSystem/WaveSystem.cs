@@ -8,17 +8,23 @@ public class WaveSystem : MonoBehaviour
     private WinLoseSystem winLoseSystem;
     private WaveProgressBarBehavior waveProgBar;
     private PlayerStats playerStats;
+    private FarmManager farmManager;
 
     private ArrayList waves;
 
     [SerializeField]
     private GameObject enemy;
+    [SerializeField]
+    private GameObject charger;
+    [SerializeField]
+    private GameObject rusher;
+    private GameObject readyButton;
 
     private int curWave = 0;
     private bool inWave = false;
-    private float gracePeriod = 10f, gracePeriodEnd;
+    private bool gracePeriodReady = false;
 
-    private int curTarget, curLives;
+    private int curPotatoes = 0, curTarget, curLives;
 
     // Start is called before the first frame update
     void Start()
@@ -27,16 +33,30 @@ public class WaveSystem : MonoBehaviour
         waveProgBar = GameObject.Find("WaveProgressBar").GetComponent<WaveProgressBarBehavior>();
         winLoseSystem = GameObject.Find("WinLoseSystem").GetComponent<WinLoseSystem>();
         playerStats = GameObject.Find("PlayerStatsObject").GetComponent<PlayerStats>();
+        farmManager = GameObject.Find("FarmManager").GetComponent<FarmManager>();
+        readyButton = GameObject.Find("ReadyButton");
 
         waves = new ArrayList();
-        gracePeriodEnd = gracePeriod;
 
         // Wave 1
-        waves.Add(new Wave(10, 5, 25));
+        waves.Add(new Wave(6, 5, 45));
         ((Wave)waves[0]).getEnemies().Add(enemy, 100f);
         // Wave 2
-        waves.Add(new Wave(15, 5, 30));
+        waves.Add(new Wave(10, 5, 25));
         ((Wave)waves[1]).getEnemies().Add(enemy, 100f);
+        // Wave 3
+        waves.Add(new Wave(15, 5, 20));
+        ((Wave)waves[2]).getEnemies().Add(rusher, 20f);
+        ((Wave)waves[2]).getEnemies().Add(enemy, 100f);
+        // Wave 4
+        waves.Add(new Wave(20, 5, 15));
+        ((Wave)waves[3]).getEnemies().Add(rusher, 40f);
+        ((Wave)waves[3]).getEnemies().Add(enemy, 100f);
+        // Wave 5
+        waves.Add(new Wave(30, 5, 15));
+        ((Wave)waves[4]).getEnemies().Add(charger, 10f);
+        ((Wave)waves[4]).getEnemies().Add(rusher, 40f);
+        ((Wave)waves[4]).getEnemies().Add(enemy, 100f);
 
         curTarget = ((Wave)waves[curWave]).getTarget();
         curLives = ((Wave)waves[curWave]).getLives();
@@ -53,7 +73,7 @@ public class WaveSystem : MonoBehaviour
     {
         if (!inWave)
         {
-            if (Time.time >= gracePeriodEnd)
+            if (gracePeriodReady)
             {
                 StartWave();
             }
@@ -64,7 +84,7 @@ public class WaveSystem : MonoBehaviour
             {
                 Lose();
             }
-            else if (curTarget <= 0)
+            else if (curPotatoes >= curTarget)
             {
                 WinWave();
             }
@@ -74,23 +94,29 @@ public class WaveSystem : MonoBehaviour
     private void StartWave()
     {
         inWave = true;
+        gracePeriodReady = false;
+        readyButton.SetActive(false);
 
         waveProgBar.startWaveProgBar();
 
         enemySystem.setSpawnParameters((Wave)waves[curWave]);
         enemySystem.startSpawn();
+
+        farmManager.toggleGrowth(true);
     }
 
     private void StopWave()
     {
         inWave = false;
-        gracePeriodEnd = gracePeriod + Time.time;
+        readyButton.SetActive(true);
         waveProgBar.resetWaveProgBar();
         enemySystem.stopSpawn();
         curWave++;
         if (curWave == waves.Count) return;
         curTarget = ((Wave)waves[curWave]).getTarget();
         curLives = ((Wave)waves[curWave]).getLives();
+        curPotatoes = 0;
+        farmManager.toggleGrowth(false);
     }
 
     private void WinWave()
@@ -118,9 +144,14 @@ public class WaveSystem : MonoBehaviour
         curLives--;
     }
 
-    public void decreaseTarget()
+    public void increasePotatoes()
     {
-        curTarget--;
+        curPotatoes++;
+    }
+
+    public void readyUp()
+    {
+        gracePeriodReady = true;
     }
 
     // Getters
@@ -135,18 +166,28 @@ public class WaveSystem : MonoBehaviour
         return curTarget;
     }
 
+    public int getPotatoes()
+    {
+        return curPotatoes;
+    }
+
     public bool isInWave()
     {
         return inWave;
     }
 
-    public float getGracePeriodEnd()
-    {
-        return gracePeriodEnd;
-    }
-
     public int getWavesLeft()
     {
         return waves.Count - curWave;
+    }
+
+    public int getCurWave()
+    {
+        return curWave;
+    }
+
+    public int getTotalWaves()
+    {
+        return waves.Count;
     }
 }

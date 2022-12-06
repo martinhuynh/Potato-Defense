@@ -14,8 +14,11 @@ public class ItemManager : MonoBehaviour
     [SerializeField]
     private TileMapManager mapManager;
 
+    [SerializeField]
+    private HotbarManager hotbarManager;
+
     // Temporary. only for fence right now.
-    private Dictionary<Vector3Int, FenceBehavior> fences;
+    private static Dictionary<Vector3Int, FenceBehavior> fences;
 
     public void remove(Vector3Int pos)
     {
@@ -92,14 +95,47 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    public void repair(Vector3 pos)
+    {
+        Vector3Int gridPos = map.WorldToCell(pos);
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int a = -1; a <= 1; a++)
+            {
+                Vector3Int temp = new Vector3Int(gridPos.x + i, gridPos.y + a);
+                Debug.Log(temp);
+                if (fences.ContainsKey(temp))
+                {
+                    fences[temp].repair();
+                }
+            }
+        }
+    }
+
+    public void delete(Vector3 pos)
+    {
+        Vector3Int gridPos = map.WorldToCell(pos);
+        if (fences.ContainsKey(gridPos))
+        {
+            Destroy(fences[gridPos].gameObject);
+        }
+        //Debug.Log("Delete " + fences.ContainsKey(gridPos));
+    }
+
     public bool place(Vector3 pos)
     {
         Vector3Int gridPos = map.WorldToCell(pos);
         if (fences.ContainsKey(gridPos)) return false;
-        if (!mapManager.isOnlyPlowed(pos)) return false;
+        if (!mapManager.isAvailable(pos)) return false;
+        ItemSlot slot = HotbarManager.selected;
+
+        if (!PlayerInventory.isAvailable(ItemEnum.FENCE)) return false;
+        PlayerInventory.use(ItemEnum.FENCE);
+        ShopManagerScript.shopItems[3, 1] = PlayerInventory.fence;
         FenceBehavior fence = Instantiate(fencePrefab);
-        fence.start(gridPos, this);
         fence.transform.position = map.GetCellCenterWorld(gridPos);
+        fence.start(gridPos, this);
+        
         fences.Add(gridPos, fence);
 
         updateLink(gridPos, fence);

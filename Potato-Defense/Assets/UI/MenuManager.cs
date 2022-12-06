@@ -49,7 +49,7 @@ public class MenuManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
 
             if(inShop == false)
@@ -102,6 +102,8 @@ public class MenuManager : MonoBehaviour
     public void restartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        PlayerInventory.reset();
+        PlayerStats.restart();
         Time.timeScale = 1;
     }
 }

@@ -13,13 +13,12 @@ public class ItemSlot : MonoBehaviour
     [SerializeField]
     private Select selectAsset;
     [SerializeField]
-    private Sprite sprite = null;
+    private Sprite sprite;
     [SerializeField]
     private TextMeshProUGUI quantity;
 
     [SerializeField]
     public TextMeshProUGUI key;
-
 
     [SerializeField]
     private GameObject item;
@@ -34,7 +33,7 @@ public class ItemSlot : MonoBehaviour
 
     public void select()
     {
-        Debug.Log(type + " selected");
+        //Debug.Log(type + " selected");
         selectAsset.select();
     }
 
@@ -44,29 +43,23 @@ public class ItemSlot : MonoBehaviour
         selectAsset.unselect();
     }
 
-    
-
-
-    public void use()
+    public void refresh()
     {
-        PlayerInventory.use(type);
-        quantity.text = PlayerInventory.getInventory(type) + "";
-        if (isAvailable()) return;
+        int amount = PlayerInventory.getInventory(type);
+        quantity.SetText((amount == -1) ? "" : amount.ToString());
     }
+
+
+    //public void use()
+    //{
+    //    PlayerInventory.use(type);
+    //    quantity.text = PlayerInventory.getInventory(type) + "";
+    //    if (isAvailable()) return;
+    //}
 
     public bool isAvailable()
     {
-        Color c = item.GetComponent<SpriteRenderer>().color;
-
-        if (PlayerInventory.isAvailable(type))
-        {
-            c.a = 255;
-            item.GetComponent<SpriteRenderer>().color = c;
-            return true;
-        }
-        c.a = 0;
-        item.GetComponent<SpriteRenderer>().color = c;
-        return false;
+        return (PlayerInventory.isAvailable(type));
     }
 
 
@@ -78,7 +71,7 @@ public class ItemSlot : MonoBehaviour
     {
         isAvailable();
         quantity.text = PlayerInventory.getInventory(type) + "";
-        //item.GetComponent<SpriteRenderer>().sprite = sprite;
+        item.GetComponent<SpriteRenderer>().sprite = sprite;
 
     }
 

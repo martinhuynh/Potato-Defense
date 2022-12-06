@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        farmManager.plow(transform.position);
     }
 
     // Update is called once per frame
@@ -36,23 +36,26 @@ public class PlayerMovement : MonoBehaviour
         Vector3 pos = transform.position;
 
         IEnumerator newAction = null;
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            newAction = farmAction();
-        }
-        else if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             // Should go to what item is selected (7,8,9,0) and place it.
             HotbarManager.use = true;
-            if (HotbarManager.use && actionQueue.Count == 0) useItem();
-            return;
+            if (HotbarManager.selected.type == ItemEnum.HOE)
+            {
+                newAction = farmAction();
+            }
+            else if (HotbarManager.use && actionQueue.Count == 0)
+            {
+                useItem();
+                return;
+            }
         }
-        else if (Input.GetKeyUp(KeyCode.I))
+        else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             HotbarManager.use = false;
             return;
         }
-        else if (Input.GetKeyDown(KeyCode.K))
+        else if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             newAction = attack();
             if (actionQueue.Count == 1) actionQueue.RemoveLast();
@@ -89,12 +92,12 @@ public class PlayerMovement : MonoBehaviour
         idle = false;
         UpdateAnimation(Action.ATTACK);
         List<EnemyBehavior> toRemove = new List<EnemyBehavior>();
-        for (int i = 0; i < enemies.Count; i++)
+        for (int i = 0; i < 1 && enemies.Count != 0; i++)
         {
             if (enemies[i] == null) enemies.RemoveAt(i);
             enemies[i].TakeDamage(PlayerStats.attackPower);
         }
-        while (!Input.GetKeyUp(KeyCode.K)) yield return null;
+        while (!Input.GetKeyUp(KeyCode.Mouse0)) yield return null;
 
         actionQueue.RemoveFirst();
         idle = true;
@@ -114,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("Collided with " + other.gameObject.name);
-        if (other.gameObject.name.Contains("Enemy"))
+        if (other.gameObject.tag.Contains("Enemy"))
         {
             //Debug.Log("Enemy Entered");
             enemies.Add(other.gameObject.GetComponent<EnemyBehavior>());
@@ -123,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.name.Contains("Enemy"))
+        if (other.gameObject.tag.Contains("Enemy"))
         {
             enemies.Remove(other.gameObject.GetComponent<EnemyBehavior>());
         }
@@ -131,14 +134,19 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator farmAction()
     {
+        void stop()
+        {
+            actionQueue.RemoveFirst();
+            idle = true;
+            if (HotbarManager.use) useItem();
+        }
         idle = false;
         Vector3 pos = transform.position;
         Farm state = farmManager.getState(pos);
         float duration = 2f;
         if (mapManager.isItem(pos))
         {
-            actionQueue.RemoveFirst();
-            idle = true;
+            stop();
             yield break;
         }
         //Debug.Log(state);
@@ -154,10 +162,12 @@ public class PlayerMovement : MonoBehaviour
                 }
                 farmManager.plow(pos);
                 break;
-            case Farm.PLOWED:
-                farmManager.plant(pos);
-                break;
             case Farm.DONE:
+                if (!farmManager.isGrowing())
+                {
+                    stop();
+                    yield break;
+                }
                 UpdateAnimation(Action.FARM);
                 while (duration > 0)
                 {
@@ -168,19 +178,20 @@ public class PlayerMovement : MonoBehaviour
                 farmManager.harvest(pos);
                 break;
         }
-        actionQueue.RemoveFirst();
-        idle = true;
-        if (HotbarManager.use) useItem();
+        stop();
         yield break;
     }
 
     public void useItem()
     {
         ItemEnum item = HotbarManager.selected.type;
-        switch(item)
+        switch (item)
         {
             case ItemEnum.FENCE:
                 itemManager.place(transform.position);
+                break;
+            case ItemEnum.REPAIR:
+                itemManager.repair(transform.position);
                 break;
         }
     }
@@ -189,36 +200,22 @@ public class PlayerMovement : MonoBehaviour
     {
         idle = false;
         Vector3 pos = transform.position;
-        if (!mapManager.isGround(pos, direction))
-        {
-            idle = true;
-            actionQueue.RemoveFirst();
-            yield break;
-        }
         float distance = 1f;
         bool jumpable = mapManager.jumpable(pos, direction);
-        if (jumpable)
+        if (jumpable) distance = 2f;
+        else if (!mapManager.isWalkable(pos, direction))
         {
-            distance = 2f;
-        }
-        else if (!mapManager.onFenceValid(pos, direction))
-        {
-            actionQueue.RemoveFirst();
             idle = true;
+            actionQueue.RemoveFirst();
             yield break;
         }
         UpdateAnimation(direction);
-
 
         float jumped = 0f;
         while (distance > 0)
         {
             float toMove = PlayerStats.movementSpeed * Time.fixedDeltaTime;
-            //float toMove_y = Time.fixedDeltaTime;
-            if (toMove >= distance)
-            {
-                toMove = distance;
-            }
+            if (toMove >= distance) toMove = distance;
             distance -= toMove;
             int orderLayer = (int)(-100 * transform.position.y);
 

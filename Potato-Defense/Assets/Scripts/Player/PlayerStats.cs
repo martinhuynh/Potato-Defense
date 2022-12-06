@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour
     public static float movementSpeed = 2.0f;
     public static float farmingSpeed = 2.0f;
     public static float attackPower = 2.0f;
-    public static float carpenterSkill = 1.0f;
+    public static float repair = 2.0f;
     
     //skill points should get from PlayerMovement.cs
     public static int skillPoint = 3;
@@ -36,6 +36,10 @@ public class PlayerStats : MonoBehaviour
     public static void restart()
     {
         skillPoint = startPoints;
+        movementSpeed = 2.0f;
+        farmingSpeed = 2.0f;
+        attackPower = 2.0f;
+        repair = 2.0f;
     }
 
 
@@ -96,7 +100,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (skillPoint > 0 && carpenterLevel < 3)
         {
-            carpenterSkill += 0.5f;
+            repair += 2f;
             skillPoint -= 1;
             carpenterLevel +=1;
 
@@ -137,7 +141,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (carpenterLevel >0)
         {
-            carpenterSkill -= 0.5f;
+            repair -= 2f;
             skillPoint += 1;
             carpenterLevel -= 1;
         }

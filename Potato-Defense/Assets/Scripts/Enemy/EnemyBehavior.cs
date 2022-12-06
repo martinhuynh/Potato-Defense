@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    private float maxHealth = 10f;
+    [SerializeField]
+    private float maxHealth;
     private float health;
     private HealthbarBehavior hb;
 

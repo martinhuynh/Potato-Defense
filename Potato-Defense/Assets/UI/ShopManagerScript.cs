@@ -16,8 +16,8 @@ public class ShopManagerScript : MonoBehaviour
     public TextMeshProUGUI SkillPointTXT;
     private HotbarManager hotbarManager;
 
-    public AudioSource buyingSoundEffect;
-
+     public AudioSource buyingSoundEffect;
+    //SoundEffectManager sound;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +42,7 @@ public class ShopManagerScript : MonoBehaviour
         shopItems[3, 3] = 0;
 
         hotbarManager = GameObject.Find("Hotbar").GetComponent<HotbarManager>();
+       // sound = GameObject.FindGameObjectWithTag("SoundEffect").GetComponent<SoundEffectManager>();
     }
 
     public void Buy()
@@ -57,7 +58,7 @@ public class ShopManagerScript : MonoBehaviour
             ButtonRef.GetComponent<ButtonInfo>().QuantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
         }
         refreshQuantity();
-
+       // sound.playBAU();
         buyingSoundEffect.Play();
     }
 

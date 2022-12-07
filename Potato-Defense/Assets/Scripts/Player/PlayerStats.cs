@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
-    public AudioSource buyingSoundEffect;
+    // public AudioSource buyingSoundEffect;
+    SoundEffectManager sound;
 
     public static float movementSpeed = 2.0f;
     public static float farmingSpeed = 2.0f;
@@ -35,6 +36,10 @@ public class PlayerStats : MonoBehaviour
     public GameObject progressBarAttack;
     public GameObject progressBarCarpenter;
 
+    void Start()
+    {
+        sound = GameObject.FindGameObjectWithTag("SoundEffect").GetComponent<SoundEffectManager>();
+    }
     public static void restart()
     {
         skillPoint = startPoints;
@@ -75,8 +80,8 @@ public class PlayerStats : MonoBehaviour
             movementLevel += 1;           
             //Debug.Log("movement level is " + movementLevel);
         }
-
-        buyingSoundEffect.Play();
+        sound.playBAU();
+        //buyingSoundEffect.Play();
     }
     public void upgradeFarming()
     {
@@ -86,7 +91,8 @@ public class PlayerStats : MonoBehaviour
             skillPoint -= 1;
             farmingLevel += 1;
         }
-        buyingSoundEffect.Play();
+        sound.playBAU();
+        // buyingSoundEffect.Play();
     }
     public void upgradeAttacking()
     {
@@ -96,7 +102,8 @@ public class PlayerStats : MonoBehaviour
             skillPoint -= 1;
             attackLevel +=1;
         }
-        buyingSoundEffect.Play();
+        sound.playBAU();
+        // buyingSoundEffect.Play();
 
     }
     public void upgradeCarpenter()
@@ -108,7 +115,8 @@ public class PlayerStats : MonoBehaviour
             carpenterLevel +=1;
 
         }
-        buyingSoundEffect.Play();
+        sound.playBAU();
+        // buyingSoundEffect.Play();
     }
 
     //minus player stats function
@@ -121,7 +129,8 @@ public class PlayerStats : MonoBehaviour
             movementLevel -= 1;
             //Debug.Log("movement level is " + movementLevel);
         }
-        buyingSoundEffect.Play();
+        sound.playBAU();
+        // buyingSoundEffect.Play();
     }
     public void minusFarming()
     {
@@ -131,7 +140,8 @@ public class PlayerStats : MonoBehaviour
             skillPoint += 1;
             farmingLevel -= 1;
         }
-        buyingSoundEffect.Play();
+        sound.playBAU();
+        // buyingSoundEffect.Play();
     }
     public void minusAttacking()
     {
@@ -141,7 +151,8 @@ public class PlayerStats : MonoBehaviour
             skillPoint += 1;
             attackLevel -= 1;
         }
-        buyingSoundEffect.Play();
+        sound.playBAU();
+        //  buyingSoundEffect.Play();
     }
     public void minusCarpenter()
     {
@@ -151,7 +162,8 @@ public class PlayerStats : MonoBehaviour
             skillPoint += 1;
             carpenterLevel -= 1;
         }
-        buyingSoundEffect.Play();
+        sound.playBAU();
+        // buyingSoundEffect.Play();
     }
 
     //changing progress bars' assets funtions

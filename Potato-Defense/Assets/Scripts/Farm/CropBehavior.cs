@@ -31,6 +31,8 @@ public class CropBehavior : MonoBehaviour
 
     private Coroutine thread = null;
 
+    SoundEffectManager sound;
+
     public void startGrowing(FarmManager fm, Vector3Int position, TileData tileData)
     {
         farmManager = fm;
@@ -79,6 +81,7 @@ public class CropBehavior : MonoBehaviour
         credits.color = color;
         
         state = Farm.GROWING;
+        sound = GameObject.FindGameObjectWithTag("SoundEffect").GetComponent<SoundEffectManager>();
     }
 
     // Update is called once per frame
@@ -92,6 +95,7 @@ public class CropBehavior : MonoBehaviour
 
     public void harvest()
     {
+        sound.playHarvest();
         GetComponent<SpriteRenderer>().sprite = null;
         state = Farm.PLOWED;
         //PlayerInventory.potatoes++;
@@ -147,6 +151,8 @@ public class CropBehavior : MonoBehaviour
     {
         hp -= power;
         setOpacity((float)hp / (float)startHP);
+
+        sound.playHitPlants();
         if (hp <= 0) {
             GetComponent<SpriteRenderer>().sprite = null;
             StopCoroutine(thread);

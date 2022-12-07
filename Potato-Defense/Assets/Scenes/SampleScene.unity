@@ -2806,7 +2806,7 @@ MonoBehaviour:
   plowed: {fileID: 11400000, guid: 7ac712ee6ed0947e384a4563d8ca7308, type: 2}
   grass: {fileID: 11400000, guid: 167348cf440004530914a10bc70b9d95, type: 2}
   mapManager: {fileID: 1905277889}
-  hotbarManager: {fileID: 0}
+  hotbarManager: {fileID: 1315868699}
 --- !u!1 &491501270
 GameObject:
   m_ObjectHideFlags: 0
@@ -10727,7 +10727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ground: {fileID: 1213301261}
-  hotbarManager: {fileID: 0}
+  hotbarManager: {fileID: 1315868699}
   mapManager: {fileID: 1905277889}
 --- !u!212 &1191468529
 SpriteRenderer:
@@ -13374,6 +13374,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815e276db9a8a6949be9c85b1a4fff8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1315868699 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5822655836827592545, guid: 48278bcceda4849dc92b104905d10e8b,
+    type: 3}
+  m_PrefabInstance: {fileID: 568448229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02acf9eae6c264375be1c2508d03abbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1365652456
 GameObject:
   m_ObjectHideFlags: 0
@@ -14005,7 +14017,7 @@ MonoBehaviour:
   fencePrefab: {fileID: 541843036715603173, guid: f7072563642af4f4490ccb1d6cd8609f,
     type: 3}
   mapManager: {fileID: 1905277889}
-  hotbarManager: {fileID: 0}
+  hotbarManager: {fileID: 1315868699}
 --- !u!1 &1426382066
 GameObject:
   m_ObjectHideFlags: 0

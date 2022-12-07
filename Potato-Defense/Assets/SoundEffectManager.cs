@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class SoundEffectManager : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class SoundEffectManager : MonoBehaviour
     public AudioSource plow;
     public AudioSource harvest;
     public AudioSource hitPlants;
+    public AudioSource attackAir;
+    public AudioSource bgm;
+
+    public bool bgmStatus = true;
+    //private float bgmVolume = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +28,8 @@ public class SoundEffectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+
     }
 
 
@@ -58,4 +65,30 @@ public class SoundEffectManager : MonoBehaviour
     {
         hitPlants.Play();
     }
+    public void playAttackAir()
+    {
+        attackAir.Play();
+    }
+    public void playBGM()
+    {
+        bgm.Play();
+    }
+    public void stopBGM()
+    {
+        bgm.Stop();
+    }
+    public void changeBoolStatus()
+    {
+        if(bgmStatus == true)
+        {
+            bgmStatus = false;
+            stopBGM();
+        }
+        else
+        {
+            bgmStatus =true;
+            playBGM();
+        }
+    }
+
 }

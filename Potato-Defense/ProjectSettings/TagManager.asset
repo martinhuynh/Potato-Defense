@@ -8,6 +8,7 @@ TagManager:
   - Event
   - Fence
   - SoundEffect
+  - Canvas
   layers:
   - Default
   - TransparentFX

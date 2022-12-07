@@ -42,7 +42,8 @@ public class EnemyBehavior : MonoBehaviour
 
         sound.playAttack();
         if (health <= 0)
-        {            
+        {
+            sound.playDie();
             Die();            
             return true;
         }

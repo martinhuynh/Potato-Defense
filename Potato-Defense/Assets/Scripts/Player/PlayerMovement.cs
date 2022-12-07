@@ -23,15 +23,21 @@ public class PlayerMovement : MonoBehaviour
     private LinkedList<IEnumerator> actionQueue = new LinkedList<IEnumerator>();
     private bool fence = false, farm = false;
 
+    SoundEffectManager sound;
+    MenuManager menu;
+   // private static bool mInShop = false;
     // Start is called before the first frame update
     void Start()
     {
         farmManager.plow(transform.position);
+        sound = GameObject.FindGameObjectWithTag("SoundEffect").GetComponent<SoundEffectManager>();
+        menu = GameObject.FindGameObjectWithTag("Canvas").GetComponent<MenuManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //mInShop = menu.returnInShopStatus();
         // If an input is entered within the threshold, it will be added to the input queue.
         Vector3 pos = transform.position;
 
@@ -89,6 +95,16 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator attack()
     {
+        
+        //for determine whether in shop, don't want to hear attack sound while clicking in shop!
+        int localInshop = menu.returnInShopStatus();
+       //if (mInShop = false) 
+       if (localInshop == 0)
+        { 
+            sound.playAttackAir();
+        }
+        
+
         idle = false;
         UpdateAnimation(Action.ATTACK);
         List<EnemyBehavior> toRemove = new List<EnemyBehavior>();
@@ -130,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
         {
             enemies.Remove(other.gameObject.GetComponent<EnemyBehavior>());
         }
+
     }
 
     public IEnumerator farmAction()
@@ -154,6 +171,7 @@ public class PlayerMovement : MonoBehaviour
         {
             case Farm.GRASS:
                 UpdateAnimation(Action.FARM);
+                sound.playPlow();
                 while (duration > 0)
                 {
                     float elapsed = PlayerStats.farmingSpeed * Time.fixedDeltaTime;
@@ -188,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
         switch (item)
         {
             case ItemEnum.FENCE:
+                sound.playPlaceFense();
                 itemManager.place(transform.position);
                 break;
             case ItemEnum.REPAIR:
@@ -202,7 +221,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 pos = transform.position;
         float distance = 1f;
         bool jumpable = mapManager.jumpable(pos, direction);
-        if (jumpable) distance = 2f;
+        if (jumpable)
+        {
+            distance = 2f;
+            sound.playJump();
+        }
         else if (!mapManager.isWalkable(pos, direction))
         {
             idle = true;

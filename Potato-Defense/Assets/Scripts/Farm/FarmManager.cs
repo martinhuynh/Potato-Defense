@@ -110,6 +110,7 @@ public class FarmManager : MonoBehaviour
     public void harvest(Vector3 position)
     {
         Vector3Int gridPosition = map.WorldToCell(position);
+        if (!crops.ContainsKey(gridPosition)) return;
         crops[gridPosition].harvest();
         //Debug.Log("Harvested: " + PlayerInventory.potatoes);
         PlayerInventory.potatoes += credit;

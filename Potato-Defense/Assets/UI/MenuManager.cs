@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
     public aShop mShop;
 
     public static bool gameIsPaused = false;
-    public static bool inShop = false; 
+    public  bool inShop = false; 
     /*to decided whether should suspend Escape key
     otherwise there will be bug because pause menu will be called in shop by Escape key*/
    
@@ -105,5 +105,19 @@ public class MenuManager : MonoBehaviour
         PlayerInventory.reset();
         PlayerStats.restart();
         Time.timeScale = 1;
+    }
+
+    public int returnInShopStatus()
+    {
+        int boolNumber = 0;
+        if(inShop == false)
+        {
+            boolNumber = 0;
+        }
+        else
+        {
+            boolNumber = 1;
+        }
+        return boolNumber;
     }
 }

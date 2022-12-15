@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+
 
 public class EnemyBehavior : MonoBehaviour
 {
@@ -9,12 +11,16 @@ public class EnemyBehavior : MonoBehaviour
     private float health;
     private HealthbarBehavior hb;
 
-    // Start is called before the first frame update
+    SoundEffectManager sound;
+
     void Start()
     {
         health = maxHealth;
         hb = this.GetComponentInChildren<HealthbarBehavior>();
         hb.UpdateHealthBar(health, maxHealth);
+
+        sound = GameObject.FindGameObjectWithTag("SoundEffect").GetComponent<SoundEffectManager>();
+
     }
 
     // Update is called once per frame
@@ -33,21 +39,28 @@ public class EnemyBehavior : MonoBehaviour
     {
         health -= damage;
         hb.UpdateHealthBar(health, maxHealth);
+
+        sound.playAttack();
         if (health <= 0)
         {
-            Die();
+            sound.playDie();
+            Die();            
             return true;
         }
         return false;
+
+
     }
 
     public void Die()
     {
+       
         if (gameObject.activeSelf)
-        {
+        {           
             gameObject.SetActive(false);
+            
             Destroy(gameObject);
-        }
+        }     
     }
 
     // Getters
